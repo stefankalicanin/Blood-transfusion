@@ -1,4 +1,4 @@
-package java.ftn.uns.btb.controller;
+package rs.ftn.uns.btb.controller;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;

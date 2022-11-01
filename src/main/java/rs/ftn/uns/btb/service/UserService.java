@@ -1,4 +1,4 @@
-package java.ftn.uns.btb.service;
+package rs.ftn.uns.btb.service;
 
 public interface UserService {
 }

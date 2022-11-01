@@ -1,4 +1,4 @@
-package java.ftn.uns.btb;
+package rs.ftn.uns.btb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

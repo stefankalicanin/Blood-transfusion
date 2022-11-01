@@ -1,4 +1,4 @@
-package java.ftn.uns.btb.model;
+package rs.ftn.uns.btb.model;
 
 import javax.persistence.*;
 
