@@ -17,8 +17,8 @@ public class OpenAPIConfig {
     public OpenAPI openApi() {
         ArrayList<Server> servers = new ArrayList<>(3);
         servers.add(new Server().url("http://localhost:8080/").description("development server"));
-        servers.add(new Server().url("http://qa:8081").description("test server"));
-        servers.add(new Server().url("http://rest-example.com/").description("production server"));
+        servers.add(new Server().url("http://link-do-test-servera:8081").description("test server"));
+        servers.add(new Server().url("http://link-do-sajta-za-app.com/").description("production server"));
 
         return new OpenAPI()
                 .info(new Info()
