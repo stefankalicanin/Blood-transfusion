@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/center")
 public class CenterController {
 
+    // TODO: Ispraviti POST za Center dodavanjem service-a itd.
     @Operation(summary = "Create new center", description = "Create new center", method = "POST")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Created",
