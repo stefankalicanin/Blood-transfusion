@@ -34,4 +34,6 @@ public class Blood {
     @ManyToOne(fetch = FetchType.EAGER)
     @Getter @Setter
     private Center center;
+
+    public Blood() {}
 }

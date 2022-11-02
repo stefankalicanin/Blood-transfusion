@@ -30,7 +30,7 @@ public class Center {
     private String description; // opis neki, gledao po specifikaciji
     // mozda malo nesretno ime, description -> info?
 
-    @Column(name = "GRADE", nullable = true)
+    @Column(name = "GRADE", nullable = true, precision = 2)
     @Getter @Setter
     private Double grade;   // prosecna ocena centra
 
