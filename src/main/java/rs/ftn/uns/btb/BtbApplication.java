@@ -8,7 +8,7 @@ public class BtbApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BtbApplication.class, args);
-		System.out.println("Link za OpenAPI UI: http://localhost:8080/swagger-ui/index.html#/");
+    System.out.println("Link za OpenAPI UI: http://localhost:8080/swagger-ui/index.html#/");
 	}
 
 }
