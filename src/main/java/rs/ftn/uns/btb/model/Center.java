@@ -25,7 +25,7 @@ public class Center {
     @Getter @Setter
     private String address;
 
-    @Column(name = "DESC", nullable = true)
+    @Column(name = "DESCRIPTION", nullable = true)
     @Getter @Setter
     private String description; // opis neki, gledao po specifikaciji
     // mozda malo nesretno ime, description -> info?

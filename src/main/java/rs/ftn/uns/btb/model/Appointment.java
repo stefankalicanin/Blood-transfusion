@@ -11,6 +11,7 @@ import java.sql.Time;
 @Table(name = "appointment")
 public class Appointment {
 
+    @Id
     @Column(nullable = false, unique = true)
     @Getter @Setter
     private Long id;
@@ -29,6 +30,7 @@ public class Appointment {
 
     // Centar u kom postoji termin
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="center_id", nullable = false)
     @Getter @Setter
     private Center center;
 

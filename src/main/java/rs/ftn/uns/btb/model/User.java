@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name="user")
+@Table(name="users")
 public class User {
     // TODO:
     // Mozda napraviti ipak vise entiteta, svaki da predstavlja svoju rolu
@@ -15,42 +15,41 @@ public class User {
     // TODO:
     // Long -> String || Integer
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "JMBG", unique = true, nullable = false)
+    @Column(name = "jmbg", unique = true, nullable = false)
     @Getter @Setter
     private Long jmbg;
 
-    @Column(name = "FIRSTNAME", nullable = false)
+    @Column(name = "firstName", nullable = false)
     @Getter @Setter
     private String firstName;
 
-    @Column(name = "LASTNAME", nullable = false)
+    @Column(name = "lastName", nullable = false)
     @Getter @Setter
     private String lastName;
 
-    @Column(name = "EMAIL", nullable = false)
+    @Column(name = "email", unique = true, nullable = false)
     @Getter @Setter
     private String email;
     
-    @Column(name = "PASSWORD", nullable = false)
+    @Column(name = "password", nullable = false)
     @Getter @Setter
     private String password;
 
     // Authorized to use BTB services
-    @Column(name = "STATUS", nullable = false)
+    @Column(name = "status", nullable = false)
     @Getter @Setter
     private Boolean status;
 
     // TODO:
     // Enum Type?
-    @Column(name = "GENDER", nullable = false)
+    @Column(name = "gender", nullable = false)
     @Getter @Setter
     private String gender;
 
     // TODO:
     // Role: String Type -> Enum Type
     // Enum - new class
-    @Column(name = "ROLE", nullable = false)
+    @Column(name = "role", nullable = false)
     @Getter @Setter
     private  String role;
 
