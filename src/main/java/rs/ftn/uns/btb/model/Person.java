@@ -8,7 +8,7 @@ import lombok.Setter;
 @Entity
 @Table(name="users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="role", discriminatorType=DiscriminatorType.STRING)
+@DiscriminatorColumn(name="role", discriminatorType=DiscriminatorType.STRING, columnDefinition = "VARCHAR(31) CHECK (role IN ('admin', 'staff', 'user'))")
 public abstract class Person {
     // TODO:
     // Mozda napraviti ipak vise entiteta, svaki da predstavlja svoju rolu
@@ -42,23 +42,23 @@ public abstract class Person {
     @Getter @Setter
     private Boolean status;
 
-    @Column(name = "gender", nullable = false)
+    @Column(name = "gender", nullable = true)
     @Getter @Setter
     private String gender;
 
-    @Column(name="phone", unique = true, nullable = false)
+    @Column(name="phone", nullable = true)
     @Getter @Setter
     private String phone;
 
-    @Column(name="address", nullable = false)
+    @Column(name="address", nullable = true)
     @Getter @Setter
     private String address;
 
-    @Column(name = "city", nullable = false)
+    @Column(name = "city", nullable = true)
     @Getter @Setter
     private String city;
 
-    @Column(name = "country", nullable = false)
+    @Column(name = "country", nullable = true)
     @Getter @Setter
     private String country;
 
