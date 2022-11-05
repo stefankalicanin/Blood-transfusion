@@ -1,62 +1,28 @@
 package rs.ftn.uns.btb.model;
 
-import javax.persistence.*;
-
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 @Entity
-@Table(name="user")
-public class User {
-    // TODO:
-    // Mozda napraviti ipak vise entiteta, svaki da predstavlja svoju rolu
-    // zbog nekih suvisnih atributa
+@DiscriminatorValue("registered_user")
+public class User extends Person{
 
-    // TODO:
-    // Long -> String || Integer
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "JMBG", unique = true, nullable = false)
+    @Column(name = "profession", nullable = true)
     @Getter @Setter
-    private Long jmbg;
+    private String profession;
 
-    @Column(name = "FIRSTNAME", nullable = false)
+    @Column(name = "job", nullable = true)
     @Getter @Setter
-    private String firstName;
+    private String job;
 
-    @Column(name = "LASTNAME", nullable = false)
+    @Column(name = "penalty", nullable = true)
     @Getter @Setter
-    private String lastName;
-
-    @Column(name = "EMAIL", nullable = false)
-    @Getter @Setter
-    private String email;
-    
-    @Column(name = "PASSWORD", nullable = false)
-    @Getter @Setter
-    private String password;
-
-    // Authorized to use BTB services
-    @Column(name = "STATUS", nullable = false)
-    @Getter @Setter
-    private Boolean status;
-
-    // TODO:
-    // Enum Type?
-    @Column(name = "GENDER", nullable = false)
-    @Getter @Setter
-    private String gender;
-
-    // TODO:
-    // Role: String Type -> Enum Type
-    // Enum - new class
-    @Column(name = "ROLE", nullable = false)
-    @Getter @Setter
-    private  String role;
+    private Integer penalty;
 
     public User() {}
 
 }
-
-// TODO:
-// nullable: firstname, lastname, gender, etc.?

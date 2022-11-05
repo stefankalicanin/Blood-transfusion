@@ -25,7 +25,7 @@ public class Center {
     @Getter @Setter
     private String address;
 
-    @Column(name = "DESC", nullable = true)
+    @Column(name = "DESCRIPTION", nullable = true)
     @Getter @Setter
     private String description; // opis neki, gledao po specifikaciji
     // mozda malo nesretno ime, description -> info?
@@ -37,11 +37,15 @@ public class Center {
     // 1 centar moze imati N termina
     @OneToMany(mappedBy = "center", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @Getter @Setter
-    private Set<Appointment> appointments = new HashSet<>();
+    private Set<Appointment> availableAppointments = new HashSet<>();
 
     @OneToMany(mappedBy = "center", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @Getter @Setter
-    private Set<Blood> bloods = new HashSet<>();
+    private Set<Blood> amountOfBlood = new HashSet<>();
+
+    @OneToMany(mappedBy = "center", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @Getter @Setter
+    private Set<Staff> staff = new HashSet<>();
 
     public Center() {}
 }

@@ -5,18 +5,23 @@ import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.servers.Server;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 
 import java.util.ArrayList;
 
 @Configuration
 public class OpenAPIConfig {
 
+    @Autowired
+    private Environment env;
     @Bean
     public OpenAPI openApi() {
         ArrayList<Server> servers = new ArrayList<>(3);
-        servers.add(new Server().url("http://localhost:8080/").description("development server"));
+        String PORT = env.getProperty("server.port");
+        servers.add(new Server().url("http://localhost:" + PORT +"/").description("development server"));
         servers.add(new Server().url("http://link-do-test-servera:8081").description("test server"));
         servers.add(new Server().url("http://link-do-sajta-za-app.com/").description("production server"));
 
