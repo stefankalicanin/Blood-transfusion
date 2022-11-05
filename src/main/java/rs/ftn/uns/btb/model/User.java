@@ -1,61 +1,28 @@
 package rs.ftn.uns.btb.model;
 
-import javax.persistence.*;
-
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 @Entity
-@Table(name="users")
-public class User {
-    // TODO:
-    // Mozda napraviti ipak vise entiteta, svaki da predstavlja svoju rolu
-    // zbog nekih suvisnih atributa
+@DiscriminatorValue("registered_user")
+public class User extends Person{
 
-    // TODO:
-    // Long -> String || Integer
-    @Id
-    @Column(name = "jmbg", unique = true, nullable = false)
+    @Column(name = "profession", nullable = true)
     @Getter @Setter
-    private Long jmbg;
+    private String profession;
 
-    @Column(name = "firstName", nullable = false)
+    @Column(name = "job", nullable = true)
     @Getter @Setter
-    private String firstName;
+    private String job;
 
-    @Column(name = "lastName", nullable = false)
+    @Column(name = "penalty", nullable = true)
     @Getter @Setter
-    private String lastName;
-
-    @Column(name = "email", unique = true, nullable = false)
-    @Getter @Setter
-    private String email;
-    
-    @Column(name = "password", nullable = false)
-    @Getter @Setter
-    private String password;
-
-    // Authorized to use BTB services
-    @Column(name = "status", nullable = false)
-    @Getter @Setter
-    private Boolean status;
-
-    // TODO:
-    // Enum Type?
-    @Column(name = "gender", nullable = false)
-    @Getter @Setter
-    private String gender;
-
-    // TODO:
-    // Role: String Type -> Enum Type
-    // Enum - new class
-    @Column(name = "role", nullable = false)
-    @Getter @Setter
-    private  String role;
+    private Integer penalty;
 
     public User() {}
 
 }
-
-// TODO:
-// nullable: firstname, lastname, gender, etc.?

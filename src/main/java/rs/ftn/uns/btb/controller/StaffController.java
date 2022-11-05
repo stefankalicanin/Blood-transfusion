@@ -14,35 +14,36 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import rs.ftn.uns.btb.model.User;
-import rs.ftn.uns.btb.service.UserService;
+import rs.ftn.uns.btb.model.Staff;
+import rs.ftn.uns.btb.model.Person;
+import rs.ftn.uns.btb.service.StaffService;
 
 @RestController
 @RequestMapping(value = "/api/user")
-public class UserController {
+public class StaffController {
 
-    public final UserService userService;
+    public final StaffService staffService;
 
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public StaffController(StaffService staffService) {
+        this.staffService = staffService;
     }
-    @Operation(summary = "Create new user", description = "Create new user", method = "POST")
+    @Operation(summary = "Create new staff", description = "Create new staff", method = "POST")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Created",
-                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = User.class)) }),
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Staff.class)) }),
             @ApiResponse(responseCode = "409", description = "Not possible to create new user when given ID is not null",
                     content = @Content)
     })
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User savedUser = null;
+    public ResponseEntity<Person> createStaff(@RequestBody Staff staff) {
+        Staff savedStaff = null;
         try {
-            savedUser = userService.create(user);
-            return new ResponseEntity<User>(savedUser, HttpStatus.CREATED);
+            savedStaff = staffService.create(staff);
+            return new ResponseEntity<Person>(savedStaff, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<User>(savedUser, HttpStatus.CONFLICT);
+            return new ResponseEntity<Person>(savedStaff, HttpStatus.CONFLICT);
         }
     }
 
