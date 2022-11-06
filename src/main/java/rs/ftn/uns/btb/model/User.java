@@ -8,7 +8,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("registered_user")
+@DiscriminatorValue("user")
 public class User extends Person{
 
     @Column(name = "profession", nullable = true)

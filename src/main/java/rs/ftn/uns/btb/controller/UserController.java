@@ -1,6 +1,5 @@
 package rs.ftn.uns.btb.controller;
 
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -14,37 +13,35 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import rs.ftn.uns.btb.model.Staff;
-import rs.ftn.uns.btb.model.Person;
-import rs.ftn.uns.btb.service.StaffService;
+import rs.ftn.uns.btb.model.User;
+import rs.ftn.uns.btb.service.UserService;
 
 @RestController
-@RequestMapping(value = "/api/staff")
-public class StaffController {
+@RequestMapping(value = "/api/user")
+public class UserController {
 
-    public final StaffService _staffService;
+    public final UserService _userService;
 
     @Autowired
-    public StaffController(StaffService _staffService) {
-        this._staffService = _staffService;
-    }
-    @Operation(summary = "Create new staff", description = "Create new staff", method = "POST")
+    public UserController(UserService _userService) { this._userService = _userService; }
+
+
+    @Operation(summary = "Create new user summary", description = "Create new user description", method = "POST")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Created",
-                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Staff.class)) }),
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = User.class)) }),
             @ApiResponse(responseCode = "409", description = "Not possible to create new staff when given ID is not null",
-                    content = @Content)
+                    content = @Content )
     })
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Staff> createStaff(@RequestBody Staff staff) {
-        Staff savedStaff = null;
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        User savedUser = null;
         try {
-            savedStaff = _staffService.create(staff);
-            return new ResponseEntity<Staff>(savedStaff, HttpStatus.CREATED);
+            savedUser = _userService.create(user);
+            return new ResponseEntity<User>(savedUser, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<Staff>(savedStaff, HttpStatus.CONFLICT);
+            return new ResponseEntity<User>(savedUser, HttpStatus.CONFLICT);
         }
     }
-
 }

@@ -1,6 +1,7 @@
 package rs.ftn.uns.btb.repository;
 
-// Konsultovati se s ostalima kad dodjes do toga da
-// trebas nesto implementirati ovde
-public class AppointmentRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import rs.ftn.uns.btb.model.Appointment;
+
+public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 }

@@ -46,7 +46,7 @@ public abstract class Person {
     @Getter @Setter
     private String gender;
 
-    @Column(name="phone", nullable = true)
+    @Column(name="phone", nullable = true) // unique
     @Getter @Setter
     private String phone;
 
