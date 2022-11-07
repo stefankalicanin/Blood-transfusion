@@ -16,7 +16,13 @@ public abstract class Person {
 
     // TODO:
     // Long -> String || Integer
+
     @Id
+    @Column(name = "id", unique = true)
+    @Getter @Setter
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(name = "jmbg", unique = true, nullable = false)
     @Getter @Setter
     private Long jmbg;

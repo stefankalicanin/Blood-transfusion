@@ -1,5 +1,6 @@
 package rs.ftn.uns.btb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,6 +34,7 @@ public class Blood {
     // Centar u kom se nalazi
     @ManyToOne(fetch = FetchType.EAGER)
     @Getter @Setter
+    @JsonIgnore
     private Center center;
 
     public Blood() {}
