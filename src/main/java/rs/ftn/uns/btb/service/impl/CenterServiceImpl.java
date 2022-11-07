@@ -14,4 +14,26 @@ public class CenterServiceImpl implements CenterService {
 
     @Autowired
     public CenterServiceImpl(CenterRepository _centerRepo) { this._centerRepo = _centerRepo; }
+
+    @Override
+    public Center findOne(Long id) {
+        return this._centerRepo.findById(id).orElseGet(null);
+    }
+    @Override
+    public Center update(Center center) throws Exception {
+        Center centerToUpdate = this._centerRepo.findOneById(center.getId());
+
+        if (centerToUpdate == null) {
+            throw new Exception("Center does not exist.");
+        }
+
+        centerToUpdate.setName(center.getName());
+        centerToUpdate.setAddress(center.getAddress());
+        centerToUpdate.setDescription(center.getDescription());
+        centerToUpdate.setGrade(center.getGrade());
+
+        Center updatedCenter = _centerRepo.save(centerToUpdate);
+        return updatedCenter;
+
+    }
 }

@@ -1,5 +1,6 @@
 package rs.ftn.uns.btb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,10 +33,12 @@ public class Appointment {
     @ManyToOne(fetch = FetchType.EAGER)
     //@JoinColumn(name="center_id", nullable = false)
     @Getter @Setter
+    @JsonIgnore
     private Center center;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @Getter @Setter
+    @JsonIgnore
     private Staff staff;
 
     public Appointment() {}
