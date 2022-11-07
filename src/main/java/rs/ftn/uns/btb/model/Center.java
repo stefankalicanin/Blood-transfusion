@@ -2,6 +2,7 @@ package rs.ftn.uns.btb.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import rs.ftn.uns.btb.model.dto.CenterUpdateDTO;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -48,4 +49,18 @@ public class Center {
     private Set<Staff> staff = new HashSet<>();
 
     public Center() {}
+
+    public void copyValues(Center center) {
+        this.name = center.getName();
+        this.address = center.getAddress();
+        this.description = center.getDescription();
+        this.grade = center.getGrade();
+    }
+
+    public void copyValuesFromDTO(CenterUpdateDTO centerUpdateDTO) {
+        this.name = centerUpdateDTO.getName();
+        this.address = centerUpdateDTO.getAddress();
+        this.description = centerUpdateDTO.getDescription();
+        this.grade = centerUpdateDTO.getGrade();
+    }
 }

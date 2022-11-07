@@ -21,4 +21,28 @@ public class StaffServiceImpl implements StaffService {
         Staff newStaff = this._staffRepo.save(staff);
         return newStaff;
     }
+
+    @Override
+    public Staff findOne(Long jmbg) {
+        return this._staffRepo.findById(jmbg).orElseGet(null);
+    }
+
+    @Override
+    public Staff update(Staff staff) throws Exception {
+        Staff staffToUpdate = this._staffRepo.findOneById(staff.getId());
+
+        if (staffToUpdate == null) {
+            throw new Exception("Staff does not exist");
+        }
+
+        staffToUpdate.setJmbg(staff.getJmbg());
+        staffToUpdate.setFirstName(staff.getFirstName());
+        staffToUpdate.setLastName(staff.getLastName());
+        staffToUpdate.setPassword(staff.getPassword());
+        staffToUpdate.setEmail(staff.getEmail());
+
+        Staff updatedStaff = _staffRepo.save(staffToUpdate);
+
+        return updatedStaff;
+    }
 }
