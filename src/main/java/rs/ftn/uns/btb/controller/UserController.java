@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import rs.ftn.uns.btb.model.User;
+import rs.ftn.uns.btb.model.dto.UserUpdateDTO;
 import rs.ftn.uns.btb.service.UserService;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/api/user")
@@ -44,4 +46,41 @@ public class UserController {
             return new ResponseEntity<User>(savedUser, HttpStatus.CONFLICT);
         }
     }
+
+        @Operation(summary = "Update an existing user", description = "Update an existing user", method = "PUT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User successfuly edited",
+            content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = User.class) )
+            }),
+            @ApiResponse(responseCode = "404", description = "User not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
+    }
+
+    )
+    @PutMapping(value="/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserUpdateDTO userUpdateDTO){
+        User userForUpdate = _userService.findOne(id);
+
+        userForUpdate.copyValuesFromDTO(userUpdateDTO);
+
+        User updatedUser = null;
+
+        try {
+            updatedUser = _userService.update(userForUpdate);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+        }
+
+        if(updatedUser == null){
+            return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return new ResponseEntity<User>(updatedUser, HttpStatus.OK);
+
+        }
+
+
+
 }

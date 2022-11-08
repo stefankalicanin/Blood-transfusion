@@ -4,4 +4,8 @@ import rs.ftn.uns.btb.model.User;
 public interface UserService {
 
     User create(User user) throws Exception;
+
+    User update(User user) throws Exception;
+
+    User findOne(Long jmbg);
 }

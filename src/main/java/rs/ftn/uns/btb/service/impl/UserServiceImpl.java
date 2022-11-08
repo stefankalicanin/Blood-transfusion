@@ -19,4 +19,35 @@ public class UserServiceImpl implements UserService {
         User newUser = this._userRepo.save(user);
         return newUser;
     }
+
+    @Override
+    public User update(User user) throws Exception {
+        User userToUpdate = this._userRepo.findOneById(user.getId());
+
+        if(userToUpdate == null){
+            throw new Exception("User does not exist");
+        }
+
+        userToUpdate.setJmbg(user.getJmbg());
+        userToUpdate.setFirstName(user.getFirstName());
+        userToUpdate.setLastName(user.getLastName());
+        userToUpdate.setPassword(user.getPassword());
+        userToUpdate.setEmail(user.getEmail());
+        userToUpdate.setGender(user.getGender());
+        userToUpdate.setPhone(user.getPhone());
+        userToUpdate.setAddress(user.getAddress());
+        userToUpdate.setCity(user.getCity());
+        userToUpdate.setCountry(user.getCountry());
+
+        User updatedUser = _userRepo.save(userToUpdate);
+
+        return updatedUser;
+    }
+
+    @Override
+    public User findOne(Long jmbg) {
+        return this._userRepo.findById(jmbg).orElseGet(null);
+    }
+
+
 }
