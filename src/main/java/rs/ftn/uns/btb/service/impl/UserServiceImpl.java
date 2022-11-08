@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
         userToUpdate.setFirstName(user.getFirstName());
         userToUpdate.setLastName(user.getLastName());
         userToUpdate.setPassword(user.getPassword());
-        userToUpdate.setEmail(user.getEmail());
+        //userToUpdate.setEmail(user.getEmail());
         userToUpdate.setGender(user.getGender());
         userToUpdate.setPhone(user.getPhone());
         userToUpdate.setAddress(user.getAddress());

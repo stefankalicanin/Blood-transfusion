@@ -17,8 +17,8 @@ public class UserUpdateDTO {
     @Getter @Setter
     private String password;
 
-    @Getter @Setter
-    private String email;
+   /* @Getter @Setter
+    private String email;*/
 
     @Getter @Setter
     private String gender;
@@ -37,12 +37,12 @@ public class UserUpdateDTO {
 
     public UserUpdateDTO(){}
 
-    public UserUpdateDTO(Long jmbg, String firstName, String lastName, String password, String email, String gender, String phone, String address, String city, String country){
+    public UserUpdateDTO(Long jmbg, String firstName, String lastName, String password, /*String email,*/ String gender, String phone, String address, String city, String country){
         this.jmbg = jmbg;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
-        this.email = email;
+        //this.email = email;
         this.gender = gender;
         this.phone = phone;
         this.address = address;

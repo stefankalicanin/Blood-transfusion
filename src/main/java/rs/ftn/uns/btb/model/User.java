@@ -33,7 +33,7 @@ public class User extends Person{
         this.setFirstName(userUpdateDTO.getFirstName());
         this.setLastName(userUpdateDTO.getLastName());
         this.setPassword(userUpdateDTO.getPassword());
-        this.setEmail(userUpdateDTO.getEmail());
+        //this.setEmail(userUpdateDTO.getEmail());
         this.setGender(userUpdateDTO.getGender());
         this.setPhone(userUpdateDTO.getPhone());
         this.setAddress(userUpdateDTO.getAddress());
