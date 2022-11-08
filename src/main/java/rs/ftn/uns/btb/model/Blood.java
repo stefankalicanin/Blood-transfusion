@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="blood")
+@Getter @Setter
 public class Blood {
     // Nesretno ime? Blood -> Inventory ili Bank?
 
@@ -24,16 +25,13 @@ public class Blood {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TYPE", unique = true, nullable = false)
-    @Getter @Setter
     private String type;    // TODO: String -> ENUM ?
 
     @Column(name = "QUANTITY", nullable = false)
-    @Getter @Setter
     private Double quantity;
 
     // Centar u kom se nalazi
     @ManyToOne(fetch = FetchType.EAGER)
-    @Getter @Setter
     @JsonIgnore
     private Center center;
 

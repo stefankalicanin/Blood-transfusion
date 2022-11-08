@@ -9,18 +9,16 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("user")
+@Getter @Setter
 public class User extends Person{
 
     @Column(name = "profession", nullable = true)
-    @Getter @Setter
     private String profession;
 
     @Column(name = "job", nullable = true)
-    @Getter @Setter
     private String job;
 
     @Column(name = "penalty", nullable = true)
-    @Getter @Setter
     private Integer penalty;
 
     public User() {}

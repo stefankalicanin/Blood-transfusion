@@ -11,15 +11,14 @@ import java.util.Set;
 
 @Entity
 @DiscriminatorValue("staff")
+@Getter @Setter
 public class Staff extends Person {
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @Getter @Setter
     @JsonIgnore
     private Center center;
 
     @OneToMany(mappedBy = "staff", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @Getter @Setter
     private Set<Appointment> scheduledAppointments = new HashSet<>();
 
     public Staff() {}
