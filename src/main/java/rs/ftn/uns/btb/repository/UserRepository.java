@@ -24,6 +24,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     public List<User> findByFirstNameAndLastNameAllIgnoringCase(String firstName, String lastName);
 
 
-    public User findOneById(Long id);
+//    public User findOneById(Long id);
 
 }
