@@ -2,6 +2,7 @@ package rs.ftn.uns.btb.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import rs.ftn.uns.btb.model.dto.UserUpdateDTO;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -24,5 +25,20 @@ public class User extends Person{
     private Integer penalty;
 
     public User() {}
+
+
+
+    public void copyValuesFromDTO(UserUpdateDTO userUpdateDTO) {
+        this.setJmbg((userUpdateDTO.getJmbg()));
+        this.setFirstName(userUpdateDTO.getFirstName());
+        this.setLastName(userUpdateDTO.getLastName());
+        this.setPassword(userUpdateDTO.getPassword());
+        //this.setEmail(userUpdateDTO.getEmail());
+        this.setGender(userUpdateDTO.getGender());
+        this.setPhone(userUpdateDTO.getPhone());
+        this.setAddress(userUpdateDTO.getAddress());
+        this.setCity(userUpdateDTO.getCity());
+        this.setCountry(userUpdateDTO.getCountry());
+    }
 
 }

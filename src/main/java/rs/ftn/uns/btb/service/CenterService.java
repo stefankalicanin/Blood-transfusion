@@ -5,4 +5,5 @@ public interface CenterService {
     Center findOne(Long id);
 
     Center update(Center center) throws Exception;
+    Center create(Center center) throws Exception;
 }

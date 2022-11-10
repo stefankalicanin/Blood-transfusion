@@ -8,7 +8,15 @@ import java.util.List;
 public interface UserService {
 
     User create(User user) throws Exception;
+
     Collection<User> findAll();
     List<User> findByFirstNameAndLastName(String firstName, String lastName);
     }
+
+
+
+    User update(User user) throws Exception;
+
+    User findOne(Long jmbg);
+}
 
