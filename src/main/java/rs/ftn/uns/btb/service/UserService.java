@@ -11,9 +11,6 @@ public interface UserService {
 
     Collection<User> findAll();
     List<User> findByFirstNameAndLastName(String firstName, String lastName);
-    }
-
-
 
     User update(User user) throws Exception;
 
