@@ -73,7 +73,7 @@ public class UserController {
             ),
             @ApiResponse(responseCode = "404", description = "Invalid username or password", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content) })
-    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value="/login",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> checkLogin(@RequestBody UserLoginDTO userLoginDTO) {
 
         User user_info = _userService.checkLogin(userLoginDTO.getEmail(), userLoginDTO.getPassword());
