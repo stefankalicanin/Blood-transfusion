@@ -12,9 +12,23 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.ftn.uns.btb.model.User;
+
 import rs.ftn.uns.btb.model.dto.UserLoginDTO;
 import rs.ftn.uns.btb.service.UserService;
 import io.swagger.v3.oas.annotations.Parameter;
+
+
+import rs.ftn.uns.btb.model.dto.UserDTO;
+
+import rs.ftn.uns.btb.model.dto.UserUpdateDTO;
+
+import rs.ftn.uns.btb.service.UserService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 
 import java.util.Collection;
 
@@ -83,6 +97,68 @@ public class UserController {
         }
         return new ResponseEntity<User>(user_info, HttpStatus.OK);
     }
+
+    @Operation(summary = "Get all users", description = "Get all users", method="GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = User.class))))
+    })
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Collection<User>> getUsers() {
+        Collection<User> users = _userService.findAll();
+        return new ResponseEntity<Collection<User>>(users, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/findByFullName")
+    public ResponseEntity<List<UserDTO>> getUserByFullName(@RequestParam String firstName,
+                                                           @RequestParam String lastName) {
+
+        List<User> users = _userService.findByFirstNameAndLastName(firstName, lastName);
+
+
+        List<UserDTO> usersDTO = new ArrayList<>();
+        for (User u : users) {
+            usersDTO.add(new UserDTO(u.getJmbg(),u.getFirstName(),u.getLastName(),u.getEmail()));
+        }
+        return new ResponseEntity<>(usersDTO, HttpStatus.OK);
+    }
+
+
+        @Operation(summary = "Update an existing user", description = "Update an existing user", method = "PUT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User successfuly edited",
+            content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = User.class) )
+            }),
+            @ApiResponse(responseCode = "404", description = "User not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
+    }
+
+    )
+    @PutMapping(value="/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserUpdateDTO userUpdateDTO){
+        User userForUpdate = _userService.findOne(id);
+
+        userForUpdate.copyValuesFromDTO(userUpdateDTO);
+
+        User updatedUser = null;
+
+        try {
+            updatedUser = _userService.update(userForUpdate);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+        }
+
+        if(updatedUser == null){
+            return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return new ResponseEntity<User>(updatedUser, HttpStatus.OK);
+
+        }
+
 
 
 }

@@ -10,10 +10,12 @@ import Home from "./Components/Home";
 import Login from "./Components/Login";
 import Signup from "./Components/Signup";
 
-class App extends Component {
-  render() {
-    return (
-      <div>
+import './App.css';
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+function App() {
+ return (
+  <div>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home/>} />
@@ -22,8 +24,7 @@ class App extends Component {
           </Routes>
         </BrowserRouter>
       </div>
-    );
-  }
+ );
 }
 
 export default App;

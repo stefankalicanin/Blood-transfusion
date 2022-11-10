@@ -38,7 +38,7 @@ public class CenterController {
     public ResponseEntity<Center> createCenter(@RequestBody Center center) {
         Center savedCenter = null;
         try {
-            //savedCenter = centerService.create(center);
+            savedCenter = _centerService.create(center);
             savedCenter = center;
             return new ResponseEntity<Center>(savedCenter, HttpStatus.CREATED);
         } catch (Exception e) {
