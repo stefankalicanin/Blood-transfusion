@@ -1,6 +1,7 @@
 package rs.ftn.uns.btb.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -9,14 +10,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import rs.ftn.uns.btb.model.User;
+
+import rs.ftn.uns.btb.model.dto.UserDTO;
+
 import rs.ftn.uns.btb.model.dto.UserUpdateDTO;
+
 import rs.ftn.uns.btb.service.UserService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/user")
@@ -46,6 +52,33 @@ public class UserController {
             return new ResponseEntity<User>(savedUser, HttpStatus.CONFLICT);
         }
     }
+
+    @Operation(summary = "Get all users", description = "Get all users", method="GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = User.class))))
+    })
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Collection<User>> getUsers() {
+        Collection<User> users = _userService.findAll();
+        return new ResponseEntity<Collection<User>>(users, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/findByFullName")
+    public ResponseEntity<List<UserDTO>> getUserByFullName(@RequestParam String firstName,
+                                                           @RequestParam String lastName) {
+
+        List<User> users = _userService.findByFirstNameAndLastName(firstName, lastName);
+
+
+        List<UserDTO> usersDTO = new ArrayList<>();
+        for (User u : users) {
+            usersDTO.add(new UserDTO(u.getJmbg(),u.getFirstName(),u.getLastName(),u.getEmail()));
+        }
+        return new ResponseEntity<>(usersDTO, HttpStatus.OK);
+    }
+
 
         @Operation(summary = "Update an existing user", description = "Update an existing user", method = "PUT")
     @ApiResponses(value = {
@@ -80,6 +113,7 @@ public class UserController {
         return new ResponseEntity<User>(updatedUser, HttpStatus.OK);
 
         }
+
 
 
 
