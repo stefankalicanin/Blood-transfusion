@@ -26,6 +26,7 @@ public class SurveyQuestions {
 
     @OneToMany(mappedBy = "survey_questions", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @Getter @Setter
+    @JsonIgnore
     private Set<SurveyAnswers> surveyAnswers = new HashSet<>();
 
     public SurveyQuestions() {}

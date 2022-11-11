@@ -11,6 +11,7 @@ import Login from "./Components/Login";
 import Signup from "./Components/Signup";
 
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import Survey from "./Components/Survey";
 
 function App() {
  return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/" element={<Login/>} />
             <Route path="/home" element={<Home/>} />
             <Route path="/signup" element={<Signup/>} />
+            <Route path="/survey" element={<Survey/>} />
           </Routes>
         </BrowserRouter>
       </div>

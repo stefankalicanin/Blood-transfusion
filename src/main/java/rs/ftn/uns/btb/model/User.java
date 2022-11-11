@@ -1,5 +1,6 @@
 package rs.ftn.uns.btb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import rs.ftn.uns.btb.model.dto.UserUpdateDTO;
@@ -26,6 +27,7 @@ public class User extends Person{
 
     @OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @Getter @Setter
+    @JsonIgnore
     private Set<SurveyAnswers> surveyAnswers = new HashSet<>();
     public User() {}
 
