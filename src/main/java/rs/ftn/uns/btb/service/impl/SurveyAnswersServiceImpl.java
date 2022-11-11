@@ -23,6 +23,9 @@ public class SurveyAnswersServiceImpl implements SurveyAnswerService {
     public SurveyAnswers create(ArrayList<SurveyAnswers> survey_answers) throws Exception {
         SurveyAnswers new_an = null;
         for (SurveyAnswers survey_answer : survey_answers) {
+            System.out.println(survey_answer.getAnswer());
+            System.out.println(survey_answer);
+
             if(survey_answer.getAnswer() != null) {
                 new_an = this.survey_answers_repo.save(survey_answer);
             }

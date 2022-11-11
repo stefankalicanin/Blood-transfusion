@@ -23,15 +23,15 @@ import java.util.ArrayList;
 @RestController
 @RequestMapping(value = "/api/answers")
 public class SurveyAnswerController {
-    public final SurveyAnswerService _adminService;
+    public final SurveyAnswerService survey_service;
 
     @Autowired
-    public SurveyAnswerController(SurveyAnswerService _adminService) { this._adminService = _adminService; }
+    public SurveyAnswerController(SurveyAnswerService survey_service) { this.survey_service = survey_service; }
 
     @Operation(summary = "Add new answers", description = "Add new answers", method = "POST")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Added",
-                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Admin.class)) }),
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = SurveyAnswers.class)) }),
             @ApiResponse(responseCode = "409", description = "Not possible to add new answer, bad request",
                     content = @Content)
     })
@@ -40,7 +40,7 @@ public class SurveyAnswerController {
         //ArrayList<SurveyAnswers> savedAnswer = new ArrayList<SurveyAnswers>();;
         SurveyAnswers sa = null;
         try {
-            sa = _adminService.create(answers);
+            sa = survey_service.create(answers);
             return new ResponseEntity<SurveyAnswers>(sa, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
