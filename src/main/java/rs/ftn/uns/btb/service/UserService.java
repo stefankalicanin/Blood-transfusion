@@ -20,7 +20,6 @@ public interface UserService {
 
     User update(User user) throws Exception;
 
-    User findOne(Long jmbg);
 
 }
 

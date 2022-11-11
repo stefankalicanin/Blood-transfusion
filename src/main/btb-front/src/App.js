@@ -10,7 +10,6 @@ import Home from "./Components/Home";
 import Login from "./Components/Login";
 import Signup from "./Components/Signup";
 
-import './App.css';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
@@ -18,9 +17,9 @@ function App() {
   <div>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Home/>} />
+            <Route path="/" element={<Login/>} />
+            <Route path="/home" element={<Home/>} />
             <Route path="/signup" element={<Signup/>} />
-            <Route path="/login" element={<Login/>} />
           </Routes>
         </BrowserRouter>
       </div>
