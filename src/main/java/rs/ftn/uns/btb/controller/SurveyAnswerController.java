@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import rs.ftn.uns.btb.model.Admin;
 import rs.ftn.uns.btb.model.SurveyAnswers;
+import rs.ftn.uns.btb.model.dto.SurveyAnswersDTO;
 import rs.ftn.uns.btb.service.AdminService;
 import rs.ftn.uns.btb.service.SurveyAnswerService;
 
@@ -36,15 +37,14 @@ public class SurveyAnswerController {
                     content = @Content)
     })
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<SurveyAnswers> createAnswers(@RequestBody ArrayList<SurveyAnswers> answers) {
-        //ArrayList<SurveyAnswers> savedAnswer = new ArrayList<SurveyAnswers>();;
-        SurveyAnswers sa = null;
+    public ResponseEntity<SurveyAnswersDTO> createAnswers(@RequestBody SurveyAnswersDTO answersDTO) {
+        SurveyAnswersDTO sa = null;
         try {
-            sa = survey_service.create(answers);
-            return new ResponseEntity<SurveyAnswers>(sa, HttpStatus.CREATED);
+            sa = survey_service.create(answersDTO);
+            return new ResponseEntity<SurveyAnswersDTO>(sa, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<SurveyAnswers>(sa, HttpStatus.CONFLICT);
+            return new ResponseEntity<SurveyAnswersDTO>(sa, HttpStatus.CONFLICT);
         }
     }
 }

@@ -13,7 +13,9 @@ import LoginCSS from './Login.module.css';
 
 
 export default function LoginFunc(){
+    localStorage.clear();
     const navigate = useNavigate();
+    const [loggedUserInfo, setLoggedUserInfo] = useState();
     const [state,setStates] = useState({email: "", password:""});
 
     const onLoginClick = async () => {
@@ -32,10 +34,9 @@ export default function LoginFunc(){
         };
         await axios.request(options).then(function (response) {
           console.log(response.data);
+          setLoggedUserInfo(response.data);
+          localStorage.setItem('user_id', response.data.id);
           console.log("Succesfully logged in!");
-    
-          //return <Link to="/"></Link>;
-          //return <Navigate to="/nista"/>;
           navigate("/home");
     
         }).catch(function (error) {

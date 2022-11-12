@@ -33,7 +33,11 @@ public class SurveyAnswers {
     @Getter @Setter
     private Boolean answer;
 
-
     public SurveyAnswers() {}
+    public SurveyAnswers(SurveyQuestions survey_questions,User users,Boolean answer) {
+        this.survey_questions = survey_questions;
+        this.users = users;
+        this.answer = answer;
+    }
 
 }
