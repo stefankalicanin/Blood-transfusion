@@ -29,7 +29,6 @@ public class SurveyAnswersServiceImpl implements SurveyAnswerService {
 
     @Override
     public SurveyAnswersDTO create(SurveyAnswersDTO survey_answers_dto) throws Exception {
-        SurveyAnswersDTO new_an = null;
         User user = _userRepo.findOneById(survey_answers_dto.getUser_id());
         for (Map.Entry<Long,Boolean> mapElement : survey_answers_dto.getAnswers().entrySet()) {
             Long key = mapElement.getKey();
@@ -38,6 +37,6 @@ public class SurveyAnswersServiceImpl implements SurveyAnswerService {
             SurveyAnswers surveyAnswers = new SurveyAnswers(question, user, value);
             survey_answers_repo.create(surveyAnswers);
         }
-        return new_an;
+        return survey_answers_dto;
     }
 }
