@@ -9,18 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import rs.ftn.uns.btb.model.Admin;
 import rs.ftn.uns.btb.model.SurveyAnswers;
 import rs.ftn.uns.btb.model.dto.SurveyAnswersDTO;
 import rs.ftn.uns.btb.service.AdminService;
 import rs.ftn.uns.btb.service.SurveyAnswerService;
 
-import java.util.ArrayList;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping(value = "/api/answers")
 public class SurveyAnswerController {
@@ -29,10 +26,11 @@ public class SurveyAnswerController {
     @Autowired
     public SurveyAnswerController(SurveyAnswerService survey_service) { this.survey_service = survey_service; }
 
+
     @Operation(summary = "Add new answers", description = "Add new answers", method = "POST")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Added",
-                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = SurveyAnswers.class)) }),
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = SurveyAnswersDTO.class)) }),
             @ApiResponse(responseCode = "409", description = "Not possible to add new answer, bad request",
                     content = @Content)
     })

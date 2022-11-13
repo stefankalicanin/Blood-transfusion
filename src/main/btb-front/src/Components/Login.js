@@ -13,7 +13,6 @@ import LoginCSS from './Login.module.css';
 
 
 export default function LoginFunc(){
-    localStorage.clear();
     const navigate = useNavigate();
     const [loggedUserInfo, setLoggedUserInfo] = useState();
     const [state,setStates] = useState({email: "", password:""});

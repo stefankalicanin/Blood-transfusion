@@ -29,13 +29,14 @@ public class SurveyAnswersServiceImpl implements SurveyAnswerService {
 
     @Override
     public SurveyAnswersDTO create(SurveyAnswersDTO survey_answers_dto) throws Exception {
-        User user = _userRepo.findOneById(survey_answers_dto.getUser_id());
+        Long userId = survey_answers_dto.getUser_id();
+        User user = this._userRepo.findOneById(userId);
         for (Map.Entry<Long,Boolean> mapElement : survey_answers_dto.getAnswers().entrySet()) {
             Long key = mapElement.getKey();
             Boolean value = mapElement.getValue(); // true - false
             SurveyQuestions question = _questionRepo.findOneById(key);
             SurveyAnswers surveyAnswers = new SurveyAnswers(question, user, value);
-            survey_answers_repo.create(surveyAnswers);
+            survey_answers_repo.save(surveyAnswers);
         }
         return survey_answers_dto;
     }

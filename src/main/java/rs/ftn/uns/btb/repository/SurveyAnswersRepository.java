@@ -5,5 +5,5 @@ import rs.ftn.uns.btb.model.SurveyAnswers;
 import rs.ftn.uns.btb.model.User;
 
 public interface SurveyAnswersRepository extends JpaRepository<SurveyAnswers, Long> {
-    SurveyAnswers create(SurveyAnswers surveyAnswers) throws Exception;
+    //SurveyAnswers create(SurveyAnswers surveyAnswers) throws Exception;
 }

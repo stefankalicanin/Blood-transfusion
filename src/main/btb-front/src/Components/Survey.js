@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const Survey = props => {
-
+  const navigate = useNavigate();
   const [userInfo,setUserInfo] = useState([]);
   const [answers,setAnswers] = useState([]);
     const onChangeTrue = e => {
@@ -46,14 +48,44 @@ const Survey = props => {
   }, []);
   const submitAnswers=()=>{
     //console.log(answers);
-    answers.user_id = userInfo;
-    const answers_data ={user_id:userInfo, answers:[]}
+    const user_id_value = userInfo.toString();
+
+    answers.user_id = user_id_value;
+    var viewData = { 
+      "user_id" : "",
+      "answers" : {}
+    };
+    viewData.user_id = userInfo.toString();
+    const answers_data ={user_id:userInfo, answers:{}}
     for(const index in answers){
       if(answers[index].answer == null){continue;}
-      answers_data.answers[answers[index].id] = answers[index].answer; 
+      var string_num = answers[index].id.toString();
+      answers_data.answers[string_num] = answers[index].answer;
+      viewData.answers[string_num] = answers[index].answer;
+
     }
-    console.log(answers_data);
-    console.log(answers_data.answers.length);
+    const options = {
+      method: 'POST',
+      url: 'http://localhost:8084/api/answers',
+      headers: {'Content-Type': 'application/json'},
+      data:viewData
+    };
+    axios.request(options).then(function (response) {
+      console.log(response.data);
+      navigate("/home")
+    }).catch(function (error) {
+      console.error(error);
+    });
+    // const options = {
+    //   method: 'POST',
+    //   headers: {'Content-Type': 'application/json'},
+    //   body: JSON.stringify(viewData)//'{"user_id":"10","answers":{"1":false,"2":false,"3":false}}'//viewData.toString()
+    // };
+  
+    // fetch('http://localhost:8084/api/answers', options)
+    // .then(response => response.json())
+    // .then(response => console.log(response))
+    // .catch(err => console.error(err));
   }
   return (
     <div>
