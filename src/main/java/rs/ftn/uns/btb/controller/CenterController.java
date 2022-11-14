@@ -1,6 +1,7 @@
 package rs.ftn.uns.btb.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -14,7 +15,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import rs.ftn.uns.btb.model.dto.CenterUpdateDTO;
+import rs.ftn.uns.btb.model.dto.SearchCenterDTO;
 import rs.ftn.uns.btb.service.CenterService;
+import rs.ftn.uns.btb.service.impl.CenterServiceImpl;
+
+import java.util.Collection;
+import java.util.List;
 
 @Tag(name = "Center controller", description = "The Center API")
 @RestController
@@ -77,4 +83,16 @@ public class CenterController {
         return new ResponseEntity<Center>(updatedCenter, HttpStatus.OK);
 
     }
+
+    @GetMapping(value= "/findAll", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Center>> findAll(){
+        return new ResponseEntity<List<Center>>(_centerService.findAll(), HttpStatus.OK );
+    }
+
+
+    @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Center>> search(@RequestParam String name, @RequestParam String address, @RequestParam double grade){
+        return new ResponseEntity<List<Center>>(_centerService.findByNameAndAddress(name.trim(), address.trim(), grade), HttpStatus.OK);
+    }
+
 }
