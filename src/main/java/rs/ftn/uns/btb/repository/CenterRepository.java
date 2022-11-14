@@ -15,10 +15,10 @@ public interface CenterRepository extends JpaRepository<Center, Long> {
 
     public List<Center> findAll();
 
-    public List<Center> findByNameContaining(String name);
+    public List<Center> findByNameContainingIgnoreCase(String name);
 
     public List<Center> findByAddressContainingIgnoreCase(String address);
 
-    public List<Center> findByNameContainingAndAddressContaining(String name, String address);
+    public List<Center> findByNameContainingIgnoreCaseAndAddressContainingIgnoreCase(String name, String address);
     
 }
