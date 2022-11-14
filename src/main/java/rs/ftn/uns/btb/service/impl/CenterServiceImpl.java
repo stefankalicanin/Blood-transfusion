@@ -60,8 +60,8 @@ public class CenterServiceImpl implements CenterService {
     @Override
     public List<Center> findByNameAndAddress(String name, String address, double grade) {
         List<Center> centers = new ArrayList<>();
-        if (name != "" && address != "") centers = _centerRepo.findByNameContainingAndAddressContaining(name, address);
-        else if (name != "") centers = _centerRepo.findByNameContaining(name);
+        if (name != "" && address != "") centers = _centerRepo.findByNameContainingIgnoreCaseAndAddressContainingIgnoreCase(name, address);
+        else if (name != "") centers = _centerRepo.findByNameContainingIgnoreCase(name);
         else if (address != null) centers = _centerRepo.findByAddressContainingIgnoreCase(address);
         else centers = _centerRepo.findAll();
 
