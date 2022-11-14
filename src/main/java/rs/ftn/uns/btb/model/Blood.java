@@ -23,8 +23,7 @@ public class Blood {
      */
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "TYPE", unique = true, nullable = false)
+    @Column(name = "TYPE", unique = true, nullable = false, columnDefinition = "VARCHAR(10)")
     private String type;    // TODO: String -> ENUM ?
 
     @Column(name = "QUANTITY", nullable = false)

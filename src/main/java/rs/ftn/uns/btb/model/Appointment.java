@@ -15,6 +15,7 @@ public class Appointment {
 
     @Id
     @Column(nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "DATE", nullable = false)

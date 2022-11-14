@@ -18,10 +18,10 @@ public class Center {
     @Column(name = "ID", unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "NAME", nullable = false)
+    @Column(name = "NAME", nullable = false, columnDefinition = "VARCHAR(30)") //
     private String name;
 
-    @Column(name = "ADDRESS", nullable = false)
+    @Column(name = "ADDRESS", nullable = false, columnDefinition = "VARCHAR(95)")
     private String address;
 
     @Column(name = "DESCRIPTION", nullable = true)
