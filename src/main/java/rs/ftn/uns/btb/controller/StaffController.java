@@ -19,6 +19,7 @@ import rs.ftn.uns.btb.service.StaffService;
 import javax.print.attribute.standard.Media;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequestMapping(value = "/api/staff")
 public class StaffController {
 

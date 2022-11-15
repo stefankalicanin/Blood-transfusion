@@ -18,6 +18,7 @@ import rs.ftn.uns.btb.service.CenterService;
 
 @Tag(name = "Center controller", description = "The Center API")
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequestMapping(value = "/api/center")
 public class CenterController {
 
