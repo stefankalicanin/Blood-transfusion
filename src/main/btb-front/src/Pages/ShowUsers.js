@@ -24,7 +24,7 @@ export default function ShowUsers() {
    
     if(getSearch.length>0)
     {
-      const searchData=users.filter((item)=>item.firstName.toLowerCase().includes(getSearch) || item.lastName.toLowerCase().includes(getSearch));
+      const searchData=users.filter((item)=>item.firstName.toLowerCase().includes(getSearch.toLowerCase().trim()) || item.lastName.toLowerCase().includes(getSearch.toLowerCase().trim()));
       setUsers(searchData);
     }
     else

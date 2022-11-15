@@ -9,7 +9,7 @@ export default function CreateStaff() {
         lastName: "",
         email:"",
         password:"",
-        status:"",
+        status:false,
         gender:"",
         phone:"",
         address:"",
@@ -17,7 +17,7 @@ export default function CreateStaff() {
         country:"",
       });
 
-      const { jmbg,firstName,lastName,email,password,status,gender,phone,address,city,country } = staff;
+      const { jmbg,firstName,lastName,email,password,gender,phone,address,city,country } = staff;
 
       const onInputChange = (e) => {
         setStaff({ ...staff, [e.target.name]: e.target.value });
@@ -42,7 +42,7 @@ export default function CreateStaff() {
                 className="form-control"
                 placeholder="Enter jmbg"
                 name="jmbg"
-                pattern="[1-9]{13}"
+                pattern="[1-9][0-9]{12}"
                 title="JMBG has 13 digit"
                 required
                 onChange={(e) => onInputChange(e)}
@@ -156,21 +156,21 @@ export default function CreateStaff() {
                 onChange={(e) => onInputChange(e)}
               />
             </div>
-            <div className="col-6 col-md-3" >
+            {/* <div className="col-6 col-md-3" >
             <label htmlFor="Status" className="form-label">
                 Status
               </label>
               <br/>
-            <input type="radio"   value="true" name="status" checked onChange={(e) => onInputChange(e)}/> Active<br/>
+            <input type="radio"  value="true" name="status" onChange={(e) => onInputChange(e)}/> Active<br/>
             <input type="radio" value="false" name="status" onChange={(e) => onInputChange(e)}/> Not active
-            </div>
+            </div> */}
            
-            <div className="col-6 col-md-3" >
+            <div className="col-6 col-md-6" >
             <label htmlFor="Gender" className="form-label">
                 Gender
               </label>
               <br/>
-            <input type="radio" value="male" name="gender" checked onChange={(e) => onInputChange(e)}/> Male<br/>
+            <input type="radio" value="male" name="gender" onChange={(e) => onInputChange(e)}/> Male<br/>
             <input type="radio" value="female" name="gender" onChange={(e) => onInputChange(e)}/> Female
             </div>
             <div className='col -12'>

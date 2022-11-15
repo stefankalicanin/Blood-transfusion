@@ -10,7 +10,7 @@ export default function CreateCenter() {
         name: "",
         address: "",
         description: "",
-        grade:"",
+        grade:0.0,
       });
 
       const { name, address, description,grade } = center;
@@ -74,7 +74,7 @@ export default function CreateCenter() {
                 onChange={(e) => onInputChange(e)}
               />
             </div>
-            <div className="mb-3">
+            {/* <div className="mb-3">
               <label htmlFor="Grade" className="form-label">
                 Grade:
               </label>
@@ -89,7 +89,7 @@ export default function CreateCenter() {
                 required
                 onChange={(e) => onInputChange(e)}
               />
-            </div>
+            </div> */}
             <button type="submit" className="btn btn-outline-primary">
               Submit
             </button>
