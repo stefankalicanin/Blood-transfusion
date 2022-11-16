@@ -4,6 +4,14 @@
 --      3. Ukloniti komentar na delu koji se zakomentarisao u prvom koraku
 --      4. Ponovo pokrenuti program i proveriti da li su podaci uneti u tabele
 
+INSERT INTO survey_questions(question) VALUES ('Da li ste ikada do sada davali krv?');
+INSERT INTO survey_questions(question) VALUES ('Da li ste ikada bili odbijeni kao davaoc krvi?');
+INSERT INTO survey_questions(question) VALUES ('Da li se sada osećate zdravim i sposobnim da date krv?');
+INSERT INTO survey_questions(question) VALUES ('Da li smatrate da ste se dovoljno naspavali?');
+INSERT INTO survey_questions(question) VALUES ('Da li ste nešto jeli pre dolaska na davanje krvi?');
+INSERT INTO survey_questions(question) VALUES ('Da li se bavite opasnim zanimanjem ili hobijem?');
+INSERT INTO survey_questions(question) VALUES ('Da li uzimate bilo kakve lekove?');
+
 INSERT INTO center (name, address, description, grade) VALUES ('CzDk', 'Preradoviceva 10', 'Centar za davanje krvi', 1.0);
 INSERT INTO center (name, address, description, grade) VALUES ('BTB', 'Filipa Visnjica 3E', 'Centar, krv', 1.0);
 INSERT INTO center (name, address, description, grade) VALUES ('Daj Krv', 'Zeleznicka 10', 'Opis neki', 1.0);
@@ -21,3 +29,8 @@ INSERT INTO users (role, jmbg, first_name, last_name, email, password, status) V
 INSERT INTO users (role, jmbg, first_name, last_name, email, password, status) VALUES ('user', '11231414', 'Jelena', 'Jelenic', 'jelena@gmail.com', '123', true);
 INSERT INTO users (role, jmbg, first_name, last_name, email, password, status) VALUES ('user', '19931414', 'Petar', 'Petrovic', 'petar@gmail.com', '123', true);
 
+
+INSERT INTO survey_answers(answer,survey_questions_id,users_id) VALUES (true,1,1);
+INSERT INTO survey_answers(answer,survey_questions_id,users_id) VALUES (false,2,1);
+INSERT INTO survey_answers(answer,survey_questions_id,users_id) VALUES (true,3,1);
+INSERT INTO survey_answers(answer,survey_questions_id,users_id) VALUES (true,4,1);

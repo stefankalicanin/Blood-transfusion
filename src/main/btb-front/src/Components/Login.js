@@ -9,10 +9,12 @@ import {
   } from "react-bootstrap";
 import axios from 'axios';
 import { Link, Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import LoginCSS from './Login.module.css';
 
 
 export default function LoginFunc(){
     const navigate = useNavigate();
+    const [loggedUserInfo, setLoggedUserInfo] = useState();
     const [state,setStates] = useState({email: "", password:""});
 
     const onLoginClick = async () => {
@@ -31,11 +33,10 @@ export default function LoginFunc(){
         };
         await axios.request(options).then(function (response) {
           console.log(response.data);
+          setLoggedUserInfo(response.data);
+          localStorage.setItem('user_id', response.data.id);
           console.log("Succesfully logged in!");
-    
-          //return <Link to="/"></Link>;
-          //return <Navigate to="/nista"/>;
-          navigate("/");
+          navigate("/home");
     
         }).catch(function (error) {
           console.error(error);
@@ -48,12 +49,12 @@ export default function LoginFunc(){
           <Col md="4">
             <h1>Login</h1>
             <Form>
-              <Form.Group controlId="emailId">
-                <Form.Label>Email</Form.Label>
+              <Form.Group controlId="emailId"  >
+                <Form.Label>Email</Form.Label> 
                 <Form.Control
                   type="email"
                   name="email"
-                  placeholder="Enter email"
+                  placeholder="Email adress"
                   value={state.email}
                   //onChange={onChangeFunc}
                   onChange={e=> setStates({...state, email: e.target.value})}

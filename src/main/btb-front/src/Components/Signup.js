@@ -10,6 +10,7 @@ import {
   FormControl
 } from "react-bootstrap";
 
+
 class Signup extends Component {
   constructor(props) {
     super(props);
@@ -127,7 +128,7 @@ class Signup extends Component {
               onClick={this.onSignupClick}  
             >Sign up</Button>
             <p className="mt-2">
-              Already have account? <Link to="/login">Login</Link>
+              Already have account? <Link to="/">Login</Link>
             </p>
           </Col>
         </Row>

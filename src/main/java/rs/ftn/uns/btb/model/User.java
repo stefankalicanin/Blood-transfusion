@@ -1,13 +1,13 @@
 package rs.ftn.uns.btb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import rs.ftn.uns.btb.model.dto.UserUpdateDTO;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @DiscriminatorValue("user")
@@ -25,6 +25,10 @@ public class User extends Person{
     @Getter @Setter
     private Integer penalty;
 
+    @OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @Getter @Setter
+    @JsonIgnore
+    private Set<SurveyAnswers> surveyAnswers = new HashSet<>();
     public User() {}
 
 
