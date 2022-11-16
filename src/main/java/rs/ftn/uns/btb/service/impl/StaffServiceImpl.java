@@ -7,6 +7,8 @@ import rs.ftn.uns.btb.model.Staff;
 import rs.ftn.uns.btb.repository.StaffRepository;
 import rs.ftn.uns.btb.service.StaffService;
 
+import java.util.List;
+
 @Service
 public class StaffServiceImpl implements StaffService {
 
@@ -44,5 +46,10 @@ public class StaffServiceImpl implements StaffService {
         Staff updatedStaff = _staffRepo.save(staffToUpdate);
 
         return updatedStaff;
+    }
+
+    @Override
+    public List<Staff> findAllByCenterId(Long id) {
+        return _staffRepo.findAllByCenter_Id(id);
     }
 }

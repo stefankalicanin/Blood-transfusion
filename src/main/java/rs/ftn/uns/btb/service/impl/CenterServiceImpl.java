@@ -7,6 +7,9 @@ import rs.ftn.uns.btb.repository.CenterRepository;
 import rs.ftn.uns.btb.service.CenterService;
 import rs.ftn.uns.btb.model.Center;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class CenterServiceImpl implements CenterService {
 
@@ -36,4 +39,5 @@ public class CenterServiceImpl implements CenterService {
         return updatedCenter;
 
     }
+
 }

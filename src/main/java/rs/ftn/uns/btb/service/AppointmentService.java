@@ -6,4 +6,6 @@ import java.util.List;
 public interface AppointmentService {
 
     List<Appointment> findByCenterId(Long id);
+
+    void deleteSelection(Long[] idsOfAppointmentsToRemove);
 }

@@ -3,7 +3,7 @@ package rs.ftn.uns.btb.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-import rs.ftn.uns.btb.model.dto.StaffDTO;
+import rs.ftn.uns.btb.model.dto.StaffUpdateDTO;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -23,7 +23,7 @@ public class Staff extends Person {
 
     public Staff() {}
 
-    public void copyValuesFromDTO(StaffDTO staffDTO) {
+    public void copyValuesFromDTO(StaffUpdateDTO staffDTO) {
         this.setJmbg((staffDTO.getJmbg()));
         this.setFirstName(staffDTO.getFirstName());
         this.setLastName(staffDTO.getLastName());

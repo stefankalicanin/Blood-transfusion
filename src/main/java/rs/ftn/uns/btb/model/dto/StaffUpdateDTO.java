@@ -3,7 +3,7 @@ package rs.ftn.uns.btb.model.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-public class StaffDTO {
+public class StaffUpdateDTO {
 
     @Getter @Setter
     private Long jmbg;
@@ -16,9 +16,9 @@ public class StaffDTO {
     @Getter @Setter
     private String email;
 
-    public StaffDTO() {}
+    public StaffUpdateDTO() {}
 
-    public StaffDTO(Long jmbg, String firstName, String lastName, String password, String email) {
+    public StaffUpdateDTO(Long jmbg, String firstName, String lastName, String password, String email) {
         this.jmbg = jmbg;
         this.firstName = firstName;
         this.lastName = lastName;

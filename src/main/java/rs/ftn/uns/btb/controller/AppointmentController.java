@@ -15,6 +15,7 @@ import rs.ftn.uns.btb.model.Appointment;
 import rs.ftn.uns.btb.model.dto.AppointmentDTO;
 import rs.ftn.uns.btb.service.AppointmentService;
 
+import javax.print.attribute.standard.Media;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +52,29 @@ public class AppointmentController {
             return new ResponseEntity<List<AppointmentDTO>>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<List<AppointmentDTO>>(appointmentDTOS, HttpStatus.OK);
+    }
+
+
+    @Operation(summary = "Delete multiple appointments", description = "Delete multiple appointments", method = "DELETE")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "appointments successfully deleted",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Long.class))),
+            @ApiResponse(responseCode = "404", description = "one of the appointments not found", content = @Content)
+    })
+    @DeleteMapping(value = "delete/multiple", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity deleteMultipleAppointments(@RequestBody Long[] idsOfAppointmentsToRemove) {
+//        System.out.println("IDS:");
+//
+//        for (Long l : idsOfAppointmentsToRemove) {
+//            System.out.println(l);
+//        }
+
+        if (idsOfAppointmentsToRemove.length == 0) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        _appointmentService.deleteSelection(idsOfAppointmentsToRemove);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

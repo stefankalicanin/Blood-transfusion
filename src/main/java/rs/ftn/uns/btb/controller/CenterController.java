@@ -18,6 +18,7 @@ import rs.ftn.uns.btb.model.dto.CenterUpdateDTO;
 import rs.ftn.uns.btb.service.CenterService;
 
 import javax.print.attribute.standard.Media;
+import java.util.List;
 
 @CrossOrigin(origins = "*")
 @Tag(name = "Center controller", description = "The Center API")
@@ -98,6 +99,7 @@ public class CenterController {
         return new ResponseEntity<Center>(center, HttpStatus.OK);
     }
 
+}
 //    @Operation(summary = "Get only center info by id", description = "Get only center info by id", method = "GET")
 //    @ApiResponses(value = {
 //            @ApiResponse(responseCode = "200", description = "found info for center by id",
@@ -113,4 +115,4 @@ public class CenterController {
 //        }
 //        return new ResponseEntity<Center>(center, HttpStatus.OK);
 //    }
-}
+
