@@ -17,15 +17,21 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import rs.ftn.uns.btb.model.User;
 import rs.ftn.uns.btb.model.dto.CenterUpdateDTO;
-import rs.ftn.uns.btb.model.dto.UserDTO;
+import rs.ftn.uns.btb.model.dto.SearchCenterDTO;
 import rs.ftn.uns.btb.service.CenterService;
 
-import javax.print.attribute.standard.Media;
+import rs.ftn.uns.btb.service.impl.CenterServiceImpl;
+import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 
-import java.util.ArrayList;
+
+
+
+
 
 @CrossOrigin(origins = "*")
+
 @Tag(name = "Center controller", description = "The Center API")
 @RestController
 @RequestMapping(value = "/api/center")
@@ -104,12 +110,23 @@ public class CenterController {
 
     }
 
+    @GetMapping(value= "/findAll", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Center>> findAll(){
+        return new ResponseEntity<List<Center>>(_centerService.findAll(), HttpStatus.OK );
+    }
+
+
+    @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Center>> search(@RequestParam String name, @RequestParam String address, @RequestParam double grade){
+        return new ResponseEntity<List<Center>>(_centerService.findByNameAndAddress(name.trim(), address.trim(), grade), HttpStatus.OK);}
+
     @Operation(summary = "Get center by id", description = "Get center by id", method = "GET")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "found center by id",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Center.class))),
             @ApiResponse(responseCode = "404", description = "center not found", content = @Content)
     })
+
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Center> getCenter(@Parameter(name="id", description = "ID of a center to return", required = true) @PathVariable("id") Long id) {
         Center center = _centerService.findOne(id);
@@ -118,6 +135,7 @@ public class CenterController {
             return new ResponseEntity<Center>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Center>(center, HttpStatus.OK);
+
     }
 
 }

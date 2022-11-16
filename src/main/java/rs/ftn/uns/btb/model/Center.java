@@ -3,6 +3,7 @@ package rs.ftn.uns.btb.model;
 import lombok.Getter;
 import lombok.Setter;
 import rs.ftn.uns.btb.model.dto.CenterUpdateDTO;
+import rs.ftn.uns.btb.model.dto.SearchCenterDTO;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -55,5 +56,11 @@ public class Center {
         this.address = centerUpdateDTO.getAddress();
         this.description = centerUpdateDTO.getDescription();
         this.grade = centerUpdateDTO.getGrade();
+    }
+
+    public void copyValuesFromDTO(SearchCenterDTO searchCenterDTO){
+        this.name = searchCenterDTO.getName();
+        this.address = searchCenterDTO.getAddress();
+        this.grade = searchCenterDTO.getGrade();
     }
 }
