@@ -45,24 +45,24 @@ export default function Home(){
   }
     return (
       <div>
-        {/* <h1 className={HCSS.h1}>Home</h1>
+         <h1 className={HCSS.h1}>Home</h1>
         <p>
           <Link to="/survey">Popunjavanje upitnika davaoca krvi</Link>
         </p>
         <p>
           <Link to="/dashboard">Dashboard</Link>
         </p>
-
+{/*
         <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
         <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
       <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
-      <DropdownButton id="dropdown-basic-button" title="Dropdown button">
+      {/* <DropdownButton id="dropdown-basic-button" title="Dropdown button">
            {countries.map(element => {
             return (
             <Dropdown.Item href={"#/"+element.code+element.label+element.phone} >{element.code +" " + element.label +" "+ element.phone}</Dropdown.Item>
             );
           })}
-        </DropdownButton>
+        </DropdownButton> */}
         <div className='py-4'>
         <table className="table border rounded p-4 mt-2 shadow table-striped" >
   <thead>

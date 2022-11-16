@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function ViewProfile() {
   const [user, setUser] = useState({
-    id : 0,
+    id : localStorage.getItem("user_id"),
     firstName: "",
     lastName: "",
     email: "",
@@ -29,7 +29,10 @@ export default function ViewProfile() {
   });
 
   const loadUser = async () => {
-    const result = await axios.get('http://localhost:8084/api/user/user/ ' + 1);
+    const user_id = localStorage.getItem('user_id');
+    console.log("UserId");
+    console.log(user_id);
+    const result = await axios.get('http://localhost:8084/api/user/user/ ' + user_id);
     setUser(result.data);
   };
 
