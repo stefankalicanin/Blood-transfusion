@@ -6,6 +6,7 @@ export default function ShowUsers() {
     const [users,setUsers]=useState([])
     const [filterData,setFilterData]=useState([])
     const[query,setQuery]=useState('')
+    
 
     useEffect(()=>{
         loadUsers(); 
@@ -36,7 +37,7 @@ export default function ShowUsers() {
     
   return (
     <div className='container'>
-        <div className='py-4'>
+        <div className='py-4' style={{'width':'75%','margin-left':'280px'}}>
         <input type="text" name="name" value={query} className="form-control" onChange={(e)=>handleSearch(e)} placeholder="search..."/><br/>
         <table className="table border rounded p-4 mt-2 shadow table-striped">
   <thead>

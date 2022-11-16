@@ -1,7 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import axios from 'axios'
 
 export default function CreateStaff() {
+
+ 
+  const [centerId, setCenterId] = useState("")
+  const [centerList, setCenterList] = useState([{'name':'','id':''}])
+  
+  useEffect(() =>{
+    const fetchData = async ()=>{
+        const result = await axios.get('http://localhost:8084/api/center');
+        setCenterList(result.data); 
+    };
+    fetchData();
+}, [])
 
     const [staff, setStaff] = useState({
         jmbg: "",
@@ -15,24 +27,49 @@ export default function CreateStaff() {
         address:"",
         city:"",
         country:"",
+        center: {
+          id:1,
+          name: "string",
+          address: "string",
+          description: "string",
+          grade: 0
+        }
       });
-
-      const { jmbg,firstName,lastName,email,password,gender,phone,address,city,country } = staff;
+      const { jmbg,firstName,lastName,email,password,gender,phone,address,city,country,center } = staff;
 
       const onInputChange = (e) => {
         setStaff({ ...staff, [e.target.name]: e.target.value });
       };
-    
+      const handleChange = (event) =>{
+        setCenterId(event.target.value);
+       
+       
+        
+        
+    }
+
       const onSubmit = async (e) => {
         e.preventDefault();
         await axios.post("http://localhost:8084/api/staff", staff);
+        
+        
       };
-
-
+      
   return (
-    <div className="container col-4 border rounded p-4 mt-2 shadow">
+    <div className="container col-4 border rounded p-4 mt-2 shadow" style={{'width':'50%','margin-left':'280px'}}>
+   <p></p>
      <h2 className="text-center m-4">Register staff</h2>
           <form  className='row g-2' onSubmit={(e) => onSubmit(e)}>
+          <select className="form-control" value={centerId} onChange={handleChange}>
+              <option value="">Choose center name</option>
+
+        {centerList.map(center => (
+              <option value={center.name} key={center.id} >{center.name}</option>
+    
+              ))
+              }
+
+          </select>
             <div className="col md-6">
               <label htmlFor="Jmbg" className="form-label">
                 Jmbg
