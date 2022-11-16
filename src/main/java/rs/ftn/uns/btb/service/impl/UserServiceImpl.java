@@ -25,6 +25,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> findAll() {
+        List<User> users = _userRepo.findAll();
+        return users;
+    }
+
     public User findOne(Long id) {
         User user = this._userRepo.findOneById(id);
         return  user;
@@ -41,6 +46,7 @@ public class UserServiceImpl implements UserService {
         Collection<User> users = _userRepo.findAll();
         return users;
     }
+
     @Override
     public List<User> findByFirstNameAndLastName(String firstName, String lastName) {
         return _userRepo.findByFirstNameAndLastNameAllIgnoringCase(firstName, lastName);

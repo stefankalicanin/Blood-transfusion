@@ -12,10 +12,12 @@ public interface UserService {
 
     User create(User user) throws Exception;
 
+    List<User> findAll();
+
     User findOne(Long id);
     User checkLogin(String email, String password);
 
-    Collection<User> findAll();
+//    Collection<User> findAll();
     List<User> findByFirstNameAndLastName(String firstName, String lastName);
 
     User update(User user) throws Exception;

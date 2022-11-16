@@ -34,6 +34,7 @@ import java.util.Collection;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequestMapping(value = "/api/user")
 public class UserController {
 
@@ -105,9 +106,13 @@ public class UserController {
                             array = @ArraySchema(schema = @Schema(implementation = User.class))))
     })
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Collection<User>> getUsers() {
-        Collection<User> users = _userService.findAll();
-        return new ResponseEntity<Collection<User>>(users, HttpStatus.OK);
+    public ResponseEntity<List<UserDTO>> getUsers() {
+       List<User> users = _userService.findAll();
+        List<UserDTO> usersDTO = new ArrayList<>();
+        for (User u : users) {
+            usersDTO.add(new UserDTO(u.getJmbg(),u.getFirstName(),u.getLastName(),u.getEmail()));
+        }
+        return new ResponseEntity<>(usersDTO, HttpStatus.OK);
     }
 
     @GetMapping(value = "/findByFullName")
