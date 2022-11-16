@@ -7,7 +7,7 @@ public interface StaffService {
 
     Staff create(Staff staff) throws Exception;
 
-    Staff findOne(Long jmbg);
+    Staff findOne(Long id);
 
     Staff update(Staff staff) throws Exception;
 

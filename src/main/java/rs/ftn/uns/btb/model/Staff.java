@@ -29,6 +29,10 @@ public class Staff extends Person {
         this.setLastName(staffDTO.getLastName());
         this.setPassword(staffDTO.getPassword());
         this.setEmail(staffDTO.getEmail());
+        this.setAddress(staffDTO.getAddress());
+        this.setCity(staffDTO.getCity());
+        this.setCountry(staffDTO.getCountry());
+        this.setPhone(staffDTO.getPhone());
     }
 
     @Override

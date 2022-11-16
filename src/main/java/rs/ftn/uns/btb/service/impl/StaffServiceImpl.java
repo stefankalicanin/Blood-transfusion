@@ -25,8 +25,8 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public Staff findOne(Long jmbg) {
-        return this._staffRepo.findById(jmbg).orElseGet(null);
+    public Staff findOne(Long id) {
+        return this._staffRepo.findById(id).orElseGet(null);
     }
 
     @Override

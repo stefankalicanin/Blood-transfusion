@@ -5,7 +5,7 @@ import {
   RouterProvider,
   Outlet,
 } from "react-router-dom";
-import Home from "./Routes/Home";
+import StaffUpdate from "./Routes/StaffUpdate";
 import Reports from "./Routes/Reports";
 import Navbar from "./Components/Navbar";
 import "./App.css"
@@ -32,8 +32,11 @@ const router = createBrowserRouter([
         element: <AppLayout />,
         children: [
             {
-                path: "/",
-                element: <Home />
+                path: "/"
+            },
+            {
+                path: "staff/updateProfile",
+                element: <StaffUpdate />
             },
             {
                 path: "staff/editCenter",
