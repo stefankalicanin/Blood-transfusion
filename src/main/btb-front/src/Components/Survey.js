@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { Countries } from "./Countries"
 
 const Survey = props => {
   const navigate = useNavigate();
