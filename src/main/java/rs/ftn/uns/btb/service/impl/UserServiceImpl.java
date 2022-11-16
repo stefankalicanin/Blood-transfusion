@@ -6,7 +6,6 @@ import rs.ftn.uns.btb.model.User;
 import rs.ftn.uns.btb.repository.UserRepository;
 import rs.ftn.uns.btb.service.UserService;
 
-
 import java.util.Collection;
 import java.util.List;
 
@@ -24,12 +23,6 @@ public class UserServiceImpl implements UserService {
         return newUser;
     }
 
-    @Override
-    public List<User> findAll() {
-        List<User> users = _userRepo.findAll();
-        return users;
-    }
-
     public User findOne(Long id) {
         User user = this._userRepo.findOneById(id);
         return  user;
@@ -42,8 +35,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Collection<User> findAll() {
-        Collection<User> users = _userRepo.findAll();
+    public List<User> findAll() {
+        List<User> users = _userRepo.findAll();
         return users;
     }
 
@@ -64,16 +57,23 @@ public class UserServiceImpl implements UserService {
         userToUpdate.setJmbg(user.getJmbg());
         userToUpdate.setFirstName(user.getFirstName());
         userToUpdate.setLastName(user.getLastName());
-        userToUpdate.setPassword(user.getPassword());
         //userToUpdate.setEmail(user.getEmail());
         userToUpdate.setGender(user.getGender());
         userToUpdate.setPhone(user.getPhone());
         userToUpdate.setAddress(user.getAddress());
         userToUpdate.setCity(user.getCity());
         userToUpdate.setCountry(user.getCountry());
+        userToUpdate.setJob(user.getJob());
+        userToUpdate.setProfession(user.getProfession());
 
         User updatedUser = _userRepo.save(userToUpdate);
 
         return updatedUser;
     }
+
+    @Override
+    public User findById(Long id) {
+        return this._userRepo.findOneById(id);
+    }
+
 }

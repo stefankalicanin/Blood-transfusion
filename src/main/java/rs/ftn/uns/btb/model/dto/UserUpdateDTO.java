@@ -2,9 +2,12 @@ package rs.ftn.uns.btb.model.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import rs.ftn.uns.btb.model.User;
 
 public class UserUpdateDTO {
 
+    @Getter @Setter
+    private Long id;
     @Getter @Setter
     private Long jmbg;
 
@@ -14,11 +17,8 @@ public class UserUpdateDTO {
     @Getter @Setter
     private String lastName;
 
-    @Getter @Setter
-    private String password;
-
-   /* @Getter @Setter
-    private String email;*/
+   @Getter @Setter
+    private String email;
 
     @Getter @Setter
     private String gender;
@@ -35,18 +35,25 @@ public class UserUpdateDTO {
     @Getter @Setter
     private String country;
 
+    @Getter @Setter
+    private String job;
+
+    @Getter @Setter
+    private String profession;
+
     public UserUpdateDTO(){}
 
-    public UserUpdateDTO(Long jmbg, String firstName, String lastName, String password, /*String email,*/ String gender, String phone, String address, String city, String country){
-        this.jmbg = jmbg;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
-        //this.email = email;
-        this.gender = gender;
-        this.phone = phone;
-        this.address = address;
-        this.city = city;
-        this.country = country;
+    public UserUpdateDTO(User user){
+        this.jmbg = user.getJmbg();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.email = user.getEmail();
+        this.gender = user.getGender();
+        this.phone = user.getPhone();
+        this.address = user.getAddress();
+        this.city = user.getCity();
+        this.country = user.getCountry();
+        this.job = user.getJob();
+        this.profession = user.getProfession();
     }
 }
