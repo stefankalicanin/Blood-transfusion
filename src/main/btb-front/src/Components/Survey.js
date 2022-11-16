@@ -89,7 +89,7 @@ const Survey = props => {
     // .catch(err => console.error(err));
   }
   return (
-    <div>
+    <div style={{'margin-left':'280px'}}>
     {userLoaded ? (
        <div className="Neso">
          {answers.map((element, index)=>

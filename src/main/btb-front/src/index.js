@@ -11,7 +11,13 @@ import Navbar from "./Components/Navbar";
 import "./App.css"
 import EditCenter from "./Routes/EditCenter";
 import EditCenterInfo from "./Pages/EditCenterInfo";
-
+import Signup from "./Components/Signup";
+import Login from "./Components/Login";
+import Home from "./Components/Home"
+import Survey from "./Components/Survey"
+import CreateCenter from "./Pages/CreateCenter";
+import CreateStaff from "./Pages/CreateStaff";
+import ShowUsers from "./Pages/ShowUsers";
 
 const AppLayout = () => (
     <>
@@ -46,6 +52,34 @@ const router = createBrowserRouter([
             {
                 path: "reports",
                 element: <Reports/>,
+            },
+            {
+                path: "signup",
+                element: <Signup/>
+            },
+            {
+                path: "login",
+                element: <Login/>
+            },
+            {
+                path: "home",
+                element: <Home />
+            },
+            {
+                path: "survey",
+                element: <Survey />
+            },
+            {
+                path: "admin/createCenter",
+                element: <CreateCenter />
+            },
+            {
+                path: "admin/createStaff",
+                element: <CreateStaff />
+            },
+            {
+                path: "allUsers",
+                element: <ShowUsers />
             }
         ]
     }

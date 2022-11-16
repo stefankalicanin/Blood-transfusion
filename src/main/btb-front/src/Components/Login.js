@@ -44,6 +44,8 @@ export default function LoginFunc(){
         });
       };
       return (
+        <div style={{'margin-left':'280px'}}>
+
         <Container>
         <Row>
           <Col md="4">
@@ -58,7 +60,7 @@ export default function LoginFunc(){
                   value={state.email}
                   //onChange={onChangeFunc}
                   onChange={e=> setStates({...state, email: e.target.value})}
-                />
+                  />
                 <FormControl.Feedback type="invalid"></FormControl.Feedback>
               </Form.Group>
 
@@ -71,7 +73,7 @@ export default function LoginFunc(){
                   value={state.password}
                   //onChange={onChangeFunc}
                   onChange={e=> setStates({...state, password: e.target.value})}
-                />
+                  />
                 <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
               </Form.Group>
             </Form>
@@ -85,5 +87,6 @@ export default function LoginFunc(){
         </Row>
 
     </Container>
+    </div>
       )
 }
