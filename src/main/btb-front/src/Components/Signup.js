@@ -61,6 +61,8 @@ class Signup extends Component {
 
   render() {
     return (
+      <div style={{'margin-left':'280px'}}>
+
       <Container>
         <Row>
           <Col md="4">
@@ -85,7 +87,7 @@ class Signup extends Component {
                   placeholder="Enter lastName"
                   value={this.state.lastName}
                   onChange={this.onChange}
-                />
+                  />
                 <FormControl.Feedback type="invalid"></FormControl.Feedback>
               </Form.Group>
 
@@ -97,7 +99,7 @@ class Signup extends Component {
                   placeholder="Enter password"
                   value={this.password}
                   onChange={this.onChange}
-                />
+                  />
                 <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
               </Form.Group>
               <Form.Group controlId="emailId">
@@ -108,7 +110,7 @@ class Signup extends Component {
                   placeholder="Enter your email"
                   value={this.email}
                   onChange={this.onChange}
-                />
+                  />
                 <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
               </Form.Group>
               <Form.Group controlId="jmbgId">
@@ -119,20 +121,21 @@ class Signup extends Component {
                   placeholder="Enter jmbg"
                   value={this.jmbg}
                   onChange={this.onChange}
-                />
+                  />
                 <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
               </Form.Group>
             </Form>
             <Button 
               color="primary"
               onClick={this.onSignupClick}  
-            >Sign up</Button>
+              >Sign up</Button>
             <p className="mt-2">
-              Already have account? <Link to="/">Login</Link>
+              Already have account? <Link to="/login">Login</Link>
             </p>
           </Col>
         </Row>
       </Container>
+      </div>
     );
   }
 }

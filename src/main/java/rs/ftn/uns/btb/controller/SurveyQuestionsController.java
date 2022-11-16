@@ -22,7 +22,7 @@ import rs.ftn.uns.btb.service.UserService;
 import java.util.Collection;
 
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/api/questions")
 public class SurveyQuestionsController {

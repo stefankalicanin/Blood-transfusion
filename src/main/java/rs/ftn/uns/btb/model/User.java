@@ -11,18 +11,16 @@ import java.util.Set;
 
 @Entity
 @DiscriminatorValue("user")
+@Getter @Setter
 public class User extends Person{
 
     @Column(name = "profession", nullable = true)
-    @Getter @Setter
     private String profession;
 
     @Column(name = "job", nullable = true)
-    @Getter @Setter
     private String job;
 
     @Column(name = "penalty", nullable = true)
-    @Getter @Setter
     private Integer penalty;
 
     @OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)

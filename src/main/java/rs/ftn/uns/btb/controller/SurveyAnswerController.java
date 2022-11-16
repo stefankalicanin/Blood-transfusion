@@ -17,7 +17,7 @@ import rs.ftn.uns.btb.service.AdminService;
 import rs.ftn.uns.btb.service.SurveyAnswerService;
 
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/api/answers")
 public class SurveyAnswerController {

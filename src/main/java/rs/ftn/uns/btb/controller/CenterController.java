@@ -1,6 +1,7 @@
 package rs.ftn.uns.btb.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -18,15 +19,21 @@ import rs.ftn.uns.btb.model.User;
 import rs.ftn.uns.btb.model.dto.CenterUpdateDTO;
 import rs.ftn.uns.btb.model.dto.SearchCenterDTO;
 import rs.ftn.uns.btb.service.CenterService;
+
 import rs.ftn.uns.btb.service.impl.CenterServiceImpl;
 import java.util.Collection;
 import java.util.ArrayList;
 import java.util.List;
 
 
+
+
+
+
+@CrossOrigin(origins = "*")
+
 @Tag(name = "Center controller", description = "The Center API")
 @RestController
-@CrossOrigin("http://localhost:3000")
 @RequestMapping(value = "/api/center")
 public class CenterController {
 
@@ -48,7 +55,7 @@ public class CenterController {
         Center savedCenter = null;
         try {
             savedCenter = _centerService.create(center);
-            savedCenter = center;
+//            savedCenter = center;
             return new ResponseEntity<Center>(savedCenter, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
@@ -111,7 +118,40 @@ public class CenterController {
 
     @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Center>> search(@RequestParam String name, @RequestParam String address, @RequestParam double grade){
-        return new ResponseEntity<List<Center>>(_centerService.findByNameAndAddress(name.trim(), address.trim(), grade), HttpStatus.OK);
+        return new ResponseEntity<List<Center>>(_centerService.findByNameAndAddress(name.trim(), address.trim(), grade), HttpStatus.OK);}
+
+    @Operation(summary = "Get center by id", description = "Get center by id", method = "GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "found center by id",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Center.class))),
+            @ApiResponse(responseCode = "404", description = "center not found", content = @Content)
+    })
+
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Center> getCenter(@Parameter(name="id", description = "ID of a center to return", required = true) @PathVariable("id") Long id) {
+        Center center = _centerService.findOne(id);
+
+        if (center == null) {
+            return new ResponseEntity<Center>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Center>(center, HttpStatus.OK);
+
     }
 
 }
+//    @Operation(summary = "Get only center info by id", description = "Get only center info by id", method = "GET")
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "200", description = "found info for center by id",
+//                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = CenterInfoDTO.class))),
+//            @ApiResponse(responseCode = "404", description = "info for center not found", content = @Content)
+//    })
+//    @GetMapping(value = "/info/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<CenterInfoDTO> getCenterInfo(@Parameter(name="id", description = "ID of a center to return", required = true) @PathVariable("id") Long id) {
+//        Center center = _centerService.findOne(id);
+//
+//        if (center == null) {
+//            return new ResponseEntity<Center>(HttpStatus.NOT_FOUND);
+//        }
+//        return new ResponseEntity<Center>(center, HttpStatus.OK);
+//    }
+
