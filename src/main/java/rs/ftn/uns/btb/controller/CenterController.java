@@ -2,6 +2,7 @@ package rs.ftn.uns.btb.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -14,13 +15,18 @@ import rs.ftn.uns.btb.model.Center;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import rs.ftn.uns.btb.model.User;
 import rs.ftn.uns.btb.model.dto.CenterUpdateDTO;
+import rs.ftn.uns.btb.model.dto.UserDTO;
 import rs.ftn.uns.btb.service.CenterService;
 
 import javax.print.attribute.standard.Media;
 import java.util.List;
 
+import java.util.ArrayList;
+
 @CrossOrigin(origins = "*")
+
 @Tag(name = "Center controller", description = "The Center API")
 @RestController
 @RequestMapping(value = "/api/center")
@@ -43,13 +49,29 @@ public class CenterController {
     public ResponseEntity<Center> createCenter(@RequestBody Center center) {
         Center savedCenter = null;
         try {
-//            savedCenter = _centerService.save(center);
-            savedCenter = center;
+            savedCenter = _centerService.create(center);
+//            savedCenter = center;
             return new ResponseEntity<Center>(savedCenter, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<Center>(savedCenter, HttpStatus.CONFLICT);
         }
+    }
+    @Operation(summary = "Get all center", description = "Get all center", method="GET")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Center.class))))
+    })
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<CenterUpdateDTO>> getCenter() {
+        List<Center> centers = _centerService.findAll();
+        List<CenterUpdateDTO> centerDTO = new ArrayList<>();
+        for (Center c :centers)
+        {
+            centerDTO.add(new CenterUpdateDTO(c.getId(),c.getName(),c.getAddress(),c.getDescription(),c.getGrade()));
+        }
+        return new ResponseEntity<>(centerDTO, HttpStatus.OK);
     }
 
     @Operation(summary = "Update an existing center", description = "Update an existing center desc", method = "PUT")

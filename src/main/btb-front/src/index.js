@@ -12,6 +12,7 @@ import "./App.css"
 import EditCenter from "./Routes/EditCenter";
 import EditCenterInfo from "./Pages/EditCenterInfo";
 
+
 const AppLayout = () => (
     <>
         <Navbar />

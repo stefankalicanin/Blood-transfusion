@@ -3,11 +3,11 @@ package rs.ftn.uns.btb.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import rs.ftn.uns.btb.model.User;
 import rs.ftn.uns.btb.repository.CenterRepository;
 import rs.ftn.uns.btb.service.CenterService;
 import rs.ftn.uns.btb.model.Center;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,6 +21,16 @@ public class CenterServiceImpl implements CenterService {
     @Override
     public Center findOne(Long id) {
         return this._centerRepo.findById(id).orElseGet(null);
+    }
+    @Override
+    public List<Center> findAll() {
+        List<Center> centers = _centerRepo.findAll();
+        return centers;
+    }
+    @Override
+    public Center create(Center center) throws Exception {
+        Center newCenter = this._centerRepo.save(center);
+        return newCenter;
     }
     @Override
     public Center update(Center center) throws Exception {

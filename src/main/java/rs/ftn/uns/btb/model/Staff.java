@@ -3,7 +3,12 @@ package rs.ftn.uns.btb.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+
 import rs.ftn.uns.btb.model.dto.StaffUpdateDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import rs.ftn.uns.btb.model.dto.StaffDTO;
+import rs.ftn.uns.btb.repository.CenterRepository;
+
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -16,6 +21,7 @@ public class Staff extends Person {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnore
+    @Getter @Setter
     private Center center;
 
     @OneToMany(mappedBy = "staff", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
