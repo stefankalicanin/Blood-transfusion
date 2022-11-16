@@ -7,6 +7,9 @@ import rs.ftn.uns.btb.repository.AppointmentRepository;
 import rs.ftn.uns.btb.service.AppointmentService;
 import rs.ftn.uns.btb.model.Appointment;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
 
@@ -14,4 +17,16 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Autowired
     public AppointmentServiceImpl(AppointmentRepository _appointmentRepo) { this._appointmentRepo = _appointmentRepo; }
+
+    @Override
+    public List<Appointment> findByCenterId(Long id) {
+        List<Appointment> appointmentsForCenter = _appointmentRepo.findAllByCenterId(id);
+        return appointmentsForCenter;
+    }
+
+    @Override
+    public void deleteSelection(Long[] idsOfAppointmentsToRemove) {
+        _appointmentRepo.deleteAllById(Arrays.asList(idsOfAppointmentsToRemove));
+    }
+
 }
