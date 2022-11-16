@@ -24,4 +24,11 @@ public class CenterUpdateDTO {
         this.description = description;
         this.grade = grade;
     }
+    public CenterUpdateDTO(Long id,String name, String address, String description, Double grade) {
+        this.id=id;
+        this.name = name;
+        this.address = address;
+        this.description = description;
+        this.grade = grade;
+    }
 }

@@ -6,6 +6,7 @@ import rs.ftn.uns.btb.model.User;
 import rs.ftn.uns.btb.repository.UserRepository;
 import rs.ftn.uns.btb.service.UserService;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -21,6 +22,29 @@ public class UserServiceImpl implements UserService {
         User newUser = this._userRepo.save(user);
         return newUser;
     }
+
+    public User findOne(Long id) {
+        User user = this._userRepo.findOneById(id);
+        return  user;
+    }
+    @Override
+    public User checkLogin(String email,String password){
+        //User user = this._userRepo.checkLogin(email,password);
+        User user = this._userRepo.findOneByEmailAndPassword(email,password);
+        return user;
+    }
+
+    @Override
+    public List<User> findAll() {
+        List<User> users = _userRepo.findAll();
+        return users;
+    }
+
+    @Override
+    public List<User> findByFirstNameAndLastName(String firstName, String lastName) {
+        return _userRepo.findByFirstNameAndLastNameAllIgnoringCase(firstName, lastName);
+    }
+
 
     @Override
     public User update(User user) throws Exception {
@@ -48,19 +72,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findOne(Long jmbg) {
-        return this._userRepo.findById(jmbg).orElseGet(null);
-    }
-
-    @Override
-    public List<User> findAll() {
-        return this._userRepo.findAll();
-    }
-
-    @Override
     public User findById(Long id) {
         return this._userRepo.findOneById(id);
     }
-
 
 }
