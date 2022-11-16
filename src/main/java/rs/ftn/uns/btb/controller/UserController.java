@@ -32,7 +32,7 @@ import java.util.List;
 
 import java.util.Collection;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/api/user")
 public class UserController {

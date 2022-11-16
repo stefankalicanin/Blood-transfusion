@@ -9,7 +9,7 @@ import { IconContext } from "react-icons";
 function Navbar() {
 
     const [sidebar, setSidebar] = useState(false);
-    const [role, setRole] = useState("staff");
+    const [role, setRole] = useState("");
 
     useEffect(() => {
     //   setRole(localStorage.getItem('role'));

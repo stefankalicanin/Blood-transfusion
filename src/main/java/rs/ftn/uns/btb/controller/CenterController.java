@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.ArrayList;
 
 @CrossOrigin(origins = "*")
-
 @Tag(name = "Center controller", description = "The Center API")
 @RestController
 @RequestMapping(value = "/api/center")
