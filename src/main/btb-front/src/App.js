@@ -17,6 +17,7 @@ import CreateStaff from './Pages/CreateStaff';
 import CreateCenter from './Pages/CreateCenter';
 
 import Survey from "./Components/Survey";
+import ViewProfile from "./Pages/ViewProfile";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
             <Route path="/home" element={<Home/>} />
             <Route path="/signup" element={<Signup/>} />
             <Route path="/survey" element={<Survey/>} />
+            <Route path="/userProfile" element={<ViewProfile/>} />
           </Routes>
         </BrowserRouter>
       </div>
