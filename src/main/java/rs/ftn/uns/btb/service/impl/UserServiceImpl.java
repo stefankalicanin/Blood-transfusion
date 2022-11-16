@@ -6,6 +6,8 @@ import rs.ftn.uns.btb.model.User;
 import rs.ftn.uns.btb.repository.UserRepository;
 import rs.ftn.uns.btb.service.UserService;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -31,13 +33,14 @@ public class UserServiceImpl implements UserService {
         userToUpdate.setJmbg(user.getJmbg());
         userToUpdate.setFirstName(user.getFirstName());
         userToUpdate.setLastName(user.getLastName());
-        userToUpdate.setPassword(user.getPassword());
         //userToUpdate.setEmail(user.getEmail());
         userToUpdate.setGender(user.getGender());
         userToUpdate.setPhone(user.getPhone());
         userToUpdate.setAddress(user.getAddress());
         userToUpdate.setCity(user.getCity());
         userToUpdate.setCountry(user.getCountry());
+        userToUpdate.setJob(user.getJob());
+        userToUpdate.setProfession(user.getProfession());
 
         User updatedUser = _userRepo.save(userToUpdate);
 
@@ -47,6 +50,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findOne(Long jmbg) {
         return this._userRepo.findById(jmbg).orElseGet(null);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return this._userRepo.findAll();
+    }
+
+    @Override
+    public User findById(Long id) {
+        return this._userRepo.findOneById(id);
     }
 
 

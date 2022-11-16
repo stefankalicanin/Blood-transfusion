@@ -18,7 +18,10 @@ import rs.ftn.uns.btb.model.dto.UserUpdateDTO;
 import rs.ftn.uns.btb.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "/api/user")
 public class UserController {
 
@@ -58,16 +61,14 @@ public class UserController {
     }
 
     )
-    @PutMapping(value="/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserUpdateDTO userUpdateDTO){
-        User userForUpdate = _userService.findOne(id);
+    @PutMapping(value="/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> updateUser(@RequestBody User user){
 
-        userForUpdate.copyValuesFromDTO(userUpdateDTO);
-
+        System.out.println(user.getId());
         User updatedUser = null;
 
         try {
-            updatedUser = _userService.update(userForUpdate);
+            updatedUser = _userService.update(user);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
@@ -81,6 +82,16 @@ public class UserController {
 
         }
 
+    @GetMapping("/users")
+    List<User> getAllUsers() {
+        return _userService.findAll();
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
+        System.out.println("e");
+        return ResponseEntity.ok(_userService.findById(id));
+    }
 
 
 }

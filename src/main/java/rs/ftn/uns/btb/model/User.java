@@ -26,19 +26,18 @@ public class User extends Person{
 
     public User() {}
 
-
-
-    public void copyValuesFromDTO(UserUpdateDTO userUpdateDTO) {
+    public User(UserUpdateDTO userUpdateDTO) {
         this.setJmbg((userUpdateDTO.getJmbg()));
         this.setFirstName(userUpdateDTO.getFirstName());
         this.setLastName(userUpdateDTO.getLastName());
-        this.setPassword(userUpdateDTO.getPassword());
-        //this.setEmail(userUpdateDTO.getEmail());
+        this.setEmail(userUpdateDTO.getEmail());
         this.setGender(userUpdateDTO.getGender());
         this.setPhone(userUpdateDTO.getPhone());
         this.setAddress(userUpdateDTO.getAddress());
         this.setCity(userUpdateDTO.getCity());
         this.setCountry(userUpdateDTO.getCountry());
+        this.setProfession(userUpdateDTO.getProfession());
+        this.setJob(userUpdateDTO.getJob());
     }
 
 }
