@@ -9,6 +9,7 @@ public interface CenterService {
 
     Center update(Center center) throws Exception;
     Center create(Center center) throws Exception;
+
     List<Center> findAll();
     List<Center> findByNameAndAddress(String name, String address, double grade);
 }

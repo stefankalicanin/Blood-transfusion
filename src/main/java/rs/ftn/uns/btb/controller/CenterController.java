@@ -19,12 +19,10 @@ import rs.ftn.uns.btb.model.dto.CenterUpdateDTO;
 import rs.ftn.uns.btb.model.dto.SearchCenterDTO;
 import rs.ftn.uns.btb.service.CenterService;
 import rs.ftn.uns.btb.service.impl.CenterServiceImpl;
-
 import java.util.Collection;
-import java.util.List;
-
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Tag(name = "Center controller", description = "The Center API")
 @RestController
