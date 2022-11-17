@@ -2,28 +2,34 @@ package rs.ftn.uns.btb.model.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import rs.ftn.uns.btb.model.Staff;
 
+@Getter @Setter
 public class StaffDTO {
 
-    @Getter @Setter
+    private Long id;
     private Long jmbg;
-    @Getter @Setter
     private String firstName;
-    @Getter @Setter
     private String lastName;
-    @Getter @Setter
-    private String password;
-    @Getter @Setter
     private String email;
+    private String phone;
+    private String address;
+    private String city;
+    private String country;
+    private Long center_id;
 
     public StaffDTO() {}
 
-    public StaffDTO(Long jmbg, String firstName, String lastName, String password, String email) {
-        this.jmbg = jmbg;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
-        this.email = email;
+    public StaffDTO(Staff staff) {
+        this.id = staff.getId();
+        this.jmbg = staff.getJmbg();
+        this.firstName = staff.getFirstName();
+        this.lastName = staff.getLastName();
+        this.email = staff.getEmail();
+        this.address = staff.getAddress();
+        this.phone = staff.getPhone();
+        this.city = staff.getCity();
+        this.country = staff.getCountry();
+        this.center_id = staff.getCenter().getId();
     }
-
 }

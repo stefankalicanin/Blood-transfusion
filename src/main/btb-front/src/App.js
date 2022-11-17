@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  Outlet
+} from "react-router-dom";
+import Home from "./Components/Home";
+import Login from "./Components/Login";
+import Signup from "./Components/Signup";
+
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+import ShowUsers from './Pages/ShowUsers';
+import CreateStaff from './Pages/CreateStaff';
+import CreateCenter from './Pages/CreateCenter';
+
+import Survey from "./Components/Survey";
+import ViewProfile from "./Pages/ViewProfile";
+import Centers from "./Pages/Centers";
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+ return (
+  <div>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Login/>} />
+            <Route path="/home" element={<Home/>} />
+            <Route path="/signup" element={<Signup/>} />
+            <Route path="/survey" element={<Survey/>} />
+            <Route path="/userProfile" element={<ViewProfile/>} />
+            <Route path="/centers" element={<Centers/>} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+ );
 }
 
 export default App;

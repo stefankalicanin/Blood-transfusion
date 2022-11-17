@@ -9,6 +9,7 @@ import lombok.Setter;
 @Table(name="users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="role", discriminatorType=DiscriminatorType.STRING, columnDefinition = "VARCHAR(31) CHECK (role IN ('admin', 'staff', 'user'))")
+@Getter @Setter
 public abstract class Person {
     // TODO:
     // Mozda napraviti ipak vise entiteta, svaki da predstavlja svoju rolu
@@ -19,53 +20,43 @@ public abstract class Person {
 
     @Id
     @Column(name = "id", unique = true)
-    @Getter @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "jmbg", unique = true, nullable = false)
-    @Getter @Setter
     private Long jmbg;
 
     @Column(name = "firstName", nullable = false)
-    @Getter @Setter
     private String firstName;
 
     @Column(name = "lastName", nullable = false)
-    @Getter @Setter
     private String lastName;
 
     @Column(name = "email", unique = true, nullable = false)
-    @Getter @Setter
     private String email;
     
     @Column(name = "password", nullable = false)
-    @Getter @Setter
     private String password;
 
     // Authorized to use BTB services, email confirmation
     @Column(name = "status", nullable = false)
-    @Getter @Setter
     private Boolean status;
 
+    // loggedInBefore
+
     @Column(name = "gender", nullable = true)
-    @Getter @Setter
     private String gender;
 
     @Column(name="phone", nullable = true) // unique
-    @Getter @Setter
     private String phone;
 
     @Column(name="address", nullable = true)
-    @Getter @Setter
     private String address;
 
     @Column(name = "city", nullable = true)
-    @Getter @Setter
     private String city;
 
     @Column(name = "country", nullable = true)
-    @Getter @Setter
     private String country;
 
     public Person() {}

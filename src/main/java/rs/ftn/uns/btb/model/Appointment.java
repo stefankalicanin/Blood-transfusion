@@ -10,34 +10,30 @@ import java.sql.Time;
 
 @Entity
 @Table(name = "appointment")
+@Getter @Setter
 public class Appointment {
 
     @Id
     @Column(nullable = false, unique = true)
-    @Getter @Setter
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "DATE", nullable = false)
-    @Getter @Setter
     private Date date;
 
     @Column(name = "TIME", nullable = false)
-    @Getter @Setter
     private Time time;
 
     @Column(name = "DURATION", nullable = false)
-    @Getter @Setter
     private Integer duration;
 
     // Centar u kom postoji termin
     @ManyToOne(fetch = FetchType.EAGER)
     //@JoinColumn(name="center_id", nullable = false)
-    @Getter @Setter
     @JsonIgnore
     private Center center;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @Getter @Setter
     @JsonIgnore
     private Staff staff;
 
