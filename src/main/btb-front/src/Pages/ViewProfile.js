@@ -32,7 +32,7 @@ export default function ViewProfile() {
     const user_id = localStorage.getItem('user_id');
     console.log("UserId");
     console.log(user_id);
-    const result = await axios.get('http://localhost:8084/api/user/user/ ' + user_id);
+    const result = await axios.get('http://localhost:8084/api/user/ ' + user_id);
     setUser(result.data);
   };
 

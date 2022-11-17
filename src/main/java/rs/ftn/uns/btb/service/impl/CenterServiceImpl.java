@@ -73,7 +73,7 @@ public class CenterServiceImpl implements CenterService {
         if (grade != 0) {
             List filteredCenters = new ArrayList();
             for (Center c : centers) {
-                if (c.getGrade() == grade) {
+                if (c.getGrade() >= grade) {
                     filteredCenters.add(c);
                 }
             }

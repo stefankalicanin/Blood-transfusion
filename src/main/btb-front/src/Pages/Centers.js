@@ -41,7 +41,7 @@ export default function Centers(){
 
 
     return (
-      <div>
+      <div style={{'margin-left':'280px'}}>
         <div className='py-4'>
             <form onSubmit={(e) => onSubmit(e)}>
                 <input type="text" placeholder="Name" name="name" onChange={(e) => onInputChange(e)}></input>

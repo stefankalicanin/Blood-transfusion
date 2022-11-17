@@ -18,6 +18,8 @@ import Survey from "./Components/Survey"
 import CreateCenter from "./Pages/CreateCenter";
 import CreateStaff from "./Pages/CreateStaff";
 import ShowUsers from "./Pages/ShowUsers";
+import Centers from "./Pages/Centers";
+import ViewProfile from "./Pages/ViewProfile";
 
 const AppLayout = () => (
     <>
@@ -80,6 +82,14 @@ const router = createBrowserRouter([
             {
                 path: "allUsers",
                 element: <ShowUsers />
+            },
+            {
+                path: "centers",
+                element: <Centers />
+            },
+            {
+                path: "viewProfile",
+                element: <ViewProfile />
             }
         ]
     }

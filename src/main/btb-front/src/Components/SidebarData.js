@@ -63,4 +63,16 @@ export const SidebarData = [
         cName: "nav-text",
         role: ["admin", "staff"]
     },
+    {
+        title: "Centers",
+        path: "/centers",
+        cName: "nav-text",
+        role: ["admin", "user", ""]
+    },
+    {
+        title: "Profile",
+        path: "/viewProfile",
+        cName: "nav-text",
+        role: ["user"]
+    }
 ];

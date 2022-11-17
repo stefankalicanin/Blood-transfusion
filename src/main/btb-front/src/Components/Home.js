@@ -126,9 +126,9 @@ export default function Home(){
     <tr className='table-dark'>
       <th>#</th>
       <th scope="col" id="name" style={{'cursor':'pointer'}} onClick={(e) => sortByVal(e)} key="1">Name</th>
-      <th scope="col" id="address" name="address" onClick={(e) => sortByVal(e)}>Address</th>
-      <th scope="col" id="grade" onClick={(e) => sortByVal(e)} >Grade</th>
-      <th scope="col" id="description" onClick={(e) => sortByVal(e)}>Description</th>
+      <th scope="col" id="address" style={{'cursor':'pointer'}} name="address" onClick={(e) => sortByVal(e)}>Address</th>
+      <th scope="col" id="grade" style={{'cursor':'pointer'}} onClick={(e) => sortByVal(e)} >Grade</th>
+      <th scope="col" id="description" style={{'cursor':'pointer'}} onClick={(e) => sortByVal(e)}>Description</th>
     </tr>
   </thead>
  <tbody>
