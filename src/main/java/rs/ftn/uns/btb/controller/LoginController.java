@@ -20,7 +20,7 @@ import rs.ftn.uns.btb.service.LoginService;
 import rs.ftn.uns.btb.service.StaffService;
 import rs.ftn.uns.btb.service.UserService;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/api/login")
 public class LoginController {
@@ -38,8 +38,9 @@ public class LoginController {
             ),
             @ApiResponse(responseCode = "404", description = "Invalid username or password", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content) })
-    @PostMapping(value="/login",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<LoginDTO> checkLogin(@RequestBody LoginDTO loginDTO) {
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<LoginDTO> checkLogin(@RequestBody UserLoginDTO loginDTO) {
+        System.out.println(loginDTO.getEmail() + " :" + loginDTO.getPassword() );
 
         LoginDTO login_info = _userService.checkLogin(loginDTO.getEmail(), loginDTO.getPassword());
         System.out.println("User check Login returned: " + login_info );

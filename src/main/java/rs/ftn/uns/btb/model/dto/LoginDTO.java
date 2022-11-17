@@ -3,24 +3,19 @@ package rs.ftn.uns.btb.model.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter @Setter
 public class LoginDTO {
-        @Getter
-        @Setter
+        private Long id;
         private String email;
-        @Getter @Setter
-        private String password;
+        private String role;
 
-        @Getter @Setter
-        private String roll;
-        @Getter @Setter
-        private Long centar_id;
+        private Long center_id;
 
         public LoginDTO() {}
 
-        public LoginDTO(String email, String password, String roll) {
+        public LoginDTO(String email, String password, String role) {
             this.email = email;
-            this.password = password;
-            this.roll = roll;
+            this.role = role;
         }
 
 }

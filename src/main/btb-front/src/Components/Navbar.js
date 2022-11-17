@@ -6,14 +6,24 @@ import { SidebarData } from "./SidebarData";
 import "../App.css";
 import { IconContext } from "react-icons";
 
+
 function Navbar() {
 
     const [sidebar, setSidebar] = useState(false);
-    const [role, setRole] = useState("user");
+    const [role, setRole] = useState("");
 
     useEffect(() => {
-    //   setRole(localStorage.getItem('role'));
-    }, [])
+        const user = localStorage.getItem('user');
+        if (user === null) {
+            setRole("");
+        } else {
+            const ta = JSON.parse(user)
+            console.log(ta.role)
+            console.log(ta["role"])
+            // console.log(user.)
+            setRole(ta["role"]);
+        }
+    }, [localStorage.getItem('user')])
     
 
     const showSidebar = () => setSidebar(!sidebar);

@@ -15,7 +15,10 @@ import LoginCSS from './Login.module.css';
 export default function LoginFunc(){
     const navigate = useNavigate();
     const [loggedUserInfo, setLoggedUserInfo] = useState();
-    const [state,setStates] = useState({email: "", password:""});
+    const [state,setStates] = useState(
+      {
+        email: "", 
+        password:""});
 
     const onLoginClick = async () => {
         const userData = {
@@ -27,21 +30,37 @@ export default function LoginFunc(){
     
         const options = {
           method: 'POST',
-          url: 'http://localhost:8084/api/user/login',
+          url: 'http://localhost:8084/api/login',
           headers: {'Content-Type': 'application/json'},
-          data: {email: userData.email, password: userData.password}
+          data: userData
         };
-        await axios.request(options).then(function (response) {
+
+        
+        try {
+          const response = await axios.post(`http://localhost:8084/api/login`, state);
           console.log(response.data);
-          setLoggedUserInfo(response.data);
-          localStorage.setItem('user_id', response.data.id);
-          console.log("Succesfully logged in!");
+          localStorage.setItem('user', JSON.stringify(response.data));
+          // alert("Success");
           navigate("/home");
+          navigate(0);
+
+        } catch (error) {
+          console.log(error.response.data);
+        }
+
+
+        // await axios.request(options).then(function (response) {
+        //   console.log(response.data);
+        //   setLoggedUserInfo(response.data);
+        //   // localStorage.setItem('user_id', response.data.id);
+        //   localStorage.setItem('user', response.data);
+        //   console.log("Succesfully logged in!");
+        //   navigate("/home");
     
-        }).catch(function (error) {
-          console.error(error);
-          console.log("Invalid log in info!");
-        });
+        // }).catch(function (error) {
+        //   console.error(error);
+        //   console.log("Invalid log in info!");
+        // });
       };
       return (
         <div style={{'margin-left':'280px'}}>

@@ -16,7 +16,7 @@ export const SidebarData = [
         path: "staff/updateProfile",
         icons: <IoIcons.IoIosPaper />,
         cName: "nav-text",
-        role: ["admin", "staff"]
+        role: ["staff"]
         // role: [
         //     "admin", "staff"
         // ]

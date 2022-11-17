@@ -28,10 +28,10 @@ const Survey = props => {
     }
   }
   useEffect(() => {
-    const loggedInUser = localStorage.getItem('user_id');
+    const loggedInUser = JSON.parse(localStorage.getItem('user'));
     if (loggedInUser) {
-      const foundUser = JSON.parse(JSON.stringify(loggedInUser));
-      setUserInfo(foundUser);
+      // const foundUser = JSON.parse(JSON.stringify(loggedInUser.id));
+      setUserInfo(loggedInUser.id.toString());
     }
     else{
       //Link to login page - no user found.

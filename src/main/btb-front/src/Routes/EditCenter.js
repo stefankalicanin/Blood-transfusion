@@ -147,7 +147,8 @@ function EditCenter() {
         if (exitError) { return; }
 
         try {
-            const response = await axios.put(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/center/1`, updatedCenter);
+            const staff_info = JSON.parse(localStorage.getItem('user'));
+            const response = await axios.put(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/center/${staff_info.center_id}`, updatedCenter);
             console.log(response);
             // setCenter((center) => {
             //     return { ...center, ...{updatedCenter}}

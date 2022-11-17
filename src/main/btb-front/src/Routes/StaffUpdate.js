@@ -24,7 +24,10 @@ function StaffUpdate() {
             }
         }
 
-        await axios.put(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/staff/${staff.id}`, staff);
+        const staff_info = JSON.parse(localStorage.getItem('user'))
+
+
+        await axios.put(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/staff/${staff_info.id}`, staff);
     };
 
     const[staff, setStaff] = useState({
@@ -44,7 +47,12 @@ function StaffUpdate() {
 
     const loadStaffInfo = async () => {
         try {
-            const loadedStaff = await axios.get(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/staff/1`);
+            const staff_info = JSON.parse(localStorage.getItem('user'))
+            
+            console.log(staff_info.id);
+            const loadedStaff = await axios.get(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/staff/${staff_info.id}`);
+            console.log("-------------------------")
+            console.log(loadedStaff.data)
             setStaff(loadedStaff.data);
             sessionStorage.setItem('staffInfo', JSON.stringify(loadedStaff.data));
         } catch (error) {
