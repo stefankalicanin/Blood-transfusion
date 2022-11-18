@@ -1,12 +1,13 @@
 import React, { useState,useEffect } from 'react'
 import axios from 'axios'
+import { eventWrapper } from '@testing-library/user-event/dist/utils';
 
 export default function CreateStaff() {
 
  
-  const [centerId, setCenterId] = useState("")
-  const [centerList, setCenterList] = useState([{'name':'','id':''}])
   
+  const [centerList, setCenterList] = useState([{'name':'','id':'','address':'','description':'','grade':''}])
+  const [centerId, setCenterId] = useState("");
   useEffect(() =>{
     const fetchData = async ()=>{
         const result = await axios.get('http://localhost:8084/api/center');
@@ -28,26 +29,30 @@ export default function CreateStaff() {
         city:"",
         country:"",
         center: {
-          id:1,
-          name: "string",
-          address: "string",
-          description: "string",
+          id:"",
+          name: "",
+          address: "",
+          description: "",
           grade: 0
         }
       });
       const { jmbg,firstName,lastName,email,password,gender,phone,address,city,country,center } = staff;
 
       const onInputChange = (e) => {
+       
+        
+        staff.center.id=centerId;
         setStaff({ ...staff, [e.target.name]: e.target.value });
+       
+       
       };
-      const handleChange = (event) =>{
+     
+      const handleChange = event => {
+        
         setCenterId(event.target.value);
-       
-       
         
-        
-    }
-
+      };
+     
       const onSubmit = async (e) => {
         e.preventDefault();
         await axios.post("http://localhost:8084/api/staff", staff);
@@ -60,12 +65,13 @@ export default function CreateStaff() {
    <p></p>
      <h2 className="text-center m-4">Register staff</h2>
           <form  className='row g-2' onSubmit={(e) => onSubmit(e)}>
-          <select className="form-control" value={centerId} onChange={handleChange}>
+          <select className="form-control" onChange={handleChange} name="center">
               <option value="">Choose center name</option>
 
-        {centerList.map(center => (
-              <option value={center.name} key={center.id} >{center.name}</option>
-    
+        {centerList.map((center,index) => (
+          <option key={index} value={center.id}>
+            {center.name}
+          </option>    
               ))
               }
 
@@ -193,14 +199,7 @@ export default function CreateStaff() {
                 onChange={(e) => onInputChange(e)}
               />
             </div>
-            {/* <div className="col-6 col-md-3" >
-            <label htmlFor="Status" className="form-label">
-                Status
-              </label>
-              <br/>
-            <input type="radio"  value="true" name="status" onChange={(e) => onInputChange(e)}/> Active<br/>
-            <input type="radio" value="false" name="status" onChange={(e) => onInputChange(e)}/> Not active
-            </div> */}
+            
            
             <div className="col-6 col-md-6" >
             <label htmlFor="Gender" className="form-label">

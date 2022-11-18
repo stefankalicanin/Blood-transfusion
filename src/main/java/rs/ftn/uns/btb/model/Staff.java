@@ -20,7 +20,6 @@ import java.util.Set;
 public class Staff extends Person {
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JsonIgnore
     @Getter @Setter
     private Center center;
 
