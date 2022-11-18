@@ -1,12 +1,14 @@
 import React, { useState,useEffect } from 'react'
 import axios from 'axios'
+import { eventWrapper } from '@testing-library/user-event/dist/utils';
+import { toInteger } from 'lodash';
 
 export default function CreateStaff() {
 
  
-  const [centerId, setCenterId] = useState("")
-  const [centerList, setCenterList] = useState([{'name':'','id':''}])
   
+  const [centerList, setCenterList] = useState([{'name':'','id':'','address':'','description':'','grade':''}])
+  const [centerId, setCenterId] = useState("");
   useEffect(() =>{
     const fetchData = async ()=>{
         const result = await axios.get('http://localhost:8084/api/center');
@@ -21,38 +23,31 @@ export default function CreateStaff() {
         lastName: "",
         email:"",
         password:"",
-        status:false,
         gender:"",
         phone:"",
         address:"",
         city:"",
         country:"",
-        center: {
-          id:1,
-          name: "string",
-          address: "string",
-          description: "string",
-          grade: 0
-        }
+        center_id: ""
       });
-      const { jmbg,firstName,lastName,email,password,gender,phone,address,city,country,center } = staff;
+      const { jmbg,firstName,lastName,email,password,gender,phone,address,city,country,center_id } = staff;
 
       const onInputChange = (e) => {
-        setStaff({ ...staff, [e.target.name]: e.target.value });
+        setStaff({ ...staff, [e.target.name]: e.target.value });       
       };
-      const handleChange = (event) =>{
-        setCenterId(event.target.value);
-       
-       
-        
-        
-    }
+     
+      const handleChange = event => {
+        // setCenterId(event.target.value);
+        setStaff({...staff, ["center_id"]:toInteger(event.target.value)});
+      };
 
+     
       const onSubmit = async (e) => {
         e.preventDefault();
+        // staff.center_id=centerId;
+        console.log("---------------")
+        console.log(staff);
         await axios.post("http://localhost:8084/api/staff", staff);
-        
-        
       };
       
   return (
@@ -60,12 +55,13 @@ export default function CreateStaff() {
    <p></p>
      <h2 className="text-center m-4">Register staff</h2>
           <form  className='row g-2' onSubmit={(e) => onSubmit(e)}>
-          <select className="form-control" value={centerId} onChange={handleChange}>
+          <select className="form-control" onChange={handleChange} name="center">
               <option value="">Choose center name</option>
 
-        {centerList.map(center => (
-              <option value={center.name} key={center.id} >{center.name}</option>
-    
+        {centerList.map((center,index) => (
+          <option key={index} value={center.id}>
+            {center.name}
+          </option>    
               ))
               }
 
@@ -193,14 +189,7 @@ export default function CreateStaff() {
                 onChange={(e) => onInputChange(e)}
               />
             </div>
-            {/* <div className="col-6 col-md-3" >
-            <label htmlFor="Status" className="form-label">
-                Status
-              </label>
-              <br/>
-            <input type="radio"  value="true" name="status" onChange={(e) => onInputChange(e)}/> Active<br/>
-            <input type="radio" value="false" name="status" onChange={(e) => onInputChange(e)}/> Not active
-            </div> */}
+            
            
             <div className="col-6 col-md-6" >
             <label htmlFor="Gender" className="form-label">
