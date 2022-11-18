@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from 'react'
 import axios from 'axios'
 import { eventWrapper } from '@testing-library/user-event/dist/utils';
+import { toInteger } from 'lodash';
 
 export default function CreateStaff() {
 
@@ -22,42 +23,31 @@ export default function CreateStaff() {
         lastName: "",
         email:"",
         password:"",
-        status:false,
         gender:"",
         phone:"",
         address:"",
         city:"",
         country:"",
-        center: {
-          id:"",
-          name: "",
-          address: "",
-          description: "",
-          grade: 0
-        }
+        center_id: ""
       });
-      const { jmbg,firstName,lastName,email,password,gender,phone,address,city,country,center } = staff;
+      const { jmbg,firstName,lastName,email,password,gender,phone,address,city,country,center_id } = staff;
 
       const onInputChange = (e) => {
-       
-        
-        staff.center.id=centerId;
-        setStaff({ ...staff, [e.target.name]: e.target.value });
-       
-       
+        setStaff({ ...staff, [e.target.name]: e.target.value });       
       };
      
       const handleChange = event => {
-        
-        setCenterId(event.target.value);
-        
+        // setCenterId(event.target.value);
+        setStaff({...staff, ["center_id"]:toInteger(event.target.value)});
       };
+
      
       const onSubmit = async (e) => {
         e.preventDefault();
+        // staff.center_id=centerId;
+        console.log("---------------")
+        console.log(staff);
         await axios.post("http://localhost:8084/api/staff", staff);
-        
-        
       };
       
   return (

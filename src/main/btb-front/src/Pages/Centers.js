@@ -19,7 +19,7 @@ export default function Centers(){
     }, []);
 
     const loadCenters = async () => {
-        const result = await axios.get('http://localhost:8084/api/center/findAll');
+        const result = await axios.get('http://localhost:8084/api/center');
         setCenters(result.data);
     };
 
