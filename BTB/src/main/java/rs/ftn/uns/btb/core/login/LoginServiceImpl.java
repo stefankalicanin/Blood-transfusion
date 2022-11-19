@@ -31,7 +31,7 @@ public class LoginServiceImpl implements LoginService {
         if (user != null) {
             loginDTO.setId(user.getId());
             loginDTO.setEmail(user.getEmail());
-            loginDTO.setRole("user");
+            loginDTO.setRole(user.getRole());
             loginDTO.setCenter_id(null);
             return loginDTO;
         }
@@ -39,7 +39,7 @@ public class LoginServiceImpl implements LoginService {
         if( admin != null){
             loginDTO.setId(admin.getId());
             loginDTO.setEmail(admin.getEmail());
-            loginDTO.setRole("admin");
+            loginDTO.setRole(admin.getRole());
             loginDTO.setCenter_id(null);
             return loginDTO;
         }
@@ -47,8 +47,7 @@ public class LoginServiceImpl implements LoginService {
         if( staff != null){
             loginDTO.setId(staff.getId());
             loginDTO.setEmail(staff.getEmail());
-            loginDTO.setRole("staff");
-            staff.getCenter().getId();
+            loginDTO.setRole(staff.getRole());
             loginDTO.setCenter_id(staff.getCenter().getId());
             return loginDTO;
         }

@@ -4,11 +4,9 @@ import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
+import rs.ftn.uns.btb.core.user.Roles;
 
-@Entity
-@Table(name="users")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="role", discriminatorType=DiscriminatorType.STRING, columnDefinition = "VARCHAR(31) CHECK (role IN ('admin', 'staff', 'user'))")
+@MappedSuperclass
 @Getter @Setter
 public abstract class Person {
     // TODO:
@@ -18,21 +16,30 @@ public abstract class Person {
     // TODO:
     // Long -> String || Integer
 
-    @Id
-    @Column(name = "id", unique = true)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+//    @Id
+//    @Column(name = "id", unique = true)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long id;
 
-    @Column(name = "jmbg", unique = true, nullable = false)
+    @Id
+    @Column(name = "id", unique = true, updatable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "entity_id_seq")
+    @SequenceGenerator(name = "entity_id_seq", sequenceName = "global_id_sequence", allocationSize = 1)
+    protected Long id;
+
+    @Column(name = "role", nullable = false, length = 20)
+    private Roles role;
+
+    @Column(name = "jmbg", unique = true, nullable = false, length = 13)
     private Long jmbg;
 
-    @Column(name = "firstName", nullable = false)
+    @Column(name = "firstName", nullable = false, length = 25)
     private String firstName;
 
-    @Column(name = "lastName", nullable = false)
+    @Column(name = "lastName", nullable = false, length = 45)
     private String lastName;
 
-    @Column(name = "email", unique = true, nullable = false)
+    @Column(name = "email", unique = true, nullable = false, length = 90)
     private String email;
     
     @Column(name = "password", nullable = false)
@@ -44,19 +51,19 @@ public abstract class Person {
 
     // loggedInBefore
 
-    @Column(name = "gender", nullable = true)
+    @Column(name = "gender", nullable = true, length = 20)
     private String gender;
 
-    @Column(name="phone", nullable = true) // unique
+    @Column(name="phone", nullable = true, length = 50) // unique
     private String phone;
 
-    @Column(name="address", nullable = true)
+    @Column(name="address", nullable = true, length = 120)
     private String address;
 
-    @Column(name = "city", nullable = true)
+    @Column(name = "city", nullable = true, length = 80)
     private String city;
 
-    @Column(name = "country", nullable = true)
+    @Column(name = "country", nullable = true, length = 60)
     private String country;
 
     public Person() {}

@@ -2,6 +2,7 @@ package rs.ftn.uns.btb.core.staff.dtos;
 
 import lombok.Getter;
 import lombok.Setter;
+import rs.ftn.uns.btb.core.user.Roles;
 
 @Getter @Setter
 public class StaffCreateDTO {
@@ -17,19 +18,8 @@ public class StaffCreateDTO {
     private String country;
     private String gender;
     private Long center_id;
+    private Roles role;
 
     public StaffCreateDTO() {}
-
-//    public StaffCreateDTO(Staff staff) {
-//        this.jmbg = staff.getJmbg();
-//        this.firstName = staff.getFirstName();
-//        this.lastName = staff.getLastName();
-//        this.email = staff.getEmail();
-//        this.password = staff.getPassword();
-//        this.phone = staff.getPhone();
-//        this.address = staff.getAddress();
-//        this.city = staff.getCountry();
-//        this.gender = staff.getGender();
-//    }
 
 }

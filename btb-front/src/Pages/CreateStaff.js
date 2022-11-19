@@ -28,7 +28,8 @@ export default function CreateStaff() {
         address:"",
         city:"",
         country:"",
-        center_id: ""
+        center_id: "",
+        role: "STAFF",
       });
       const { jmbg,firstName,lastName,email,password,gender,phone,address,city,country,center_id } = staff;
 

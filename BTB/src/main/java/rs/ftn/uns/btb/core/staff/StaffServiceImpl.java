@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import rs.ftn.uns.btb.core.staff.interfaces.StaffService;
+import rs.ftn.uns.btb.core.user.Roles;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class StaffServiceImpl implements StaffService {
     }
     @Override
     public Staff create(Staff staff) throws Exception {
+        staff.setRole(Roles.STAFF);
         Staff newStaff = this._staffRepo.save(staff);
         return newStaff;
     }
