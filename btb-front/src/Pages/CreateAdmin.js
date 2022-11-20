@@ -1,72 +1,42 @@
-import React, { useState,useEffect } from 'react'
-import axios from 'axios'
-import { eventWrapper } from '@testing-library/user-event/dist/utils';
-import { toInteger } from 'lodash';
+import React, { useState } from 'react'
+import axios from 'axios';
+export default function CreateAdmin() {
 
-export default function CreateStaff() {
+    const[admin,setAdmin]=useState(
+        {
+           
+            jmbg: "",
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+            status: false,
+            gender: "",
+            phone: "",
+            address: "",
+            city: "",
+            country: ""
+          }
+    );
 
- 
-  
-  const [centerList, setCenterList] = useState([{'name':'','id':'','address':'','description':'','grade':''}])
-  const [centerId, setCenterId] = useState("");
-  useEffect(() =>{
-    const fetchData = async ()=>{
-        const result = await axios.get('http://localhost:8084/api/center');
-        setCenterList(result.data); 
-    };
-    fetchData();
-}, [])
+    const{jmbg,firstName,lastName,email,password,status,gender,phone,address,city,country}=admin;
 
-    const [staff, setStaff] = useState({
-        jmbg: "",
-        firstName: "",
-        lastName: "",
-        email:"",
-        password:"",
-        gender:"",
-        phone:"",
-        address:"",
-        city:"",
-        country:"",
-        center_id: "",
-        role: "STAFF",
-      });
-      const { jmbg,firstName,lastName,email,password,gender,phone,address,city,country,center_id } = staff;
-
-      const onInputChange = (e) => {
-        setStaff({ ...staff, [e.target.name]: e.target.value });       
+    const onInputChange = (e) => {
+        setAdmin({ ...admin, [e.target.name]: e.target.value });
       };
-     
-      const handleChange = event => {
-        
-        setStaff({...staff, ["center_id"]:toInteger(event.target.value)});
-      };
-
-     
+    
       const onSubmit = async (e) => {
         e.preventDefault();
+        await axios.post("http://localhost:8084/api/admin", admin);
         
-        console.log("---------------")
-        console.log(staff);
-        await axios.post("http://localhost:8084/api/staff", staff);
       };
-      
+
+
   return (
     <div className="container col-4 border rounded p-4 mt-2 shadow" style={{'width':'50%','margin-left':'280px'}}>
-   <p></p>
-     <h2 className="text-center m-4">Register staff</h2>
+  
+     <h2 className="text-center m-4">Register admin</h2>
           <form  className='row g-2' onSubmit={(e) => onSubmit(e)}>
-          <select className="form-control" onChange={handleChange} name="center">
-              <option value="">Choose center name</option>
-
-        {centerList.map((center,index) => (
-          <option key={index} value={center.id}>
-            {center.name}
-          </option>    
-              ))
-              }
-
-          </select>
             <div className="col md-6">
               <label htmlFor="Jmbg" className="form-label">
                 Jmbg
@@ -76,7 +46,7 @@ export default function CreateStaff() {
                 className="form-control"
                 placeholder="Enter jmbg"
                 name="jmbg"
-                pattern="[1-9][0-9]{12}"
+                pattern="[0-9]{13}"
                 title="JMBG has 13 digit"
                 required
                 onChange={(e) => onInputChange(e)}
@@ -209,5 +179,5 @@ export default function CreateStaff() {
           </form>
         </div>
    
-  );
+  )
 }

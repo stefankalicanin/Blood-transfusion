@@ -10,11 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import rs.ftn.uns.btb.core.admin.dtos.ChangeAdminPasswordDTO;
 import rs.ftn.uns.btb.core.admin.interfaces.AdminService;
+import rs.ftn.uns.btb.core.user.User;
 
 @RestController
 @RequestMapping(value = "/api/admin")
@@ -43,4 +42,33 @@ public class AdminController {
             return new ResponseEntity<Admin>(savedAdmin, HttpStatus.CONFLICT);
         }
     }
+    @Operation(summary = "Update admin password", description = "Update admin password", method = "PUT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Admin successfuly edited",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = Admin.class) )
+                    }),
+
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
+    }
+
+    )
+    @PutMapping(value="/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Admin> updateUser(@RequestBody ChangeAdminPasswordDTO dto){
+        Admin updatedAdmin=null;
+        try {
+            updatedAdmin = _adminService.updateByPassword(dto);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        if(updatedAdmin == null){
+            return new ResponseEntity<Admin>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return new ResponseEntity<Admin>(updatedAdmin, HttpStatus.OK);
+
+    }
+
 }

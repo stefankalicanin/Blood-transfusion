@@ -2,8 +2,11 @@ package rs.ftn.uns.btb.core.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import rs.ftn.uns.btb.core.admin.dtos.ChangeAdminPasswordDTO;
 import rs.ftn.uns.btb.core.admin.interfaces.AdminService;
 import rs.ftn.uns.btb.core.user.Roles;
+
+import java.util.Optional;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -17,5 +20,19 @@ public class AdminServiceImpl implements AdminService {
         admin.setRole(Roles.ADMIN);
         Admin newAdmin = this._adminRepo.save(admin);
         return newAdmin;
+    }
+    @Override
+    public Admin updateByPassword(ChangeAdminPasswordDTO dto) throws  Exception
+    {
+
+         Admin newAdmin=this._adminRepo.findOneById(dto.getId());
+        if (newAdmin == null) {
+            throw new Exception("Admin does not exist");
+        }
+        newAdmin.setPassword(dto.getPassword());
+        newAdmin.setStatus(true);
+
+        Admin updatedAdminByPassword =this._adminRepo.save(newAdmin);
+        return updatedAdminByPassword;
     }
 }
