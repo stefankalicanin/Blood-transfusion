@@ -20,7 +20,8 @@ class Signup extends Component {
       password: "",
       jmbg: "",
       email: "",
-      status: true
+      status: true,
+      role: "USER"
     };
     this.error_custom = "";
   }
@@ -35,7 +36,8 @@ class Signup extends Component {
       password: this.state.password,
       jmbg: this.state.jmbg,
       email: this.state.email,
-      status: true
+      status: true,
+      role: this.state.role,
     };
     console.log(userData)
     await axios.post('http://localhost:8084/api/user',userData)

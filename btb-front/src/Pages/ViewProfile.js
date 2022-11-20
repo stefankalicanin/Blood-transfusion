@@ -16,11 +16,12 @@ export default function ViewProfile() {
     city: "",
     country: "",
     profession: "",
-    job: "",
+    job: ""
   });
 
   const [first, setFirst] = useState(true);
   const [disabled, setDisabled] = useState(true);
+  
   useEffect(() => {
     if (first){
       loadUser();

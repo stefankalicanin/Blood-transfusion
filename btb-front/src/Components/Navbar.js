@@ -45,7 +45,7 @@ function Navbar() {
                         </Link>
                     </li>
                     {SidebarData.map((item, index) => {
-                        if (item.role.includes(role)) {
+                        if (item.role.includes(role.toLowerCase())) {
                             return (
                                 <li key={index} className={item.cName}>
                                 <Link to={item.path}>
