@@ -74,5 +74,18 @@ export const SidebarData = [
         path: "/viewProfile",
         cName: "nav-text",
         role: ["user"]
+    },
+    {
+        title: "Register Admin",
+        path: "/admin/createAdmin",
+        cName: "nav-text",
+        role: ["admin"]
+    },
+    {
+        title: "Change Admin Password",
+        path: "/admin/changePassword",
+        cName: "nav-text",
+        role: ["admin"]
     }
+
 ];
