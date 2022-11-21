@@ -51,13 +51,10 @@ public class ReportController {
     })
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Report> createReport(@RequestBody ReportCreateDTO reportDTO) {
-        System.out.println("What");
-        System.out.println(reportDTO.getUser_id() + " : " + reportDTO.getAppointment_id());
+
         if (reportDTO.getAppointment_id() == null || reportDTO.getUser_id() == null) {
             return new ResponseEntity<Report>(HttpStatus.BAD_REQUEST);
         }
-
-        System.out.println("Prosao null proveru");
 
         User user = _userService.findOne(reportDTO.getUser_id());
         Appointment appointment = _appointmentService.findOne(reportDTO.getAppointment_id());
@@ -65,8 +62,6 @@ public class ReportController {
         if (user == null || appointment == null) {
             return new ResponseEntity<Report>(HttpStatus.NOT_FOUND);
         }
-
-        System.out.println("Pronasao user-a i appointment");
 
         Report savedReport = null;
 
