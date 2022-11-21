@@ -99,7 +99,7 @@ public class UserController {
        List<User> users = _userService.findAll();
         List<UserDTO> usersDTO = new ArrayList<>();
         for (User u : users) {
-            usersDTO.add(new UserDTO(u.getJmbg(),u.getFirstName(),u.getLastName(),u.getEmail()));
+            usersDTO.add(new UserDTO(u.getId(), u.getJmbg(),u.getFirstName(),u.getLastName(),u.getEmail()));
         }
         return new ResponseEntity<>(usersDTO, HttpStatus.OK);
     }
