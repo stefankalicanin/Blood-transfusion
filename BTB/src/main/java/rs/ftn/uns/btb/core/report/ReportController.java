@@ -44,7 +44,7 @@ public class ReportController {
                 content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Report.class))}),
         @ApiResponse(responseCode = "400", description = "Not possible to create new report when user/appointment id are not known",
                 content = @Content),
-        @ApiResponse(responseCode = "409", description = "Not possible to create new report when given ID is not null",
+        @ApiResponse(responseCode = "409", description = "Not possible to create new report when there's already report for given appointment id",
                 content = @Content),
         @ApiResponse(responseCode = "404", description = "Not possible to create new report when user or appointment with given ID cannot be found",
                 content = @Content)
