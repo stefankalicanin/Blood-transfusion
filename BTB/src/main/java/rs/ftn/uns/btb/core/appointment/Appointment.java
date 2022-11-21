@@ -44,7 +44,8 @@ public class Appointment {
     // @JsonIgnore
     // private Set<Report>
 
-    @OneToOne(mappedBy = "appointment")
+    @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Report report;
 
     public Appointment() {}

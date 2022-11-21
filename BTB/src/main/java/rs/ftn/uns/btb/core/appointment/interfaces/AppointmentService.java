@@ -8,4 +8,6 @@ public interface AppointmentService {
     List<Appointment> findByCenterId(Long id);
 
     void deleteSelection(Long[] idsOfAppointmentsToRemove);
+
+    Appointment findOne(Long id);
 }

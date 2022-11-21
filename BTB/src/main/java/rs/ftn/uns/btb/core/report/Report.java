@@ -4,6 +4,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,18 +19,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import rs.ftn.uns.btb.core.appointment.Appointment;
 import rs.ftn.uns.btb.core.blood.interfaces.BloodType;
+import rs.ftn.uns.btb.core.report.dtos.ReportCreateDTO;
 import rs.ftn.uns.btb.core.report.interfaces.Attendance;
 import rs.ftn.uns.btb.core.user.User;
 
 @Entity
 @Table(name="report")
 @Getter @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Report {
 
     @Id
+    @Column(name = "id", unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     @ManyToOne(fetch = FetchType.EAGER)
@@ -53,8 +55,17 @@ public class Report {
     private BloodType bloodType;
 
     @Column(name = "blood_quantity", nullable = false)
-    private String bloodQuantity;
+    private Double bloodQuantity;
 
     @Column(name = "doctor_note", nullable = true)
-    private String note; 
+    private String note;
+
+    public Report() {}
+
+    public void copyValuesFromCreateDTO(ReportCreateDTO reportDTO) {
+        this.setAttendanceStatus(reportDTO.getAttendanceStatus());
+        this.setBloodType(reportDTO.getBloodType());
+        this.setBloodQuantity(reportDTO.getBloodQuantity());
+        this.setNote(reportDTO.getDoctorsNote());
+    } 
 }

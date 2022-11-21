@@ -59,9 +59,23 @@ INSERT INTO public.appointment(date, time, duration, center_id, staff_id) VALUES
 
 
 -- BLOOD BANK
-INSERT INTO public.blood(type, quantity, center_id) VALUES ('A+', 12.5, 1);
-INSERT INTO public.blood(type, quantity, center_id) VALUES ('B+', 2.5, 1);
-INSERT INTO public.blood(type, quantity, center_id) VALUES ('A-', 3.5, 1);
+        -- A_POSITIVE = 0,
+        -- A_NEGATIVE = 1,
+        -- B_POSITIVE = 2,
+        -- B_NEGATIVE = 3,
+        -- O_POSITIVE = 4,
+        -- O_NEGATIVE = 5,
+        -- AB_POSITIVE = 6,
+        -- AB_NEGATIVE = 7
+
+INSERT INTO public.blood(type, quantity, center_id) VALUES (0, 5.52, 1);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (1, 3.21, 1);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (2, 1.82, 1);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (3, 0.54, 1);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (4, 4.64, 1);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (5, 3.50, 1);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (6, 7.12, 1);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (7, 9.01, 1);
 
 
 -- SURVEY_QUESTIONS

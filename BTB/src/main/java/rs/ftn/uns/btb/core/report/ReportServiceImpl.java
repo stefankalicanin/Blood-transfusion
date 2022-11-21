@@ -13,4 +13,9 @@ public class ReportServiceImpl implements ReportService {
     @Autowired
     public ReportServiceImpl (ReportRepository _repReportRepository) { this._reportRepository = _repReportRepository; }
 
+    @Override
+    public Report create(Report report) throws Exception {
+        Report newReport = this._reportRepository.save(report);
+        return newReport;
+    }
 }

@@ -27,4 +27,9 @@ public class AppointmentServiceImpl implements AppointmentService {
         _appointmentRepo.deleteAllById(Arrays.asList(idsOfAppointmentsToRemove));
     }
 
+    @Override
+    public Appointment findOne(Long id) {
+        return this._appointmentRepo.findById(id).orElseGet(null);
+    }
+
 }

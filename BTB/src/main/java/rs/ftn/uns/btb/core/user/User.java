@@ -31,7 +31,7 @@ public class User extends Person {
     @JsonIgnore
     private Set<SurveyAnswers> surveyAnswers = new HashSet<>();
     
-    @OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private Set<Report> historyAppointments = new HashSet<>();
     
