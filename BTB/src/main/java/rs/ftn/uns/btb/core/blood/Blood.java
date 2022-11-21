@@ -3,6 +3,7 @@ package rs.ftn.uns.btb.core.blood;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import rs.ftn.uns.btb.core.blood.interfaces.BloodType;
 import rs.ftn.uns.btb.core.center.Center;
 
 import javax.persistence.*;
@@ -24,8 +25,8 @@ public class Blood {
      */
 
     @Id
-    @Column(name = "TYPE", unique = true, nullable = false, columnDefinition = "VARCHAR(10)")
-    private String type;    // TODO: String -> ENUM ?
+    @Column(name = "TYPE", unique = true, nullable = false)
+    private BloodType type;
 
     @Column(name = "QUANTITY", nullable = false)
     private Double quantity;

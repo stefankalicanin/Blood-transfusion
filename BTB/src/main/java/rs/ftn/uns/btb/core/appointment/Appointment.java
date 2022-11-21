@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import rs.ftn.uns.btb.core.center.Center;
+import rs.ftn.uns.btb.core.report.Report;
 import rs.ftn.uns.btb.core.staff.Staff;
 
 import javax.persistence.*;
@@ -38,6 +39,13 @@ public class Appointment {
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnore
     private Staff staff;
+
+    // @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    // @JsonIgnore
+    // private Set<Report>
+
+    @OneToOne(mappedBy = "appointment")
+    private Report report;
 
     public Appointment() {}
 

@@ -10,7 +10,6 @@ import Reports from "./Routes/Reports";
 import Navbar from "./Components/Navbar";
 import "./App.css"
 import EditCenter from "./Routes/EditCenter";
-import EditCenterInfo from "./Pages/EditCenterInfo";
 import Signup from "./Components/Signup";
 import Login from "./Components/Login";
 import Home from "./Components/Home"
