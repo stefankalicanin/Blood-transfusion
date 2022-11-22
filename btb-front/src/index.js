@@ -20,6 +20,7 @@ import CreateStaff from "./Pages/CreateStaff";
 import ShowUsers from "./Pages/ShowUsers";
 import Centers from "./Pages/Centers";
 import ViewProfile from "./Pages/ViewProfile";
+import DefineAppointment from "./Pages/DefineAppointment";
 
 const AppLayout = () => (
     <>
@@ -90,6 +91,10 @@ const router = createBrowserRouter([
             {
                 path: "viewProfile",
                 element: <ViewProfile />
+            },
+            {
+                path: "defineAppointment",
+                element: <DefineAppointment />
             }
         ]
     }

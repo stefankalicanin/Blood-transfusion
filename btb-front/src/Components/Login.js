@@ -96,7 +96,7 @@ export default function LoginFunc(){
                 <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
               </Form.Group>
             </Form>
-            <Button color="primary" onClick={onLoginClick}>
+            <Button className="btn my-2" color="primary" onClick={onLoginClick}>
                Login
             </Button>
             <p className="mt-2">

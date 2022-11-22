@@ -1,8 +1,10 @@
 package rs.ftn.uns.btb.core.appointment;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Getter;
 import lombok.Setter;
+import rs.ftn.uns.btb.core.appointment.dtos.AppointmentDTO;
 import rs.ftn.uns.btb.core.center.Center;
 import rs.ftn.uns.btb.core.staff.Staff;
 
@@ -40,5 +42,11 @@ public class Appointment {
     private Staff staff;
 
     public Appointment() {}
+
+    public void copyValuesFromAppointmentDto(AppointmentDTO appointmentDTO){
+        this.setDate(appointmentDTO.getDate());
+        this.setTime(appointmentDTO.getTime());
+        this.setDuration(appointmentDTO.getDuration());
+    }
 
 }

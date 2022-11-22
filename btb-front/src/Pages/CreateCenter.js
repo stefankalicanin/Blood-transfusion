@@ -13,7 +13,7 @@ export default function CreateCenter() {
         grade:0.0,
       });
 
-      const { name, address, description,grade } = center;
+      const { name, address, description, grade } = center;
 
       const onInputChange = (e) => {
         setCenter({ ...center, [e.target.name]: e.target.value });

@@ -52,6 +52,37 @@ public class AppointmentController {
         return new ResponseEntity<List<AppointmentDTO>>(appointmentDTOS, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/findAll", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Appointment>> getAll(){
+        return new ResponseEntity<List<Appointment>>(_appointmentService.findAll(), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/createAppointment", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Appointment> createAppointment(@RequestBody AppointmentDTO appointmentDTO) {
+        Appointment savedAppointment = null;
+        try {
+            Appointment newAppointment = new Appointment();
+            newAppointment.copyValuesFromAppointmentDto(appointmentDTO);
+            savedAppointment = _appointmentService.create(newAppointment);
+            return new ResponseEntity<Appointment>(savedAppointment, HttpStatus.CREATED);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<Appointment>(savedAppointment, HttpStatus.CONFLICT);
+        }
+    }
+
+    /*@PostMapping(value = "/addAppointment", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Appointment> addAppointment(@RequestBody Appointment appointment) {
+        Appointment savedAppointment = null;
+        try {
+            savedAppointment = _appointmentService.create(appointment);
+            return new ResponseEntity<Appointment>(savedAppointment, HttpStatus.CREATED);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<Appointment>(savedAppointment, HttpStatus.CONFLICT);
+        }
+    }*/
+
 
     @Operation(summary = "Delete multiple appointments", description = "Delete multiple appointments", method = "DELETE")
     @ApiResponses(value = {
