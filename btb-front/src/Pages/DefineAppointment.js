@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
-import { toInteger } from 'lodash';
 
 export default function DefineAppointment() {
 
@@ -10,7 +9,7 @@ export default function DefineAppointment() {
         const fetchData = async () => {
             const userInfo = JSON.parse(localStorage.getItem('user'));
             console.log(userInfo);
-            const result = await axios.get('http://localhost:8084/api/staff/byCenter/' +userInfo.center_id);
+            const result = await axios.get('http://localhost:8084/api/staff/byCenter/' + userInfo.center_id);
             setStaffList(result.data);
         };
         fetchData();
@@ -26,15 +25,9 @@ export default function DefineAppointment() {
         
     });
     
-
-
     const onInputChange = (e) => {
         setAppointment({...appointment, [e.target.name]: e.target.value});
     }
-
-    const handleChange = event => {
-        setAppointment({...appointment, ["staffId"]:toInteger(event.target.value)});
-    };
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -43,7 +36,6 @@ export default function DefineAppointment() {
         appointment.time = appointment.time + ":00";
         await axios.post("http://localhost:8084/api/appointment/createAppointment", appointment);
     };
-
     
 
   return (
@@ -94,7 +86,7 @@ export default function DefineAppointment() {
                     Staff:
                 </label>
                 
-                <select className="form-control" onChange={handleChange} name ="staff">
+                <select className="form-control" onChange={(e) => onInputChange(e)} name ="staff_id">
                     <option value="">Choose staff</option>
                     {staffList.map((staff, index) => (
                         <option key={index} value={staff.id}>
