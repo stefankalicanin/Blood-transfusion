@@ -5,10 +5,16 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Getter;
 import lombok.Setter;
 import rs.ftn.uns.btb.core.appointment.dtos.AppointmentDTO;
+import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentState;
 import rs.ftn.uns.btb.core.center.Center;
+import rs.ftn.uns.btb.core.scheduled_appointment.ScheduledAppointment;
 import rs.ftn.uns.btb.core.staff.Staff;
+import rs.ftn.uns.btb.core.user.User;
 
 import javax.persistence.*;
+
+import org.springframework.scheduling.annotation.Scheduled;
+
 import java.sql.Date; // SQL DATE = YYYY-MM-DD, JAVAUTIL DATE = YYYY-MM-DD HH:MM:SS
 import java.sql.Time;
 
@@ -31,6 +37,10 @@ public class Appointment {
     @Column(name = "DURATION", nullable = false)
     private Integer duration;
 
+    @Column(name = "state", nullable = false)
+    @JsonIgnore
+    private AppointmentState state;
+
     // Centar u kom postoji termin
     @ManyToOne(fetch = FetchType.EAGER)
     //@JoinColumn(name="center_id", nullable = false)
@@ -40,6 +50,25 @@ public class Appointment {
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnore
     private Staff staff;
+
+    @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private ScheduledAppointment scheduledAppointment;
+    
+    // @ManyToOne(cascade = CascadeType.ALL)
+    // @JoinTable(
+    //     name = "scheduledApp",
+    //     joinColumns = @JoinColumn(
+    //         name = "appointment_id",
+    //         referencedColumnName = "id"
+    //     ),
+    //     inverseJoinColumns = @JoinColumn(
+    //         name = "user_id",
+    //         referencedColumnName = "id"
+    //     )
+    // )
+    // @JsonIgnore
+    // private User user;
 
     public Appointment() {}
 

@@ -3,6 +3,8 @@ package rs.ftn.uns.btb.core.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import rs.ftn.uns.btb.core.appointment.Appointment;
+import rs.ftn.uns.btb.core.scheduled_appointment.ScheduledAppointment;
 import rs.ftn.uns.btb.core.survey.answer.SurveyAnswers;
 import rs.ftn.uns.btb.core.user.dtos.UserUpdateDTO;
 import rs.ftn.uns.btb.core.user.interfaces.Person;
@@ -30,6 +32,25 @@ public class User extends Person {
     @JsonIgnore
     private Set<SurveyAnswers> surveyAnswers = new HashSet<>();
     public User() {}
+
+    @OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
+    @JsonIgnore
+    private Set<ScheduledAppointment> scheduledAppointments = new HashSet<>();    
+
+    // @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
+    // @JoinTable(
+    //     name = "scheduledApp",
+    //     joinColumns = @JoinColumn(
+    //         name = "user_id",
+    //         referencedColumnName = "id"
+    //     ),
+    //     inverseJoinColumns = @JoinColumn(
+    //         name = "appointment_id",
+    //         referencedColumnName = "id"
+    //     )
+    // )
+    // @JsonIgnore
+    // private Set<Appointment> allAppointments = new HashSet<>();
 
     public User(UserUpdateDTO userUpdateDTO) {
         this.setJmbg((userUpdateDTO.getJmbg()));
