@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function ShowUsers() {
 
@@ -39,11 +39,19 @@ export default function ShowUsers() {
 
   const navigate = useNavigate();
 
-  const redirectToReports = async (userId) => {
-    navigate({
-      pathname: "/reports",
-      search: `?userId=${userId}`,
+  const handleRowClick = async (data) => {
+    // navigate({
+    //   pathname: "/",
+    //   search: `?userId=${userId}`,
+    //   state: { data: userId },
+    // })
+    navigate('/reports',
+    {
+      state: {
+        data
+      }
     })
+    // <Link to="/"/>
   }
   
   return (
@@ -63,7 +71,7 @@ export default function ShowUsers() {
   <tbody>
     {
         users.map((user,index)=>(
-        <tr className='table-light' onClick={() => redirectToReports(user.id)}>
+        <tr className='table-light' onClick={() => handleRowClick(user)}>
         <th scope="row" key={index}>{index+1}</th>
         <td>{user.jmbg}</td>
         <td>{user.firstName}</td>
@@ -84,4 +92,11 @@ Link to={{
           pathname: "/reports",
           search: `?userId=${user.id}`,
         }}
+*/
+
+/*
+          <Link
+            to="/reports"
+            state={{data: user.id}}>
+
 */
