@@ -16,7 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@DiscriminatorValue("staff")
+@Table(name = "staffs")
 @Getter @Setter
 public class Staff extends Person {
 
@@ -53,6 +53,7 @@ public class Staff extends Person {
         this.setCountry(staffDTO.getCountry());
         this.setPhone(staffDTO.getPhone());
         this.setGender(staffDTO.getGender());
+        this.setRole(staffDTO.getRole());
     }
 
     @Override

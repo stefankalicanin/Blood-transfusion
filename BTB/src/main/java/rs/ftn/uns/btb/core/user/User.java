@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@DiscriminatorValue("user")
+@Table(name = "users")
 @Getter @Setter
 public class User extends Person {
 

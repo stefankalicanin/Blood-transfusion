@@ -56,22 +56,27 @@ function EditCenter() {
         phone:""
     })
 
+    const[staff_info, setStaffInfo] = useState(JSON.parse(localStorage.getItem('user')));
+
     const[toDeleteAppointments, updateDeleteAppointmentIDs] = useState([])
 
     
     // console.log(CONFIG.IP_ADDRESS + ":" + CONFIG.PORT);
     
     useEffect(() => {
-        loadCenter()
+        loadCenter();
+        // setStaffInfo(JSON.parse(localStorage.getItem('user')));
     }, [])
 
     const loadCenter =  async () => {
         // const loadedCenter = await axios.get(`http://localhost:8084/center/${id}`)
         // console.log("Usao u load async");
         try {
-            const loadedCenter = await axios.get(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/center/1`);
-            const loadedAppointments = await axios.get(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/appointment/byCenter/1`)
-            const loadedStaff = await axios.get(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/staff/byCenter/1`)
+            console.log("------------------")
+            console.log(staff_info.center_id);
+            const loadedCenter = await axios.get(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/center/${staff_info.center_id}`);
+            const loadedAppointments = await axios.get(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/appointment/byCenter/${staff_info.center_id}`)
+            const loadedStaff = await axios.get(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/staff/byCenter/${staff_info.center_id}`)
             
             loadedAppointments.data = [...loadedAppointments.data].sort((a, b) => a.id - b.id);
 
@@ -122,7 +127,8 @@ function EditCenter() {
         const updatedCenter = {
             'name': center.name,
             'address': center.address,
-            'description': center.description
+            'description': center.description,
+            'grade':center.grade
         }
 
         let keysToUpdate = ['name', 'address', 'description'];
@@ -147,7 +153,6 @@ function EditCenter() {
         if (exitError) { return; }
 
         try {
-            const staff_info = JSON.parse(localStorage.getItem('user'));
             const response = await axios.put(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/center/${staff_info.center_id}`, updatedCenter);
             console.log(response);
             // setCenter((center) => {

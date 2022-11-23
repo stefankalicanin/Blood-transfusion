@@ -21,7 +21,8 @@ import ShowUsers from "./Pages/ShowUsers";
 import Centers from "./Pages/Centers";
 import ViewProfile from "./Pages/ViewProfile";
 import DefineAppointment from "./Pages/DefineAppointment";
-
+import CreateAdmin from "./Pages/CreateAdmin";
+import ChangeAdminPassword from "./Pages/ChangeAdminPassword";
 const AppLayout = () => (
     <>
         <Navbar />
@@ -95,7 +96,16 @@ const router = createBrowserRouter([
             {
                 path: "defineAppointment",
                 element: <DefineAppointment />
+            },     
+            {
+                path: "admin/createAdmin",
+                element: <CreateAdmin/>
+            },
+            {
+                path: "admin/changePassword",
+                element: <ChangeAdminPassword/>
             }
+                
         ]
     }
 ]);
