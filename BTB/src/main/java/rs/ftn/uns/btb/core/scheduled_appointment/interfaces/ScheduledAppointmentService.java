@@ -1,8 +1,11 @@
 package rs.ftn.uns.btb.core.scheduled_appointment.interfaces;
 
-import org.springframework.stereotype.Service;
+import java.util.Set;
 
-@Service
+import rs.ftn.uns.btb.core.scheduled_appointment.ScheduledAppointment;
+
 public interface ScheduledAppointmentService {
-    
+
+    Set<ScheduledAppointment> findByUserId(Long id);
+        
 }

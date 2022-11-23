@@ -22,6 +22,7 @@ import ViewProfile from "./Pages/ViewProfile";
 import DefineAppointment from "./Pages/DefineAppointment";
 import CreateAdmin from "./Pages/CreateAdmin";
 import ChangeAdminPassword from "./Pages/ChangeAdminPassword";
+import { E404 } from "./Pages/E404";
 const AppLayout = () => (
     <>
         <Navbar />
@@ -103,6 +104,10 @@ const router = createBrowserRouter([
             {
                 path: "admin/changePassword",
                 element: <ChangeAdminPassword/>
+            },
+            {
+                path: "404",
+                element: <E404/>
             }
                 
         ]
