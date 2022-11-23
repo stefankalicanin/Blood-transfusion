@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentService;
+import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentState;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,6 +16,13 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Autowired
     public AppointmentServiceImpl(AppointmentRepository _appointmentRepo) { this._appointmentRepo = _appointmentRepo; }
+
+    @Override
+    public Appointment create(Appointment appointment) throws  Exception{
+        appointment.setState(AppointmentState.AVAILABLE);
+        Appointment newAppointment = this._appointmentRepo.save(appointment);
+        return newAppointment;
+    }
 
     @Override
     public List<Appointment> findByCenterId(Long id) {
@@ -30,6 +38,11 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public Appointment findOne(Long id) {
         return this._appointmentRepo.findById(id).orElseGet(null);
+    }
+    
+    public List<Appointment> findAll() {
+        List<Appointment> allAppointments = _appointmentRepo.findAll();
+        return allAppointments;
     }
 
 }

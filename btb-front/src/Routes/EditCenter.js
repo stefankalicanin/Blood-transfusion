@@ -337,7 +337,8 @@ function EditCenter() {
                             </tbody>
                         </table>
                         </div>
-                        <button className='remove-btn update-btn' onClick={deleteCenters} >Remove</button>
+                        <button className='remove-btn update-btn' onClick={deleteCenters} >Remove</button>   
+                        <Link className="add-btn" to="/defineAppointment"><button className=" update-btn mx-2">Add </button></Link>
                     </form>
                 </div>
                 <div className={toggleState === '3' ? "container content active-content" : "content"} style={{'width':'70%', 'margin-left':'-70px'}}>

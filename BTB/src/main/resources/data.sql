@@ -46,16 +46,17 @@ VALUES (nextval('global_id_sequence'), '19932131414', 'Petar', 'Petrovic', 'peta
 
 
 -- PREDEFINED APPOINTMENTS
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id) VALUES ('2022-11-17', '09:00:00', 1, 1, 2);
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id) VALUES ('2022-11-17', '11:00:00', 2, 1, 2);
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id) VALUES ('2022-11-17', '14:00:00', 2, 1, 2);
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id) VALUES ('2022-11-18', '10:00:00', 1, 1, 2);
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id) VALUES ('2022-11-18', '12:00:00', 1, 1, 2);
+-- AVAILABLE, SCHEDULED, FINISHED == 0, 1, 2
+INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-17', '09:00:00', 1, 1, 2, 0);
+INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-17', '11:00:00', 2, 1, 2, 0);
+INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-17', '14:00:00', 2, 1, 2, 0);
+INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-18', '10:00:00', 1, 1, 2, 0);
+INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-18', '12:00:00', 1, 1, 2, 0);
 
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id) VALUES ('2022-11-17', '17:00:00', 1, 2, 3);
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id) VALUES ('2022-11-18', '10:00:00', 1, 2, 3);
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id) VALUES ('2022-11-18', '12:00:00', 2, 2, 3);
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id) VALUES ('2022-11-18', '17:00:00', 3, 2, 3);
+INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-17', '17:00:00', 1, 2, 3, 0);
+INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-18', '10:00:00', 1, 2, 3, 0);
+INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-18', '12:00:00', 2, 2, 3, 0);
+INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-18', '17:00:00', 3, 2, 3, 0);
 
 
 -- BLOOD BANK
