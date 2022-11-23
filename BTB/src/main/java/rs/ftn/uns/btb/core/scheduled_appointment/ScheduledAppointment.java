@@ -37,7 +37,7 @@ public class ScheduledAppointment implements Serializable {
     private Appointment appointment;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    private User user;
+    private User users;
 
     public ScheduledAppointment() {}  
 
