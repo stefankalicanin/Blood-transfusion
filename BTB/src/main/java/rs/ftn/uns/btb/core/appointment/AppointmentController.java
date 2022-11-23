@@ -67,17 +67,13 @@ public class AppointmentController {
     @PostMapping(value = "/createAppointment", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Appointment> createAppointment(@RequestBody AppointmentDTO appointmentDTO) {
         Appointment savedAppointment = null;
-        System.out.println("Enter");
+
         Staff staff = _staffService.findOne(appointmentDTO.getStaff_id());
-        System.out.println("Staff");
         Center center = staff.getCenter();
-        System.out.println("Center");
 
         if (staff == null || center == null) {
             return new ResponseEntity<Appointment>(HttpStatus.NOT_FOUND);
         }
-
-        System.out.println("A ok");
 
         try {
             Appointment newAppointment = new Appointment();
