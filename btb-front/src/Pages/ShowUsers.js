@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function ShowUsers() {
 
@@ -34,12 +35,30 @@ export default function ShowUsers() {
     }
     setQuery(getSearch);
   }
-    
+
+
+  const navigate = useNavigate();
+
+  const handleRowClick = async (data) => {
+    // navigate({
+    //   pathname: "/",
+    //   search: `?userId=${userId}`,
+    //   state: { data: userId },
+    // })
+    navigate('/reports',
+    {
+      state: {
+        data
+      }
+    })
+    // <Link to="/"/>
+  }
+  
   return (
     <div className='container'>
         <div className='py-4' style={{'width':'75%','margin-left':'280px'}}>
         <input type="text" name="name" value={query} className="form-control" onChange={(e)=>handleSearch(e)} placeholder="search..."/><br/>
-        <table className="table border rounded p-4 mt-2 shadow table-striped">
+        <table className="table table-hover border rounded p-4 mt-2 shadow table-striped" style={{'cursor': 'pointer'}}>
   <thead>
     <tr className='table-dark'>
       <th scope="col"></th>
@@ -52,7 +71,7 @@ export default function ShowUsers() {
   <tbody>
     {
         users.map((user,index)=>(
-        <tr className='table-light'>
+        <tr className='table-light' onClick={() => handleRowClick(user)}>
         <th scope="row" key={index}>{index+1}</th>
         <td>{user.jmbg}</td>
         <td>{user.firstName}</td>
@@ -67,3 +86,17 @@ export default function ShowUsers() {
     </div>
   )
 }
+
+/*
+Link to={{
+          pathname: "/reports",
+          search: `?userId=${user.id}`,
+        }}
+*/
+
+/*
+          <Link
+            to="/reports"
+            state={{data: user.id}}>
+
+*/

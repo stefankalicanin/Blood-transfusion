@@ -3,6 +3,7 @@ package rs.ftn.uns.btb.core.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import rs.ftn.uns.btb.core.report.Report;
 import rs.ftn.uns.btb.core.appointment.Appointment;
 import rs.ftn.uns.btb.core.scheduled_appointment.ScheduledAppointment;
 import rs.ftn.uns.btb.core.survey.answer.SurveyAnswers;
@@ -31,6 +32,11 @@ public class User extends Person {
     @Getter @Setter
     @JsonIgnore
     private Set<SurveyAnswers> surveyAnswers = new HashSet<>();
+    
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private Set<Report> historyAppointments = new HashSet<>();
+    
     public User() {}
 
     @OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)

@@ -7,6 +7,7 @@ import lombok.Setter;
 import rs.ftn.uns.btb.core.appointment.dtos.AppointmentDTO;
 import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentState;
 import rs.ftn.uns.btb.core.center.Center;
+import rs.ftn.uns.btb.core.report.Report;
 import rs.ftn.uns.btb.core.scheduled_appointment.ScheduledAppointment;
 import rs.ftn.uns.btb.core.staff.Staff;
 import rs.ftn.uns.btb.core.user.User;
@@ -50,6 +51,14 @@ public class Appointment {
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnore
     private Staff staff;
+
+    // @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    // @JsonIgnore
+    // private Set<Report>
+
+    @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Report report;
 
     @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL)
     @JsonIgnore

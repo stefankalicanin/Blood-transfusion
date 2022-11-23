@@ -12,4 +12,6 @@ public interface AppointmentService {
     List<Appointment> findAll();
 
     void deleteSelection(Long[] idsOfAppointmentsToRemove);
+
+    Appointment findOne(Long id);
 }
