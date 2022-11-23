@@ -5,7 +5,11 @@ import java.util.List;
 
 public interface AppointmentService {
 
+    Appointment create(Appointment appointment) throws  Exception;
+
     List<Appointment> findByCenterId(Long id);
+
+    List<Appointment> findAll();
 
     void deleteSelection(Long[] idsOfAppointmentsToRemove);
 }

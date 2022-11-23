@@ -17,6 +17,12 @@ public class AppointmentServiceImpl implements AppointmentService {
     public AppointmentServiceImpl(AppointmentRepository _appointmentRepo) { this._appointmentRepo = _appointmentRepo; }
 
     @Override
+    public Appointment create(Appointment appointment) throws  Exception{
+        Appointment newAppointment = this._appointmentRepo.save(appointment);
+        return newAppointment;
+    }
+
+    @Override
     public List<Appointment> findByCenterId(Long id) {
         List<Appointment> appointmentsForCenter = _appointmentRepo.findAllByCenterId(id);
         return appointmentsForCenter;
@@ -25,6 +31,12 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public void deleteSelection(Long[] idsOfAppointmentsToRemove) {
         _appointmentRepo.deleteAllById(Arrays.asList(idsOfAppointmentsToRemove));
+    }
+
+    @Override
+    public List<Appointment> findAll() {
+        List<Appointment> allAppointments = _appointmentRepo.findAll();
+        return allAppointments;
     }
 
 }

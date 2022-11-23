@@ -19,6 +19,8 @@ import CreateCenter from './Pages/CreateCenter';
 import Survey from "./Components/Survey";
 import ViewProfile from "./Pages/ViewProfile";
 import Centers from "./Pages/Centers";
+import DefineAppointment from "./Pages/DefineAppointment";
+
 
 
 function App() {
@@ -32,6 +34,7 @@ function App() {
             <Route path="/survey" element={<Survey/>} />
             <Route path="/userProfile" element={<ViewProfile/>} />
             <Route path="/centers" element={<Centers/>} />
+            <Route path="/defineAppointment" element={<DefineAppointment/>} />
           </Routes>
         </BrowserRouter>
       </div>
