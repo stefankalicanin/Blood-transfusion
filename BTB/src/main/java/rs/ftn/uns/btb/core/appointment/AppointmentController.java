@@ -13,6 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.ftn.uns.btb.core.appointment.dtos.AppointmentDTO;
 import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentService;
+import rs.ftn.uns.btb.core.center.Center;
+import rs.ftn.uns.btb.core.staff.Staff;
+import rs.ftn.uns.btb.core.staff.interfaces.StaffService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +26,13 @@ import java.util.List;
 public class AppointmentController {
 
     public final AppointmentService _appointmentService;
+    public final StaffService _staffService;
 
     @Autowired
-    public AppointmentController(AppointmentService _appointmentService) { this._appointmentService = _appointmentService; }
+    public AppointmentController(AppointmentService _appointmentService, StaffService _staffService) {
+        this._appointmentService = _appointmentService;
+        this._staffService = _staffService;
+    }
 
     // value = "/byCenter/1"
 
@@ -60,9 +67,23 @@ public class AppointmentController {
     @PostMapping(value = "/createAppointment", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Appointment> createAppointment(@RequestBody AppointmentDTO appointmentDTO) {
         Appointment savedAppointment = null;
+        System.out.println("Enter");
+        Staff staff = _staffService.findOne(appointmentDTO.getStaff_id());
+        System.out.println("Staff");
+        Center center = staff.getCenter();
+        System.out.println("Center");
+
+        if (staff == null || center == null) {
+            return new ResponseEntity<Appointment>(HttpStatus.NOT_FOUND);
+        }
+
+        System.out.println("A ok");
+
         try {
             Appointment newAppointment = new Appointment();
             newAppointment.copyValuesFromAppointmentDto(appointmentDTO);
+            newAppointment.setStaff(staff);
+            newAppointment.setCenter(center);
             savedAppointment = _appointmentService.create(newAppointment);
             return new ResponseEntity<Appointment>(savedAppointment, HttpStatus.CREATED);
         } catch (Exception e) {
