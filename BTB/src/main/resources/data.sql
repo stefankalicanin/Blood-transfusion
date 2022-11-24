@@ -37,7 +37,7 @@ INSERT INTO public.users (id, jmbg, first_name, last_name, email, password, stat
 VALUES (nextval('global_id_sequence'), '19932131414', 'Petar', 'Petrovic', 'petar@gmail.com', '123', true, 'Petra Drapsina 41', 'Novi Sad', 'Serbia', 'male', 'Salesman', 'Salesman', 2, '+381624492331', 2);
 
 
--- PREDEFINED APPOINTMENTS
+-- PREDEFINED APPOINTMENTS [AVAILABLE]
 -- AVAILABLE, SCHEDULED, FINISHED == 0, 1, 2
 INSERT INTO public.appointment(id, date, time, duration, center_id, staff_id, state) VALUES (1, '2022-11-17', '09:00:00', 1, 1, 2, 0);
 INSERT INTO public.appointment(id, date, time, duration, center_id, staff_id, state) VALUES (2, '2022-11-17', '11:00:00', 2, 1, 2, 0);
@@ -50,6 +50,20 @@ INSERT INTO public.appointment(id, date, time, duration, center_id, staff_id, st
 INSERT INTO public.appointment(id, date, time, duration, center_id, staff_id, state) VALUES (8, '2022-11-18', '12:00:00', 2, 2, 3, 0);
 INSERT INTO public.appointment(id, date, time, duration, center_id, staff_id, state) VALUES (9, '2022-11-18', '17:00:00', 3, 2, 3, 0);
 
+
+-- PREDEFINED APPOINTMENTS [SCHEDULED]
+INSERT INTO public.appointment(id, date, time, duration, center_id, staff_id, state) VALUES (10, '2022-11-17', '09:00:00', 1, 1, 2, 1);
+INSERT INTO public.appointment(id, date, time, duration, center_id, staff_id, state) VALUES (11, '2022-11-17', '11:00:00', 2, 1, 2, 1);
+INSERT INTO public.appointment(id, date, time, duration, center_id, staff_id, state) VALUES (12, '2022-11-17', '14:00:00', 2, 1, 2, 1);
+INSERT INTO public.appointment(id, date, time, duration, center_id, staff_id, state) VALUES (13, '2022-11-18', '10:00:00', 1, 1, 2, 1);
+INSERT INTO public.appointment(id, date, time, duration, center_id, staff_id, state) VALUES (14, '2022-11-18', '12:00:00', 1, 1, 2, 1);
+
+-- SCHEDULED APPOINTMENTS
+INSERT INTO public.scheduled_appointment(id, users_id, appointment_id) VALUES (1, 4, 10);
+INSERT INTO public.scheduled_appointment(id, users_id, appointment_id) VALUES (2, 4, 11);
+INSERT INTO public.scheduled_appointment(id, users_id, appointment_id) VALUES (3, 5, 12);
+INSERT INTO public.scheduled_appointment(id, users_id, appointment_id) VALUES (4, 6, 13);
+INSERT INTO public.scheduled_appointment(id, users_id, appointment_id) VALUES (5, 6, 14);
 
 -- BLOOD BANK
         -- A_POSITIVE = 0,
