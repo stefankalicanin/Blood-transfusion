@@ -14,4 +14,6 @@ public interface AppointmentService {
     void deleteSelection(Long[] idsOfAppointmentsToRemove);
 
     Appointment findOne(Long id);
+
+    Appointment update(Appointment appointment) throws Exception;
 }

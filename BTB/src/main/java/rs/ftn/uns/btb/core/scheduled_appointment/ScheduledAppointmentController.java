@@ -19,6 +19,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentState;
 import rs.ftn.uns.btb.core.scheduled_appointment.dtos.ScheduledAppointmentsViewDTO;
 import rs.ftn.uns.btb.core.scheduled_appointment.interfaces.ScheduledAppointmentService;
 
@@ -45,9 +46,11 @@ public class ScheduledAppointmentController {
         Set<ScheduledAppointmentsViewDTO> scheduledAppointmentsDTO = new HashSet<ScheduledAppointmentsViewDTO>();
 
         for (ScheduledAppointment sApp : scheduledAppointments) {
-            ScheduledAppointmentsViewDTO tempSAppDTO = new ScheduledAppointmentsViewDTO();
-            tempSAppDTO.copyValues(sApp);
-            scheduledAppointmentsDTO.add(tempSAppDTO);
+            if (sApp.getAppointment().getState() != AppointmentState.FINISHED) {
+                ScheduledAppointmentsViewDTO tempSAppDTO = new ScheduledAppointmentsViewDTO();
+                tempSAppDTO.copyValues(sApp);
+                scheduledAppointmentsDTO.add(tempSAppDTO);
+            }
         }
 
         if (scheduledAppointmentsDTO.isEmpty()) {

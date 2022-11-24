@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import rs.ftn.uns.btb.core.appointment.Appointment;
 import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentService;
+import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentState;
 import rs.ftn.uns.btb.core.report.dtos.ReportCreateDTO;
 import rs.ftn.uns.btb.core.report.interfaces.ReportService;
 import rs.ftn.uns.btb.core.user.User;

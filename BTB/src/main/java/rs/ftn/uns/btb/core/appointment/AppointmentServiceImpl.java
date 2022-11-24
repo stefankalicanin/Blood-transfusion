@@ -45,4 +45,22 @@ public class AppointmentServiceImpl implements AppointmentService {
         return allAppointments;
     }
 
+    @Override
+    public Appointment update(Appointment appointment) throws Exception {
+        Appointment appointmentToUpdate = this._appointmentRepo.findOneById(appointment.getId());
+
+        if (appointmentToUpdate == null) {
+            throw new Exception("Appointment does not exist");
+        }
+
+        appointmentToUpdate.setDate(appointment.getDate());
+        appointmentToUpdate.setTime(appointment.getTime());
+        appointmentToUpdate.setDuration(appointment.getDuration());
+        appointmentToUpdate.setState(appointment.getState());
+
+        Appointment updatedAppointment = _appointmentRepo.save(appointmentToUpdate);
+
+        return updatedAppointment;
+    }
+
 }

@@ -2,7 +2,10 @@ package rs.ftn.uns.btb.core.appointment;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import rs.ftn.uns.btb.core.appointment.dtos.AppointmentDTO;
 import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentState;

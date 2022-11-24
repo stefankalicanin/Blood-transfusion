@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 var CONFIG = require("../Config/server.json");
 
@@ -22,10 +22,10 @@ function Reports() {
     useEffect(() => {
         fetchData();
     }, [])
-    
 
-    console.log(state?.data)
-    // console.log(appointments)
+
+    // console.log(state?.data)
+    console.log(appointments)
 
     const fetchData = async() => {
         try {
@@ -62,7 +62,7 @@ function Reports() {
             "user": prevData,
             "appointment": appointment
         }
-        navigate('/reports',
+        navigate('/reports/create',
         {
             state: {
                 data
