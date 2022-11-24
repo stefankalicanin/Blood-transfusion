@@ -1,16 +1,8 @@
--- Za koriscenje data.sql-a potrebno je:
---      1. Zakomentarisati kod na liniji 20 u application.properties (spring.sql.init.mode=always) (komentar se pravi sa '#' - postoji mogucnost da je vec zakomentarisan taj deo)
---      2. Postaviti spring.jpa.hibernate.ddl-auto na create [linija ~17]
---      3. Pokrenuti program i proveriti da li su se tabele u bazi uspesno napravile
---      4. Ukloniti komentar na delu koji se zakomentarisao u prvom koraku i vrati spring.jpa.hibernate.ddl-auto na update
---      5. Ponovo pokrenuti program i proveriti da li su podaci uneti u tabele
---      6. Zakomentarisati ponovo liniju 20
-
 -- CENTERS
-INSERT INTO public.center (name, address, description, grade) VALUES ('CzDk', 'Preradoviceva 10, Subotica', 'Centar za davanje krvi', 3.3);
-INSERT INTO public.center (name, address, description, grade) VALUES ('BTB', 'Filipa Visnjica 3E, Beograd', 'Centar, krv', 4.1);
-INSERT INTO public.center (name, address, description, grade) VALUES ('Daj Krv', 'Zeleznicka 10, Novi Sad', 'Opis neki', 2.3);
-INSERT INTO public.center (name, address, description, grade) VALUES ('Njam', 'Strazilovska 5, Novi Sad', 'Opis neki', 1.5);
+INSERT INTO public.center (id, name, address, description, grade) VALUES (1, 'CzDk', 'Preradoviceva 10, Subotica', 'Centar za davanje krvi', 3.3);
+INSERT INTO public.center (id, name, address, description, grade) VALUES (2, 'BTB', 'Filipa Visnjica 3E, Beograd', 'Centar, krv', 4.1);
+INSERT INTO public.center (id, name, address, description, grade) VALUES (3, 'Daj Krv', 'Zeleznicka 10, Novi Sad', 'Opis neki', 2.3);
+INSERT INTO public.center (id, name, address, description, grade) VALUES (4, 'Njam', 'Strazilovska 5, Novi Sad', 'Opis neki', 1.5);
 
 
 -- SYSADMIN
@@ -47,16 +39,16 @@ VALUES (nextval('global_id_sequence'), '19932131414', 'Petar', 'Petrovic', 'peta
 
 -- PREDEFINED APPOINTMENTS
 -- AVAILABLE, SCHEDULED, FINISHED == 0, 1, 2
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-17', '09:00:00', 1, 1, 2, 0);
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-17', '11:00:00', 2, 1, 2, 0);
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-17', '14:00:00', 2, 1, 2, 0);
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-18', '10:00:00', 1, 1, 2, 0);
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-18', '12:00:00', 1, 1, 2, 0);
+INSERT INTO public.appointment(id, date, time, duration, center_id, staff_id, state) VALUES (1, '2022-11-17', '09:00:00', 1, 1, 2, 0);
+INSERT INTO public.appointment(id, date, time, duration, center_id, staff_id, state) VALUES (2, '2022-11-17', '11:00:00', 2, 1, 2, 0);
+INSERT INTO public.appointment(id, date, time, duration, center_id, staff_id, state) VALUES (3, '2022-11-17', '14:00:00', 2, 1, 2, 0);
+INSERT INTO public.appointment(id, date, time, duration, center_id, staff_id, state) VALUES (4, '2022-11-18', '10:00:00', 1, 1, 2, 0);
+INSERT INTO public.appointment(id, date, time, duration, center_id, staff_id, state) VALUES (5, '2022-11-18', '12:00:00', 1, 1, 2, 0);
 
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-17', '17:00:00', 1, 2, 3, 0);
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-18', '10:00:00', 1, 2, 3, 0);
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-18', '12:00:00', 2, 2, 3, 0);
-INSERT INTO public.appointment(date, time, duration, center_id, staff_id, state) VALUES ('2022-11-18', '17:00:00', 3, 2, 3, 0);
+INSERT INTO public.appointment(id, date, time, duration, center_id, staff_id, state) VALUES (6, '2022-11-17', '17:00:00', 1, 2, 3, 0);
+INSERT INTO public.appointment(id, date, time, duration, center_id, staff_id, state) VALUES (7, '2022-11-18', '10:00:00', 1, 2, 3, 0);
+INSERT INTO public.appointment(id, date, time, duration, center_id, staff_id, state) VALUES (8, '2022-11-18', '12:00:00', 2, 2, 3, 0);
+INSERT INTO public.appointment(id, date, time, duration, center_id, staff_id, state) VALUES (9, '2022-11-18', '17:00:00', 3, 2, 3, 0);
 
 
 -- BLOOD BANK
@@ -80,10 +72,10 @@ INSERT INTO public.blood(type, quantity, center_id) VALUES (7, 9.01, 1);
 
 
 -- SURVEY_QUESTIONS
-INSERT INTO public.survey_questions(question) VALUES ('Da li ste ikada do sada davali krv?');
-INSERT INTO public.survey_questions(question) VALUES ('Da li ste ikada bili odbijeni kao davaoc krvi?');
-INSERT INTO public.survey_questions(question) VALUES ('Da li se sada osećate zdravim i sposobnim da date krv?');
-INSERT INTO public.survey_questions(question) VALUES ('Da li smatrate da ste se dovoljno naspavali?');
-INSERT INTO public.survey_questions(question) VALUES ('Da li ste nešto jeli pre dolaska na davanje krvi?');
-INSERT INTO public.survey_questions(question) VALUES ('Da li se bavite opasnim zanimanjem ili hobijem?');
-INSERT INTO public.survey_questions(question) VALUES ('Da li uzimate bilo kakve lekove?');
+INSERT INTO public.survey_questions(id, question) VALUES (1, 'Da li ste ikada do sada davali krv?');
+INSERT INTO public.survey_questions(id, question) VALUES (2, 'Da li se sada osećate zdravim i sposobnim da date krv?');
+INSERT INTO public.survey_questions(id, question) VALUES (3, 'Da li smatrate da ste se dovoljno naspavali?');
+INSERT INTO public.survey_questions(id, question) VALUES (4, 'Da li ste ikada bili odbijeni kao davaoc krvi?');
+INSERT INTO public.survey_questions(id, question) VALUES (5, 'Da li ste nešto jeli pre dolaska na davanje krvi?');
+INSERT INTO public.survey_questions(id, question) VALUES (6, 'Da li se bavite opasnim zanimanjem ili hobijem?');
+INSERT INTO public.survey_questions(id, question) VALUES (7, 'Da li uzimate bilo kakve lekove?');
