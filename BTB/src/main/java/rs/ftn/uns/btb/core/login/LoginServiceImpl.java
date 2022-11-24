@@ -41,6 +41,8 @@ public class LoginServiceImpl implements LoginService {
             loginDTO.setEmail(admin.getEmail());
             loginDTO.setRole(admin.getRole());
             loginDTO.setCenter_id(null);
+            loginDTO.setSuperAdmin(admin.getIsSuperAdmin());
+            loginDTO.setStatus(admin.getStatus());
             return loginDTO;
         }
         Staff staff = this._staffRepo.findOneByEmailAndPassword(email,password);
