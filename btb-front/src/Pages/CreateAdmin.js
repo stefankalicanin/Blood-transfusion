@@ -15,7 +15,8 @@ export default function CreateAdmin() {
             phone: "",
             address: "",
             city: "",
-            country: ""
+            country: "",
+            
           }
     );
 

@@ -12,11 +12,16 @@ public class LoginDTO {
 
         private Long center_id;
 
+        private boolean isSuperAdmin;
+
+        private boolean status;
+
         public LoginDTO() {}
 
         public LoginDTO(String email, String password, Roles role) {
             this.email = email;
             this.role = role;
+
         }
 
 }
