@@ -82,6 +82,7 @@ export default function ShowUsers() {
     }
   </tbody>
 </table>
+<p style={{'margin-left':'676px', 'margin-top':'20px'}}>Click on row to select the appointment</p>
         </div>
     </div>
   )
