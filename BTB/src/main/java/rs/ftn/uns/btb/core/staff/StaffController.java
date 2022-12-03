@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import rs.ftn.uns.btb.core.center.Center;
 import rs.ftn.uns.btb.core.center.interfaces.CenterService;
@@ -46,6 +47,7 @@ public class StaffController {
                     content = @Content)
     })
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('STAFF')")
     public ResponseEntity<Staff> createStaff(@RequestBody StaffCreateDTO staff) {
         Staff savedStaff = null;
         Center center = _centerService.findOne(staff.getCenter_id());

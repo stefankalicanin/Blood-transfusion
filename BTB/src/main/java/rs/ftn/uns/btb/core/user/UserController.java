@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import rs.ftn.uns.btb.core.user.dtos.UserLoginDTO;
@@ -59,6 +60,7 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "user not found", content = @Content)
     })
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('STAFF')")
     public ResponseEntity<User> getUser(@Parameter(name="id", description = "ID of a user to return", required = true) @PathVariable("id") Long id) {
         User user = _userService.findOne(id);
 
