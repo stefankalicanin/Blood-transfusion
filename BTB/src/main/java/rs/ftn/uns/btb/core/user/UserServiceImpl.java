@@ -109,14 +109,16 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public List<Role> getAllRoles(Long id) {
+    public List<Role> getRolesByUser(Long id) {
         User u = this.findById(id);
+        
         if (u == null) {
             return null;
         }
-        System.out.println("Found user========================");
 
-        return u.getRoles();
+        List<Role> allRoles = this._userRepo.findAllRolesByUserId(u.getId());
+
+        return allRoles;
     }
 
 }

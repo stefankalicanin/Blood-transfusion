@@ -20,8 +20,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     public List<User> findByFirstNameAndLastNameAllIgnoringCase(String firstName, String lastName);
 
     // @Transactional
-    // @Query(value = "SELECT r.name FROM users_roles ur, role r WHERE ur.roles_id = r.id AND ur.user_id = ?1")
-    // public List<Object> findByRoles();
+    @Query(value = "SELECT r.name FROM users_roles ur, role r WHERE ur.roles_id = r.id AND ur.user_id = ?1", nativeQuery = true)
+    public List<Role> findAllRolesByUserId(Long id);
 
     public User findOneByEmail(String email);
 

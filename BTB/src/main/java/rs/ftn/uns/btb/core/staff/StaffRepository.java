@@ -16,7 +16,7 @@ public interface StaffRepository extends JpaRepository<Staff, Long> {
 
     public Staff findOneByEmail(String email);
 
-    // @Query(value = "SELECT r.name FROM staffs_roles sr, role r WHERE sr.roles_id = r.id AND sr.staff_id = ?1")
-    // public List<Role> getAllRoles(Long id);
+    @Query(value = "SELECT r.name FROM staffs_roles sr, role r WHERE sr.roles_id = r.id AND sr.staff_id = ?1", nativeQuery = true)
+    public List<Role> findAllRolesByStaffId(Long id);
 
 }

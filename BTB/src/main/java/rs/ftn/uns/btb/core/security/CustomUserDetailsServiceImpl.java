@@ -27,7 +27,7 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
     private UserService _userService;
 
     @Autowired
-    private StaffRepository _staffRepostiroy;
+    private StaffRepository _staffRepository;
 
     @Autowired
     private AdminRepository _adminRepository;
@@ -37,29 +37,32 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = _userRepository.findOneByEmail(email);
         if (user != null) {
-            System.out.println("Dosao do ovog dela");
-            // List<Object> userRoles = _userRepository.findByRoles();
-            // for (Object object : userRoles) {
-            //     System.out.println("Role: " + object.toString());
-            // }
-            System.out.println("=============================================================");
-            return new CustomUserDetails(user.getEmail(), user.getPassword(), "ROLE_USER"); 
+            List<Role> userRoles = this._userRepository.findAllRolesByUserId(user.getId());
+            printRoles(userRoles);
+            return new CustomUserDetails(user.getEmail(), user.getPassword(), userRoles); 
         }
 
-        Staff staff = _staffRepostiroy.findOneByEmail(email);
+        Staff staff = _staffRepository.findOneByEmail(email);
         if (staff != null) {
-            // List<Role> staffRoles = _staffRepostiroy.getAllRoles(staff.getId());
-            return new CustomUserDetails(staff.getEmail(), staff.getPassword(), "ROLE_STAFF");
+            List<Role> staffRoles = this._staffRepository.findAllRolesByStaffId(staff.getId());
+            printRoles(staffRoles);
+            return new CustomUserDetails(staff.getEmail(), staff.getPassword(), staffRoles);
         }
 
         Admin admin = _adminRepository.findOneByEmail(email);
         if (admin != null) {
-            // List<Role> adminRoles = _staffRepostiroy.getAllRoles(admin.getId());
-            return new CustomUserDetails(admin.getEmail(), admin.getPassword(), null);
+            List<Role> adminRoles = this._adminRepository.findAllRolesByAdminId(admin.getId());
+            printRoles(adminRoles);
+            return new CustomUserDetails(admin.getEmail(), admin.getPassword(), adminRoles);
         }
 
         throw new UsernameNotFoundException(String.format("No user was found with email '%s'.", email));
+    }
 
+    public void printRoles(List<Role> roles) {
+        for (Role r : roles) {
+            System.out.print(r.getName() + " | ");
+        }
     }
     
     

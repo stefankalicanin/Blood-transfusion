@@ -68,40 +68,8 @@ public class AuthenticationController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = null;
 
-        String what = "";
-
         CustomUserDetails customUser = (CustomUserDetails) authentication.getPrincipal();
         jwt = tokenUtils.generateTokeN(customUser.getEmail());
-
-        /*
-        try {
-            what = "USER";
-            System.out.println("Usao u prvi try| what=" + what + "!");
-            User user = (User) authentication.getPrincipal();
-            jwt = tokenUtils.generateTokeN(user.getEmail());
-        } catch (Exception e) { // catch -> ClassCastException
-            // e.printStackTrace();
-            System.out.println("--------------------------------");
-            try {
-                what = "STAFF";
-                System.out.println("Usao u drugi try| what=" + what + "!");
-                Staff staff = (Staff) authentication.getPrincipal();
-                jwt = tokenUtils.generateTokeN(staff.getEmail());
-            } catch (Exception e2) {
-                try {
-                    what = "ADMIN";
-                    System.out.println("Usao u treci try| what=" + what + "!");
-                    Admin admin = (Admin) authentication.getPrincipal();
-                    jwt = tokenUtils.generateTokeN(admin.getEmail());
-                } catch (Exception e3) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        */
-
-        // what = "STAFF";
-        System.out.println("Finalni what=" + what + "!");
 
         int expiresIn = tokenUtils.getExpiredIn();
 

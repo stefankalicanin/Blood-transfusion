@@ -47,7 +47,7 @@ public class StaffController {
                     content = @Content)
     })
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('STAFF')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Staff> createStaff(@RequestBody StaffCreateDTO staff) {
         Staff savedStaff = null;
         Center center = _centerService.findOne(staff.getCenter_id());

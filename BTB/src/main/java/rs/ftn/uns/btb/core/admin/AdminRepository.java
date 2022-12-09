@@ -15,6 +15,6 @@ public interface AdminRepository extends JpaRepository<Admin, Long> {
 
     public Admin findOneByEmail(String email);
 
-    // @Query(value = "SELECT r.name FROM ADMINS_ROLES ar, role r WHERE ar.roles_id = r.id AND ar.admin_id = ?1")
-    // public List<Role> getAllRoles(Long id);
+    @Query(value = "SELECT r.name FROM ADMINS_ROLES ar, role r WHERE ar.roles_id = r.id AND ar.admin_id = ?1", nativeQuery = true)
+    public List<Role> findAllRolesByAdminId(Long id);
 }

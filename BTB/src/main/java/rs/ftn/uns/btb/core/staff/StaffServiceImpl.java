@@ -3,6 +3,7 @@ package rs.ftn.uns.btb.core.staff;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import rs.ftn.uns.btb.core.role.Role;
 import rs.ftn.uns.btb.core.staff.interfaces.StaffService;
 import rs.ftn.uns.btb.core.user.Roles;
 
@@ -51,5 +52,18 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public List<Staff> findAllByCenterId(Long id) {
         return _staffRepo.findAllByCenter_Id(id);
+    }
+
+    @Override
+    public List<Role> getRolesByStaff(Long id) {
+        Staff staff = this.findOne(id);
+
+        if (staff == null) {
+            return null;
+        }
+
+        List<Role> allRoles = this._staffRepo.findAllRolesByStaffId(staff.getId());
+
+        return allRoles;
     }
 }

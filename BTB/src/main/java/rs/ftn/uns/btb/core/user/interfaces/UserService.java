@@ -20,6 +20,6 @@ public interface UserService {
 
     User add(UserRequest userRequest);
 
-    List<Role> getAllRoles(Long id);
+    List<Role> getRolesByUser(Long id);
 }
 

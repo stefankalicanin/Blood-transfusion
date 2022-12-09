@@ -31,6 +31,17 @@ public class CustomUserDetails implements UserDetails {
         this.authorities = grantedAuthorities;
     }
 
+    public CustomUserDetails(String email, String password, List<Role> roles) {
+        this.email = email;
+        this.password = password;
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        // grantedAuthorities.add(new SimpleGrantedAuthority(role));
+        for (Role role : roles) {
+            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        this.authorities = grantedAuthorities;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
