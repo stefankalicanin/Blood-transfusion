@@ -63,7 +63,7 @@ public class WebSecurityConfig {
 
     private static final String[] AUTH_WHITELIST = {
         // swagger ui v3 (openapi)
-        "v3/api-docs/**",
+        "/v3/api-docs/**",
         "/swagger-ui/**",
         // swagget ui v2
         "/v2/api-docs",
@@ -81,7 +81,7 @@ public class WebSecurityConfig {
             .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and()
             .authorizeRequests().antMatchers("/auth/**").permitAll()
                                 // .antMatchers("/api/user/**").permitAll()
-                                .antMatchers("/api/center").permitAll()
+//                                .antMatchers("/api/center").permitAll()
                                 .antMatchers(AUTH_WHITELIST).permitAll()
             .anyRequest().authenticated().and()
             .cors().and()
