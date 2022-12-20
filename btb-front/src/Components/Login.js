@@ -30,7 +30,7 @@ export default function LoginFunc(){
     
         const options = {
           method: 'POST',
-          url: 'http://localhost:8084/api/login',
+          url: 'http://localhost:8084/api/login', // /auth/login
           headers: {'Content-Type': 'application/json'},
           data: userData
         };

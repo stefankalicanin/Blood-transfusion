@@ -80,6 +80,7 @@ public class WebSecurityConfig {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and()
             .authorizeRequests().antMatchers("/auth/**").permitAll()
+                                .antMatchers("/api/**").permitAll()
                                 // .antMatchers("/api/user/**").permitAll()
 //                                .antMatchers("/api/center").permitAll()
                                 .antMatchers(AUTH_WHITELIST).permitAll()

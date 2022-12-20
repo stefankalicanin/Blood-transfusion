@@ -41,9 +41,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                 email = tokenUtils.getEmailFromToken(authToken);
 
                 if (email != null) {
-                    // System.out.println("MADRE MIA ====================================================");
                     UserDetails userDetails = _userDetailsService.loadUserByUsername(email);
-                    // System.out.println("MADRE MIA ====================================================");
 
                     if (tokenUtils.validateToken(authToken, userDetails)) {
                         TokenBasedAuthentication authentication = new TokenBasedAuthentication(userDetails);
