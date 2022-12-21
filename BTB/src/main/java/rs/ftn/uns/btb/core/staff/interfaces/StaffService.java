@@ -15,4 +15,6 @@ public interface StaffService {
     List<Staff> findAllByCenterId(Long id);
 
     List<Role> getRolesByStaff(Long id);
+
+    Staff findByEmail(String email);
 }

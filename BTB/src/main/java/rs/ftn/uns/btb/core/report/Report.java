@@ -65,6 +65,9 @@ public class Report implements Serializable {
     @Column(name = "doctor_note", nullable = true)
     private String note;
 
+    @Column(name = "equipment_quantity", nullable = true)
+    private Integer equipmentQuantity;
+
     public Report() {}
 
     public void copyValuesFromCreateDTO(ReportCreateDTO reportDTO) {
@@ -72,5 +75,6 @@ public class Report implements Serializable {
         this.setBloodType(reportDTO.getBloodType());
         this.setBloodQuantity(reportDTO.getBloodQuantity());
         this.setNote(reportDTO.getDoctorsNote());
+        this.setEquipmentQuantity(reportDTO.getEquipmentQuantity());
     } 
 }

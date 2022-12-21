@@ -25,7 +25,11 @@ public class Blood {
      */
 
     @Id
-    @Column(name = "TYPE", unique = true, nullable = false)
+    @Column(nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "TYPE", unique = false, nullable = false)
     private BloodType type;
 
     @Column(name = "QUANTITY", nullable = false)

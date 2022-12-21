@@ -90,4 +90,9 @@ public class StaffServiceImpl implements StaffService {
 
         return allRoles;
     }
+
+    @Override
+    public Staff findByEmail(String email) {
+        return this._staffRepo.findOneByEmail(email);
+    }
 }

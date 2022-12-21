@@ -24,6 +24,7 @@ import CreateAdmin from "./Pages/CreateAdmin";
 import ChangeAdminPassword from "./Pages/ChangeAdminPassword";
 import { E404 } from "./Pages/E404";
 import ReportsCreate from "./Pages/ReportsCreate";
+import UserSurveys from "./Pages/UserSurveys";
 const AppLayout = () => (
     <>
         <Navbar />
@@ -113,6 +114,10 @@ const router = createBrowserRouter([
             {
                 path: "reports/create",
                 element: <ReportsCreate/>
+            },
+            {
+                path: "user/survey/answers",
+                element: <UserSurveys/>
             }
                 
         ]

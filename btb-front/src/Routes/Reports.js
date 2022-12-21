@@ -42,7 +42,7 @@ function Reports() {
             setLoading(false);
         } catch (error) {
             console.log(error.response);
-            navigate('/404');
+            navigate('/allUsers');
         }
     }
 
@@ -62,7 +62,7 @@ function Reports() {
             "user": prevData,
             "appointment": appointment
         }
-        navigate('/reports/create',
+        navigate('/user/survey/answers',
         {
             state: {
                 data

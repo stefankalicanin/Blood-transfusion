@@ -37,9 +37,30 @@ export default function LoginFunc(){
 
         
         try {
-          const response = await axios.post(`http://localhost:8084/api/login`, state);
+          // const response = await axios.post(`http://localhost:8084/api/login`, state);
+
+          const response = await axios.post(`http://localhost:8084/auth/login`, state)
+
+          if (response.status == 200) {
+            console.log("-=--==-=--=--=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+            localStorage.setItem("token", response.data.accessToken)
+            const userInfo = await axios.request(`http://localhost:8084/auth/me`, {
+              method: 'GET',
+              headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+              }
+            })
+
+            if (userInfo.status == 200) {
+              localStorage.setItem("user", JSON.stringify(userInfo.data))
+            }
+          }
+
+          console.log(response.status)
+          console.log("---------------")
+
           console.log(response.data);
-          localStorage.setItem('user', JSON.stringify(response.data));
+          // localStorage.setItem('user', JSON.stringify(response.data));
           // alert("Success");
           navigate("/home");
           navigate(0);
