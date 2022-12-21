@@ -1,9 +1,19 @@
 package rs.ftn.uns.btb.core.user.interfaces;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import javax.persistence.*;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.Setter;
+import rs.ftn.uns.btb.core.role.Role;
 import rs.ftn.uns.btb.core.user.Roles;
 
 @MappedSuperclass
@@ -65,8 +75,49 @@ public abstract class Person {
 
     @Column(name = "country", nullable = true, length = 60)
     private String country;
-
+   
     public Person() {}
+
+    @ManyToMany
+    // @JoinTable(name = "roles")
+    private List<Role> roles;
+
+    /*
+
+    // required for security 
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Role> roles;
+
+    @Override
+    public boolean isEnabled() {
+        return status;
+    }
+
+    public String getUsername() {
+        return email;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonLocked() {
+        return this.status;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    */
+    
 }
 
 // TODO:

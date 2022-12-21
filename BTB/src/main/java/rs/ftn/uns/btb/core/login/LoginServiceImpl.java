@@ -26,7 +26,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public LoginDTO checkLogin(String email, String password){
         //User user = this._userRepo.checkLogin(email,password);
-        User user = this._userRepo.findOneByEmailAndPassword(email,password);
+        User user = this._userRepo.findOneByEmail(email);
         LoginDTO loginDTO = new LoginDTO();
         if (user != null) {
             loginDTO.setId(user.getId());
@@ -35,7 +35,7 @@ public class LoginServiceImpl implements LoginService {
             loginDTO.setCenter_id(null);
             return loginDTO;
         }
-        Admin admin = this._adminRepo.findOneByEmailAndPassword(email,password);
+        Admin admin = this._adminRepo.findOneByEmail(email);
         if( admin != null){
             loginDTO.setId(admin.getId());
             loginDTO.setEmail(admin.getEmail());
@@ -45,7 +45,7 @@ public class LoginServiceImpl implements LoginService {
             loginDTO.setStatus(admin.getStatus());
             return loginDTO;
         }
-        Staff staff = this._staffRepo.findOneByEmailAndPassword(email,password);
+        Staff staff = this._staffRepo.findOneByEmail(email);
         if( staff != null){
             loginDTO.setId(staff.getId());
             loginDTO.setEmail(staff.getEmail());

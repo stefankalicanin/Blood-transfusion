@@ -1,7 +1,12 @@
 package rs.ftn.uns.btb.core.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import rs.ftn.uns.btb.core.role.Role;
+import rs.ftn.uns.btb.core.role.interfaces.IRole;
+import rs.ftn.uns.btb.core.security.dtos.UserRequest;
 import rs.ftn.uns.btb.core.user.interfaces.UserService;
 
 import java.util.List;
@@ -10,6 +15,12 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     public final UserRepository _userRepo;
+
+    @Autowired
+    private IRole _roleService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserServiceImpl(UserRepository _userRepo) { this._userRepo = _userRepo; }
@@ -72,6 +83,42 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(Long id) {
         return this._userRepo.findOneById(id);
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        return this._userRepo.findOneByEmail(email);
+    }
+
+    @Override
+    public User add(UserRequest userRequest) {
+        User u = new User();
+
+        userRequest.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+
+        u.copyValuesFromUserRequest(userRequest);
+
+        u.setStatus(true);
+        u.setRole(Roles.USER);
+
+        List<Role> roles = _roleService.findByName("ROLE_USER");
+        u.setRoles(roles);
+
+        return this._userRepo.save(u);
+    } 
+
+
+    @Override
+    public List<Role> getRolesByUser(Long id) {
+        User u = this.findById(id);
+        
+        if (u == null) {
+            return null;
+        }
+
+        List<Role> allRoles = this._userRepo.findAllRolesByUserId(u.getId());
+
+        return allRoles;
     }
 
 }

@@ -106,9 +106,9 @@ export default function Home(){
     return (
       <div style={{'margin-left':'280px'}}>
          <h1 className={HCSS.h1}>Home</h1>
-        <p>
+        {/* <p>
           <Link to="/survey">Popunjavanje upitnika davaoca krvi</Link>
-        </p>
+        </p> */}
 {/*
         <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
         <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>

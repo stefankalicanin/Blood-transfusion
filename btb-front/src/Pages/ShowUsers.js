@@ -7,14 +7,24 @@ export default function ShowUsers() {
     const [users,setUsers]=useState([])
     const [filterData,setFilterData]=useState([])
     const[query,setQuery]=useState('')
+    const navigate = useNavigate();
     
-
     useEffect(()=>{
+        if (!localStorage.getItem('token') || !localStorage.getItem('user')){
+          navigate("/login")
+        }
+        const user = JSON.parse(localStorage.getItem('user'))
+        if (user['role'] != "STAFF" && user['role'] != "ADMIN") {
+          navigate("/")
+        }
         loadUsers(); 
     },[])
 
     const loadUsers=async()=>{
-        const result=await axios.get("http://localhost:8084/api/user")
+        const result=await axios.get("http://localhost:8084/api/user", {
+          headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+          }})
         setUsers(result.data);
         setFilterData(result.data);
     }
@@ -35,9 +45,6 @@ export default function ShowUsers() {
     }
     setQuery(getSearch);
   }
-
-
-  const navigate = useNavigate();
 
   const handleRowClick = async (data) => {
     // navigate({
@@ -82,7 +89,7 @@ export default function ShowUsers() {
     }
   </tbody>
 </table>
-<p style={{'margin-left':'676px', 'margin-top':'20px'}}>Click on row to select the appointment</p>
+<p style={{'margin-left':'745px', 'margin-top':'20px'}}>Click on row to select the user</p>
         </div>
     </div>
   )

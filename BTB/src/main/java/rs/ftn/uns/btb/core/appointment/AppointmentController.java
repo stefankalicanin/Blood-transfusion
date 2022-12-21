@@ -10,9 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import rs.ftn.uns.btb.core.appointment.dtos.AppointmentDTO;
+import rs.ftn.uns.btb.core.appointment.dtos.AppointmentStateDTO;
 import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentService;
+import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentState;
 import rs.ftn.uns.btb.core.center.Center;
 import rs.ftn.uns.btb.core.staff.Staff;
 import rs.ftn.uns.btb.core.staff.interfaces.StaffService;
@@ -43,6 +46,7 @@ public class AppointmentController {
             @ApiResponse(responseCode = "404", description = "appointments not found", content = @Content)
     })
     @GetMapping(value = "/byCenter/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('STAFF')")
     public ResponseEntity<List<AppointmentDTO>> getAppointmentsByCenter(@Parameter(name="id", description = "ID of a center to return", required = true) @PathVariable("id") Long id) {
         List<Appointment> appointments = _appointmentService.findByCenterId(id);
         List<AppointmentDTO> appointmentDTOS = new ArrayList<AppointmentDTO>();
@@ -60,11 +64,13 @@ public class AppointmentController {
     }
 
     @GetMapping(value = "/findAll", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('STAFF')")
     public ResponseEntity<List<Appointment>> getAll(){
         return new ResponseEntity<List<Appointment>>(_appointmentService.findAll(), HttpStatus.OK);
     }
 
     @PostMapping(value = "/createAppointment", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('STAFF')")
     public ResponseEntity<Appointment> createAppointment(@RequestBody AppointmentDTO appointmentDTO) {
         Appointment savedAppointment = null;
 
@@ -108,6 +114,7 @@ public class AppointmentController {
             @ApiResponse(responseCode = "404", description = "one of the appointments not found", content = @Content)
     })
     @DeleteMapping(value = "delete/multiple", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('STAFF')")
     public ResponseEntity deleteMultipleAppointments(@RequestBody Long[] idsOfAppointmentsToRemove) {
 //        System.out.println("IDS:");
 //
@@ -123,4 +130,34 @@ public class AppointmentController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+
+    @Operation(summary = "Update an existing appointment", description = "Update an existing appointment", method = "PUT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Appointment successfully updated",
+                    content = {
+                        @Content(mediaType = "application/json", schema = @Schema(implementation = Appointment.class))
+                    }),
+            @ApiResponse(responseCode = "404", description = "Appointment not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content) })
+    @PutMapping(value = "/{id}/{state}", produces = MediaType.APPLICATION_JSON_VALUE) // query instead
+    @PreAuthorize("hasRole('STAFF')")
+    public ResponseEntity<Appointment> updateAppointmentState(@PathVariable Long id, @PathVariable String state) {
+        Appointment appointmentToUpdate = _appointmentService.findOne(id);
+
+        appointmentToUpdate.setState(AppointmentState.valueOf(state));
+
+        Appointment updatedAppointment = null;
+        try {
+            updatedAppointment = _appointmentService.update(appointmentToUpdate);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<Appointment>(HttpStatus.NOT_FOUND);
+        }
+
+        if (updatedAppointment == null) {
+            return new ResponseEntity<Appointment>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return new ResponseEntity<Appointment>(updatedAppointment, HttpStatus.OK);
+    }
 }

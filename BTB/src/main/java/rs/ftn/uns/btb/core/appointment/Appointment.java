@@ -2,7 +2,10 @@ package rs.ftn.uns.btb.core.appointment;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import rs.ftn.uns.btb.core.appointment.dtos.AppointmentDTO;
 import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentState;
@@ -60,7 +63,7 @@ public class Appointment {
     @JsonIgnore
     private Report report;
 
-    @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "appointment", cascade = CascadeType.REMOVE)
     @JsonIgnore
     private ScheduledAppointment scheduledAppointment;
     

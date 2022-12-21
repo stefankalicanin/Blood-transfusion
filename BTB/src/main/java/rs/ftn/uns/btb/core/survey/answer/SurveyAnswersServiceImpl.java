@@ -9,6 +9,7 @@ import rs.ftn.uns.btb.core.survey.question.SurveyQuestionsRepository;
 import rs.ftn.uns.btb.core.user.User;
 import rs.ftn.uns.btb.core.user.UserRepository;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -35,5 +36,10 @@ public class SurveyAnswersServiceImpl implements SurveyAnswerService {
             survey_answers_repo.save(surveyAnswers);
         }
         return survey_answers_dto;
+    }
+
+    @Override
+    public List<SurveyAnswers> findAllByUsersId(Long id) {
+        return this.survey_answers_repo.findAllByUsersId(id);
     }
 }

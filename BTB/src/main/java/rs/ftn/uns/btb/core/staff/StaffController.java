@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import rs.ftn.uns.btb.core.center.Center;
 import rs.ftn.uns.btb.core.center.interfaces.CenterService;
@@ -46,6 +47,7 @@ public class StaffController {
                     content = @Content)
     })
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Staff> createStaff(@RequestBody StaffCreateDTO staff) {
         Staff savedStaff = null;
         Center center = _centerService.findOne(staff.getCenter_id());
@@ -74,6 +76,7 @@ public class StaffController {
             @ApiResponse(responseCode = "404", description = "Staff not found", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content) })
     @PutMapping(value="/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('STAFF')")
     public ResponseEntity<Staff> updateStaff(@PathVariable Long id, @RequestBody StaffUpdateDTO staffDTO) {
         Staff staffForUpdate = _staffService.findOne(id);
 
@@ -105,6 +108,7 @@ public class StaffController {
                     }),
             @ApiResponse(responseCode = "404", description = "No staff found for given id", content = @Content) })
     @GetMapping(value="/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('STAFF')")
     public ResponseEntity<StaffDTO> getStaffById(@Parameter(name="id", description = "ID of staff to look for", required = true) @PathVariable("id") Long id) {
         Staff staff = _staffService.findOne(id);
         StaffDTO staffDTO = new StaffDTO(staff);
@@ -124,6 +128,7 @@ public class StaffController {
             @ApiResponse(responseCode = "404", description = "No staff found for given center id", content = @Content) })
 //            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content) })
     @GetMapping(value="byCenter/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('STAFF')")
     public ResponseEntity<List<StaffShortDTO>> getStaffByIdOfCenter(@Parameter(name="id", description = "ID of center to look staff by", required = true) @PathVariable("id") Long id) {
         List<Staff> allStaffInCenter = _staffService.findAllByCenterId(id);
         List<StaffShortDTO> staffViewDTO = new ArrayList<StaffShortDTO>();

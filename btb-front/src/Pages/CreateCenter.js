@@ -1,10 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import {  useNavigate } from "react-router-dom";
 
 export default function CreateCenter() {
-
+    
+    const navigate = useNavigate();
   
+    useEffect(() => {
+      if (!localStorage.getItem('token') || !localStorage.getItem('user')){
+        navigate("/login")
+      }
+      const user = JSON.parse(localStorage.getItem('user'))
+      if (user['role'] != "ADMIN") {
+        navigate("/")
+      }
+    }, [])
 
     const [center, setCenter] = useState({
         name: "",
@@ -21,7 +31,10 @@ export default function CreateCenter() {
     
       const onSubmit = async (e) => {
         e.preventDefault();
-        await axios.post("http://localhost:8084/api/center", center);
+        await axios.post("http://localhost:8084/api/center", center, {
+          headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+          }});
         
       };
 

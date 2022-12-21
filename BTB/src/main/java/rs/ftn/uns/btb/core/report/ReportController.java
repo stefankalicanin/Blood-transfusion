@@ -2,6 +2,7 @@ package rs.ftn.uns.btb.core.report;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import rs.ftn.uns.btb.core.appointment.Appointment;
 import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentService;
+import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentState;
 import rs.ftn.uns.btb.core.report.dtos.ReportCreateDTO;
 import rs.ftn.uns.btb.core.report.interfaces.ReportService;
 import rs.ftn.uns.btb.core.user.User;
@@ -50,6 +52,7 @@ public class ReportController {
                 content = @Content)
     })
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('STAFF')")
     public ResponseEntity<Report> createReport(@RequestBody ReportCreateDTO reportDTO) {
 
         if (reportDTO.getAppointment_id() == null || reportDTO.getUser_id() == null) {

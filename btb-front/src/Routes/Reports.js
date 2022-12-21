@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 var CONFIG = require("../Config/server.json");
 
@@ -8,6 +8,16 @@ function Reports() {
 
     const { state } = useLocation()
     const navigate = useNavigate()
+
+    useEffect(() => {
+      if (!localStorage.getItem('token') || !localStorage.getItem('user')){
+        navigate("/login")
+      }
+      const user = JSON.parse(localStorage.getItem('user'))
+      if (user['role'] != "STAFF") {
+        navigate("/")
+      }
+    }, [])
     
     const [appointments, setAppointments] = useState([]);
     const [loading, setLoading] = useState(true)
@@ -22,15 +32,18 @@ function Reports() {
     useEffect(() => {
         fetchData();
     }, [])
-    
 
-    console.log(state?.data)
-    // console.log(appointments)
+
+    // console.log(state?.data)
+    console.log(appointments)
 
     const fetchData = async() => {
         try {
             const user_id = state?.data.id;
-            const loadedScheduledAppointments = await axios.get(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/schedule/${user_id}`);
+            const loadedScheduledAppointments = await axios.get(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/schedule/${user_id}`, {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }});
             
             // loadedScheduledAppointments.data = [...loadedScheduledAppointments.data].sort((a, b) => 
             // new Date(...a.date.split('-').reverse()) - new Date(...b.date.split('-').reverse()));
@@ -42,7 +55,7 @@ function Reports() {
             setLoading(false);
         } catch (error) {
             console.log(error.response);
-            navigate('/404');
+            navigate('/allUsers');
         }
     }
 
@@ -62,7 +75,7 @@ function Reports() {
             "user": prevData,
             "appointment": appointment
         }
-        navigate('/reports',
+        navigate('/user/survey/answers',
         {
             state: {
                 data

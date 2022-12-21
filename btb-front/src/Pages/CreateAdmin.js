@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import { useNavigate } from 'react-router';
 export default function CreateAdmin() {
 
     const[admin,setAdmin]=useState(
@@ -28,10 +29,24 @@ export default function CreateAdmin() {
     
       const onSubmit = async (e) => {
         e.preventDefault();
-        await axios.post("http://localhost:8084/api/admin", admin);
+        await axios.post("http://localhost:8084/api/admin", admin, {
+          headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+          }});
         
       };
 
+      const navigate = useNavigate();
+
+      useEffect(()=>{
+        if (!localStorage.getItem('token') || !localStorage.getItem('user')){
+          navigate("/login")
+        }
+        const user = JSON.parse(localStorage.getItem('user'))
+        if (user['role'] != "ADMIN") {
+          navigate("/")
+        }
+    },[])
 
   return (
     <div className="container col-4 border rounded p-4 mt-2 shadow" style={{'width':'50%','margin-left':'280px'}}>

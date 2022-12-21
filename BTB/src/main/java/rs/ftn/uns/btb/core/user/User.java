@@ -4,14 +4,24 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import rs.ftn.uns.btb.core.report.Report;
+import rs.ftn.uns.btb.core.role.Role;
 import rs.ftn.uns.btb.core.appointment.Appointment;
 import rs.ftn.uns.btb.core.scheduled_appointment.ScheduledAppointment;
+import rs.ftn.uns.btb.core.security.dtos.UserRequest;
 import rs.ftn.uns.btb.core.survey.answer.SurveyAnswers;
 import rs.ftn.uns.btb.core.user.dtos.UserUpdateDTO;
 import rs.ftn.uns.btb.core.user.interfaces.Person;
 
 import javax.persistence.*;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -27,6 +37,9 @@ public class User extends Person {
 
     @Column(name = "penalty", nullable = true)
     private Integer penalty;
+
+    // @Column(name = "username", nullable = false)
+    // private String username;
 
     @OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @Getter @Setter
@@ -71,5 +84,26 @@ public class User extends Person {
         this.setProfession(userUpdateDTO.getProfession());
         this.setJob(userUpdateDTO.getJob());
     }
+
+    public void copyValuesFromUserRequest(UserRequest userRequest) {
+        this.setEmail(userRequest.getEmail());
+        this.setPassword(userRequest.getPassword());
+        this.setFirstName(userRequest.getFirstName());
+        this.setLastName(userRequest.getLastName());
+        this.setJmbg(userRequest.getJmbg());
+    }
+
+    // @ManyToMany(fetch = FetchType.EAGER)
+    // @JoinTable(name = "users_roles",
+    //         joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+    //         inverseJoinColumns = @JoinColumn(name = "roles_id", referencedColumnName = "id"))
+    // private List<Role> roles;
+
+    // @JsonIgnore
+    // @Override
+    // @Transactional
+    // public Collection<? extends GrantedAuthority> getAuthorities() {
+    //     return this.getRoles();
+    // }
 
 }
