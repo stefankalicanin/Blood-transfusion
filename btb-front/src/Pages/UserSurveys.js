@@ -25,6 +25,13 @@ function UserSurveys() {
     const [surveys, setSurveys] = useState([]);
 
     useEffect(() => {
+        if (!localStorage.getItem('token') || !localStorage.getItem('user')){
+            navigate("/login")
+        }
+        const user = JSON.parse(localStorage.getItem('user'))
+        if (user['role'] != "STAFF") {
+          navigate("/")
+        }
         fetchSurveyData();
     }, [])
     
@@ -35,7 +42,10 @@ function UserSurveys() {
     const fetchSurveyData = async() => {
         try {
             const user_id = state?.data.user.id;
-            const response = await axios.get(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/answers/${user_id}`);
+            const response = await axios.get(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/answers/${user_id}`, {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }});
             console.log(response.data)
 
             setSurveys(response.data);
@@ -57,7 +67,10 @@ function UserSurveys() {
         report.attendanceStatus = 1
         setReport({...report, "attendanceStatus":1})
 
-        axios.post(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/report`, report)
+        axios.post(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/report`, report, {
+            headers: {
+              'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }})
             .then(res => {
                 console.log(res);
                 console.log(res.data);
@@ -75,7 +88,10 @@ function UserSurveys() {
         report.attendanceStatus = 2
         setReport({...report, "attendanceStatus":2})
 
-        axios.post(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/report`, report)
+        axios.post(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/report`, report, {
+            headers: {
+              'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }})
             .then(res => {
                 console.log(res);
                 console.log(res.data);

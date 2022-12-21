@@ -86,5 +86,11 @@ export const SidebarData = [
         path: "/admin/changePassword",
         cName: "nav-text",
         role: ["admin"]
+    },
+    {
+        title: "Logout",
+        path: "/logout",
+        cName: "nav-text",
+        role: ["admin", "staff", "user"]
     }
 ];

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import rs.ftn.uns.btb.core.survey.answer.dtos.SurveyAnswersDTO;
 import rs.ftn.uns.btb.core.survey.answer.dtos.UserAnswersDTO;
@@ -38,6 +39,7 @@ public class SurveyAnswerController {
                     content = @Content)
     })
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<SurveyAnswersDTO> createAnswers(@RequestBody SurveyAnswersDTO answersDTO) {
         SurveyAnswersDTO sa = null;
         try {
@@ -56,6 +58,7 @@ public class SurveyAnswerController {
             @ApiResponse(responseCode = "404", description = "Answers not found", content = @Content)
     })
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<List<UserAnswersDTO>> getUserAnswers(@Parameter(name = "id", description = "ID of a user to look survey answers for", required = true) @PathVariable("id") Long id) {
 
         List<UserAnswersDTO> userAnswers = new ArrayList<>();

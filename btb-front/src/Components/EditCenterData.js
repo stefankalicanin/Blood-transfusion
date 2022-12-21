@@ -17,4 +17,10 @@ export const EditCenterData = [
         cName: "settings-text",
         index: '3'
     },
+    {
+        title: "Blood",
+        path: "/staff/editCenter/blood",
+        cName: "settings-text",
+        index: '4'
+    },
 ];

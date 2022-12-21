@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect,useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function ViewProfile() {
   const [user, setUser] = useState({
@@ -21,8 +21,19 @@ export default function ViewProfile() {
 
   const [first, setFirst] = useState(true);
   const [disabled, setDisabled] = useState(true);
+
+  const navigate = useNavigate();
   
   useEffect(() => {
+    if (!localStorage.getItem('token') || !localStorage.getItem('user')){
+      navigate("/login")
+    }
+    const user = JSON.parse(localStorage.getItem('user'))
+    if (user['role'] != "USER") {
+      navigate("/")
+    }
+
+
     if (first){
       loadUser();
       setFirst(!first);
@@ -32,13 +43,19 @@ export default function ViewProfile() {
   const loadUser = async () => {
     const user = JSON.parse(localStorage.getItem('user'));
 
-    const result = await axios.get('http://localhost:8084/api/user/ ' + user.id);
+    const result = await axios.get('http://localhost:8084/api/user/ ' + user.id, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }});
     setUser(result.data);
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await axios.put(`http://localhost:8084/api/user/update`, user);
+    await axios.put(`http://localhost:8084/api/user/update`, user, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }});
     setDisabled(true);
   };
 

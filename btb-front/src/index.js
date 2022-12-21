@@ -25,6 +25,7 @@ import ChangeAdminPassword from "./Pages/ChangeAdminPassword";
 import { E404 } from "./Pages/E404";
 import ReportsCreate from "./Pages/ReportsCreate";
 import UserSurveys from "./Pages/UserSurveys";
+import Logout from "./Utils/Logout";
 const AppLayout = () => (
     <>
         <Navbar />
@@ -118,6 +119,10 @@ const router = createBrowserRouter([
             {
                 path: "user/survey/answers",
                 element: <UserSurveys/>
+            },
+            {
+                path: "logout",
+                element: <Logout/>
             }
                 
         ]

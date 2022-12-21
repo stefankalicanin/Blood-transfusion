@@ -62,10 +62,13 @@ public class StaffServiceImpl implements StaffService {
             throw new Exception("Staff does not exist");
         }
 
+        //userRequest.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+
+
         staffToUpdate.setJmbg(staff.getJmbg());
         staffToUpdate.setFirstName(staff.getFirstName());
         staffToUpdate.setLastName(staff.getLastName());
-        staffToUpdate.setPassword(staff.getPassword());
+        staffToUpdate.setPassword(passwordEncoder.encode(staff.getPassword()));
         staffToUpdate.setEmail(staff.getEmail());
 
         Staff updatedStaff = _staffRepo.save(staffToUpdate);

@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm ,} from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
 import axios from 'axios'
+import { useNavigate } from 'react-router'
 export default function ChangeAdminPassword() {
+  
 
     const [adminDto,setAdminDto]=useState(
       {
@@ -19,9 +21,25 @@ export default function ChangeAdminPassword() {
     };
     const onSubmit = async (e) => {
       e.preventDefault();
-      await axios.put("http://localhost:8084/api/admin/update", adminDto);
+      await axios.put("http://localhost:8084/api/admin/update", adminDto, {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+      });
       
     };
+
+    const navigate = useNavigate();
+
+    useEffect(()=>{
+      if (!localStorage.getItem('token') || !localStorage.getItem('user')){
+        navigate("/login")
+      }
+      const user = JSON.parse(localStorage.getItem('user'))
+      if (user['role'] != "ADMIN") {
+        navigate("/")
+      }
+  },[])
     
   const togglePassword = () => {
 

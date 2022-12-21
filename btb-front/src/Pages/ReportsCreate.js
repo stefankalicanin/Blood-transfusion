@@ -1,6 +1,6 @@
 import axios from "axios";
 import { toInteger } from "lodash";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaIcons } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router";
 import Select from "react-select";
@@ -33,6 +33,16 @@ function ReportsCreate() {
     )
     // console.log(state?.data);
     console.log(report);
+  
+    useEffect(()=>{
+        if (!localStorage.getItem('token') || !localStorage.getItem('user')){
+          navigate("/login")
+        }
+        const user = JSON.parse(localStorage.getItem('user'))
+        if (user['role'] != "STAFF") {
+          navigate("/")
+        }
+    },[])
 
     const [equipment, setEquipment] = useState({})
 
@@ -66,7 +76,10 @@ function ReportsCreate() {
 
         if (flag) return;
 
-        axios.post(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/report`, report)
+        axios.post(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/report`, report, {
+            headers: {
+              'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }})
             .then(res => {
                 console.log(res);
                 console.log(res.data);

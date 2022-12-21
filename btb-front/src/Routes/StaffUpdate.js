@@ -1,10 +1,13 @@
 import React, { useState,useEffect } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router';
 
 var CONFIG = require("../Config/server.json");
 
 
 function StaffUpdate() {
+
+    const navigate = useNavigate();
 
     const onInputChange = (e) => {
         setStaff({ ...staff, [e.target.name]: e.target.value });
@@ -27,7 +30,10 @@ function StaffUpdate() {
         const staff_info = JSON.parse(localStorage.getItem('user'))
 
 
-        await axios.put(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/staff/${staff_info.id}`, staff);
+        await axios.put(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/staff/${staff_info.id}`, staff, {
+            headers: {
+              'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }});
     };
 
     const[staff, setStaff] = useState({
@@ -50,7 +56,10 @@ function StaffUpdate() {
             const staff_info = JSON.parse(localStorage.getItem('user'))
             
             console.log(staff_info.id);
-            const loadedStaff = await axios.get(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/staff/${staff_info.id}`);
+            const loadedStaff = await axios.get(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/staff/${staff_info.id}`, {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }});
             console.log("-------------------------")
             console.log(loadedStaff.data)
             setStaff(loadedStaff.data);
@@ -61,6 +70,13 @@ function StaffUpdate() {
     }
 
     useEffect(() => {
+        if (!localStorage.getItem('token') || !localStorage.getItem('user')){
+            navigate("/login")
+        }
+        const user = JSON.parse(localStorage.getItem('user'))
+        if (user['role'] != "STAFF") {
+            navigate("/")
+        }
         loadStaffInfo();
     }, [])
 

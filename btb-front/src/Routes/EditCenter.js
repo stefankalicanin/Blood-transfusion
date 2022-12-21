@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { EditCenterData } from '../Components/EditCenterData';
 // import EditCenterInfo from '../pages/EditCenterInfo';
 // import { Button } from 'react-bootstrap';
@@ -36,6 +36,8 @@ function EditCenter() {
         staff: []
     })
 
+    const[blood, setBlood] = useState([])
+
     const[appointments, setAppointments] = useState({
         id:"",
         date:"",
@@ -62,8 +64,14 @@ function EditCenter() {
 
     
     // console.log(CONFIG.IP_ADDRESS + ":" + CONFIG.PORT);
+
+    const navigate = useNavigate();
     
     useEffect(() => {
+        if (!localStorage.getItem('token') && !localStorage.getItem('user')){
+            navigate("/login")
+        }
+
         loadCenter();
         // setStaffInfo(JSON.parse(localStorage.getItem('user')));
     }, [])
@@ -72,17 +80,23 @@ function EditCenter() {
         // const loadedCenter = await axios.get(`http://localhost:8084/center/${id}`)
         // console.log("Usao u load async");
         try {
-            console.log("------------------")
-            console.log(staff_info.center_id);
-            const loadedCenter = await axios.get(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/center/${staff_info.center_id}`);
-            const loadedAppointments = await axios.get(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/appointment/byCenter/${staff_info.center_id}`)
-            const loadedStaff = await axios.get(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/staff/byCenter/${staff_info.center_id}`)
-            
+            const loadedCenter = await axios.get(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/center/${staff_info.center_id}`, {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }});
+            const loadedAppointments = await axios.get(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/appointment/byCenter/${staff_info.center_id}`, {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }})
+            // const loadedStaff = await axios.get(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/staff/byCenter/${staff_info.center_id}`)
+            const loadedStaff = loadedCenter.data["staff"];
+            const loadedBlood = loadedCenter.data["amountOfBlood"]
             loadedAppointments.data = [...loadedAppointments.data].sort((a, b) => a.id - b.id);
 
             setCenter(loadedCenter.data);
             setAppointments(loadedAppointments.data);
-            setStaffs(loadedStaff.data);
+            setStaffs(loadedStaff);
+            setBlood(loadedBlood);
 
             setLoading(false);
 
@@ -153,7 +167,10 @@ function EditCenter() {
         if (exitError) { return; }
 
         try {
-            const response = await axios.put(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/center/${staff_info.center_id}`, updatedCenter);
+            const response = await axios.put(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/center/${staff_info.center_id}`, updatedCenter, {
+                headers: {
+                  'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }});
             console.log(response);
             // setCenter((center) => {
             //     return { ...center, ...{updatedCenter}}
@@ -202,7 +219,7 @@ function EditCenter() {
            axios.request({
                 method: 'DELETE',
                 url: `http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/appointment/delete/multiple`,
-                headers: {'Content-Type': 'application/json'},
+                headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token')},
                 data: toDeleteAppointments
             }).then(function (response) {
                 setAppointments(appointments.filter(item => toDeleteAppointments.includes(item.id) === false))
@@ -211,12 +228,8 @@ function EditCenter() {
             }).catch(function (error) {
                 console.error(error);
             });
-
-            
-
         }
     }
-
 
     console.log(toDeleteAppointments)
 
@@ -254,7 +267,15 @@ function EditCenter() {
                     <td>{info.phone}</td>
                 </tr>
             )
+        })
 
+        const bloodRows = blood.map((info) => {
+            return (
+                <tr className='table-light'>
+                    <td>{info.type}</td>
+                    <td>{info.quantity}</td>
+                </tr>
+            )
         })
     // console.log(center)
 
@@ -359,7 +380,23 @@ function EditCenter() {
                                 {staffRows}
                             </tbody>
                         </table>
-                        </div>
+                    </div>
+                </div>
+                <div className={toggleState === '4' ? "container content active-content" : "content"} style={{'margin-left':'-70px'}}>
+                        <div className='py-4'>
+                        <table id='staffTable' className='table table-hover border rounded p-3 mt-1 shadow table-striped'>
+                            <thead className='table-dark'>
+                                <tr>
+                                    <th scope='col'>Type</th>
+                                    <th scope='col'>Quantity</th>
+                                </tr>
+                                {/* <th>Select</th> */}
+                            </thead>
+                            <tbody className='table-content'>
+                                {bloodRows}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

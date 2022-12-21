@@ -42,7 +42,6 @@ export default function LoginFunc(){
           const response = await axios.post(`http://localhost:8084/auth/login`, state)
 
           if (response.status == 200) {
-            console.log("-=--==-=--=--=-=-=-=-=-=-=-=-=-=-=-=-=-=")
             localStorage.setItem("token", response.data.accessToken)
             const userInfo = await axios.request(`http://localhost:8084/auth/me`, {
               method: 'GET',
