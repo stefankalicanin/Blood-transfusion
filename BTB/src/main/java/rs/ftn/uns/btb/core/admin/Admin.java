@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Admin extends Person {
 
     @Column(name = "super_admin", nullable = false)
-    private Boolean isSuperAdmin;
+    private Boolean isSuperAdmin=false;
 
     public Admin() {}
 
