@@ -14,11 +14,18 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import rs.ftn.uns.btb.core.appointment.dtos.AppointmentDTO;
 import rs.ftn.uns.btb.core.appointment.dtos.AppointmentStateDTO;
+import rs.ftn.uns.btb.core.appointment.dtos.BookAppointmentDTO;
 import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentService;
 import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentState;
 import rs.ftn.uns.btb.core.center.Center;
+import rs.ftn.uns.btb.core.scheduled_appointment.ScheduledAppointment;
+import rs.ftn.uns.btb.core.scheduled_appointment.ScheduledAppointmentRepository;
 import rs.ftn.uns.btb.core.staff.Staff;
 import rs.ftn.uns.btb.core.staff.interfaces.StaffService;
+import rs.ftn.uns.btb.core.survey.answer.SurveyAnswers;
+import rs.ftn.uns.btb.core.survey.answer.SurveyAnswersRepository;
+import rs.ftn.uns.btb.core.user.User;
+import rs.ftn.uns.btb.core.user.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +37,18 @@ public class AppointmentController {
 
     public final AppointmentService _appointmentService;
     public final StaffService _staffService;
-
+    public final AppointmentRepository appointmentRepository;
+    public final ScheduledAppointmentRepository scheduledAppointmentRepository;
+    public final UserRepository userRepository;
+    public final SurveyAnswersRepository surveyAnswersRepository;
     @Autowired
-    public AppointmentController(AppointmentService _appointmentService, StaffService _staffService) {
+    public AppointmentController(AppointmentService _appointmentService, StaffService _staffService, AppointmentRepository appointmentRepository,ScheduledAppointmentRepository scheduledAppointmentRepository,UserRepository userRepository,SurveyAnswersRepository surveyAnswersRepository) {
         this._appointmentService = _appointmentService;
         this._staffService = _staffService;
+        this.appointmentRepository = appointmentRepository;
+        this.scheduledAppointmentRepository = scheduledAppointmentRepository;
+        this.userRepository = userRepository;
+        this.surveyAnswersRepository = surveyAnswersRepository;
     }
 
     // value = "/byCenter/1"
@@ -73,6 +87,10 @@ public class AppointmentController {
     @PreAuthorize("hasRole('STAFF')")
     public ResponseEntity<Appointment> createAppointment(@RequestBody AppointmentDTO appointmentDTO) {
         Appointment savedAppointment = null;
+
+        System.out.println("----------------------------------------------------");
+        System.out.println(appointmentDTO.getTime() + " :::::: " + appointmentDTO.getDate());
+        System.out.println("----------------------------------------------------");
 
         Staff staff = _staffService.findOne(appointmentDTO.getStaff_id());
         Center center = staff.getCenter();
@@ -159,5 +177,95 @@ public class AppointmentController {
         }
 
         return new ResponseEntity<Appointment>(updatedAppointment, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/getAllAvailable", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Appointment>> getAllAvailable(){
+        return new ResponseEntity<List<Appointment>>(_appointmentService.getAllAvailable(), HttpStatus.OK);
+    }
+    @Operation(summary = "Update an existing appointment", description = "Update an existing appointment", method = "PUT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Appointment successfully updated",
+                    content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = Appointment.class))
+                    }),
+            @ApiResponse(responseCode = "404", description = "Appointment not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content) })
+    @PutMapping(value = "book/{appointmentId}/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Appointment> book(@PathVariable Long appointmentId, @PathVariable Long userId) {
+        List<ScheduledAppointment> scheduledAppointments = scheduledAppointmentRepository.findAll();
+        boolean zakazaoRanije = scheduledAppointments
+                .stream()
+                .anyMatch(appointment -> appointment.getUsers().getId() == userId);
+        if (zakazaoRanije) {
+            // return error
+            return new ResponseEntity<Appointment>(HttpStatus.NOT_FOUND);
+        }
+        Appointment appointmentToUpdate = _appointmentService.findOne(appointmentId);
+        ScheduledAppointment newScheduleAppointment = new ScheduledAppointment();
+
+        User user = userRepository.findOneById(userId);
+
+        List<SurveyAnswers> surveyAnswers = surveyAnswersRepository.findAll();
+        boolean found = false;
+        for (SurveyAnswers surveyAnswer : surveyAnswers) {
+            if (surveyAnswer.getUsers().getId() == userId) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            return new ResponseEntity<Appointment>(HttpStatus.NOT_FOUND);
+        } else {
+            // continue
+        }
+        appointmentToUpdate.setState(AppointmentState.SCHEDULED);
+
+        Appointment updatedAppointment = null;
+
+        try {
+            updatedAppointment = _appointmentService.update(appointmentToUpdate);
+            newScheduleAppointment.setAppointment(updatedAppointment);
+            newScheduleAppointment.setUsers(user);
+            scheduledAppointmentRepository.save(newScheduleAppointment);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<Appointment>(HttpStatus.NOT_FOUND);
+        }
+        if (updatedAppointment == null) {
+            return new ResponseEntity<Appointment>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return new ResponseEntity<Appointment>(updatedAppointment, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/bookNE", produces = MediaType.APPLICATION_JSON_VALUE) // query instead
+    public Boolean BookAppointment(BookAppointmentDTO dto) throws Exception {
+        System.out.println("Hello, World!");
+        Appointment appointment = appointmentRepository.findOneById(dto.appointmentId);
+        //check if appointment is free
+        if(appointment.getState() != AppointmentState.AVAILABLE){
+            throw new Exception("Appointment is not free");
+        }
+        //check if customer filled questionnaire
+        //if(!questionnaireService.checkQuestionnaire(dto.customerId)){
+        //    throw new Exception("Invalid questionnaire");
+        //}
+        //check if customer donated blood in last 6 months
+        //List<Appointment> appointmentList = appointmentRepository.findAllAppointmentsIn6MonthPeriod(dto.customerId, Date.valueOf(LocalDate.now().minusMonths(6)));
+        //if(!appointmentList.isEmpty()){
+        //    throw new Exception("Already did a blood extraction in a 6 month period");
+        //}
+        //book appointment
+        appointment.setState(AppointmentState.SCHEDULED);
+        //appointment.setTakenBy(customerRepository.findById(dto.customerId).orElseThrow());
+        //String uuid = UUID.randomUUID().toString();
+        //appointment.setConfirmationCode(uuid);
+        appointmentRepository.save(appointment);
+
+        //send verification
+        //SendConfirmationCode(appointment);
+
+        return true;
     }
 }

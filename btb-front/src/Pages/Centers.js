@@ -39,9 +39,9 @@ export default function Centers(){
         setCenters(result.data);
     };
 
-
     return (
       <div style={{'margin-left':'280px'}}>
+          <a href="/bookAppointments">Pogledaj termine</a>
         <div className='py-4'>
             <form onSubmit={(e) => onSubmit(e)}>
                 <input type="text" placeholder="Name" name="name" onChange={(e) => onInputChange(e)}></input>

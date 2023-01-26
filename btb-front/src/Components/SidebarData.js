@@ -88,9 +88,19 @@ export const SidebarData = [
         role: ["admin"]
     },
     {
+
+        title: "Make Appointment",
+        path: "/makeApp1",
+        cName: "nav-text",
+        role: ["user"]
+    },
+    {
         title: "Logout",
         path: "/logout",
         cName: "nav-text",
         role: ["admin", "staff", "user"]
+        
+
     }
+
 ];

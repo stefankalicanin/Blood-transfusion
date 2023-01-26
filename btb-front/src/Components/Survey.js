@@ -34,7 +34,7 @@ const Survey = props => {
       navigate("/login")
     }
     const user = JSON.parse(localStorage.getItem('user'))
-    if (user['role'] != "STAFF") {
+    if (user['role'] != "USER") {
       navigate("/")
     }
     const loggedInUser = JSON.parse(localStorage.getItem('user'));
