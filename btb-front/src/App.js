@@ -20,6 +20,8 @@ import Survey from "./Components/Survey";
 import ViewProfile from "./Pages/ViewProfile";
 import Centers from "./Pages/Centers";
 import DefineAppointment from "./Pages/DefineAppointment";
+import MakeApp1 from "./Pages/MakeApp1";
+import UserDefineAppointment from "./Pages/UserDefineAppointment";
 
 
 
@@ -35,6 +37,7 @@ function App() {
             <Route path="/userProfile" element={<ViewProfile/>} />
             <Route path="/centers" element={<Centers/>} />
             <Route path="/defineAppointment" element={<DefineAppointment/>} />
+            <Route path="/userDefineAppointment" element={<UserDefineAppointment/>} />
           </Routes>
         </BrowserRouter>
       </div>

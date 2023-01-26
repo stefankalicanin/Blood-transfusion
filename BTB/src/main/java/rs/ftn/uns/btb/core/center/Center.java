@@ -5,6 +5,7 @@ import lombok.Setter;
 import rs.ftn.uns.btb.core.appointment.Appointment;
 import rs.ftn.uns.btb.core.blood.Blood;
 import rs.ftn.uns.btb.core.center.dtos.CenterUpdateDTO;
+import rs.ftn.uns.btb.core.center.dtos.DateTimeDTO;
 import rs.ftn.uns.btb.core.center.dtos.SearchCenterDTO;
 import rs.ftn.uns.btb.core.staff.Staff;
 
@@ -66,4 +67,6 @@ public class Center {
         this.address = searchCenterDTO.getAddress();
         this.grade = searchCenterDTO.getGrade();
     }
+
+
 }

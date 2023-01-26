@@ -10,6 +10,7 @@ import lombok.Setter;
 import rs.ftn.uns.btb.core.appointment.dtos.AppointmentDTO;
 import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentState;
 import rs.ftn.uns.btb.core.center.Center;
+import rs.ftn.uns.btb.core.center.dtos.DateTimeDTO;
 import rs.ftn.uns.btb.core.report.Report;
 import rs.ftn.uns.btb.core.scheduled_appointment.ScheduledAppointment;
 import rs.ftn.uns.btb.core.staff.Staff;
@@ -21,6 +22,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 import java.sql.Date; // SQL DATE = YYYY-MM-DD, JAVAUTIL DATE = YYYY-MM-DD HH:MM:SS
 import java.sql.Time;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "appointment")
@@ -89,4 +91,8 @@ public class Appointment {
         this.setDuration(appointmentDTO.getDuration());
     }
 
+    public void copyValuesfromDTO(DateTimeDTO dateTimeDTO){
+        this.date = dateTimeDTO.getDate();
+        this.time = dateTimeDTO.getTime();
+    }
 }

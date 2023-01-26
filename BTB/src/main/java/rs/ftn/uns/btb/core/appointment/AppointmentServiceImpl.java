@@ -2,12 +2,15 @@ package rs.ftn.uns.btb.core.appointment;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentService;
 import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentState;
 import rs.ftn.uns.btb.core.scheduled_appointment.ScheduledAppointment;
 import rs.ftn.uns.btb.core.scheduled_appointment.ScheduledAppointmentRepository;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -25,7 +28,11 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
+    @Transactional
     public Appointment create(Appointment appointment) throws  Exception{
+        if (overlappingTime(appointment)) {
+            throw new Exception("Preklapajuce vreme termina!");
+        }
         appointment.setState(AppointmentState.AVAILABLE);
         Appointment newAppointment = this._appointmentRepo.save(appointment);
         return newAppointment;
@@ -87,5 +94,22 @@ public class AppointmentServiceImpl implements AppointmentService {
     public Iterable<Appointment> GetAll() throws Exception {
         return _appointmentRepo.findAll();
     }*/
+
+    private boolean overlappingTime(Appointment appointment) {
+        Date date = appointment.getDate();
+        Time startTime = appointment.getTime();
+        Time endTime = Time.valueOf(startTime.toLocalTime().plusHours(appointment.getDuration()));
+        Long centerId = appointment.getCenter().getId();
+        Long staffId = appointment.getStaff().getId();
+        
+
+        List<Appointment> allOverlapps = this._appointmentRepo.findAllOverlappings(centerId, date, startTime, endTime, staffId);
+
+        if (allOverlapps.size() > 0) {
+            return true;
+        }
+
+        return false;
+    }
 
 }

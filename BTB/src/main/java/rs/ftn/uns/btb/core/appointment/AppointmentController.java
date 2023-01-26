@@ -88,6 +88,10 @@ public class AppointmentController {
     public ResponseEntity<Appointment> createAppointment(@RequestBody AppointmentDTO appointmentDTO) {
         Appointment savedAppointment = null;
 
+        System.out.println("----------------------------------------------------");
+        System.out.println(appointmentDTO.getTime() + " :::::: " + appointmentDTO.getDate());
+        System.out.println("----------------------------------------------------");
+
         Staff staff = _staffService.findOne(appointmentDTO.getStaff_id());
         Center center = staff.getCenter();
 

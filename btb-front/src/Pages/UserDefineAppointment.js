@@ -1,33 +1,21 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router';
 
-export default function DefineAppointment() {
+export default function UserDefineAppointment() {
 
     const [staffList, setStaffList] = useState([{'id':'', 'firstName':'', 'lastName':'' }])
     const [staffId, setStaffId] = useState("");
-
-    const navigate = useNavigate();
-
     useEffect(() => {
-      if (!localStorage.getItem('token') || !localStorage.getItem('user')){
-        navigate("/login")
-      }
-      const user = JSON.parse(localStorage.getItem('user'))
-      if (user['role'] != "STAFF") {
-        navigate("/")
-      }
         const fetchData = async () => {
             const userInfo = JSON.parse(localStorage.getItem('user'));
             console.log(userInfo);
-            const result = await axios.get('http://localhost:8084/api/staff/byCenter/' + userInfo.center_id, {
-              headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
-              }});
+            const result = await axios.get('http://localhost:8084/api/staff/byCenter/' + userInfo.center_id);
             setStaffList(result.data);
         };
         fetchData();
     }, [])
+
+
 
     const [appointment, setAppointment] = useState({
         date: "",
@@ -43,21 +31,10 @@ export default function DefineAppointment() {
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        console.log("---------")
+        console.log(appointment);
         appointment.time = appointment.time + ":00";
-        await axios.post("http://localhost:8084/api/appointment/createAppointment", appointment, {
-          headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('token')
-          }}).then(function (response) {
-            if (response.status === 201) {
-              alert("Uspesno kreiran termin")
-              navigate(-1)
-            }
-          })
-          .catch(function (error) {
-            if (error.response.status === 409) {
-              alert("Postoji termin u tom periodu")
-            }
-          })
+        await axios.post("http://localhost:8084/api/appointment/createAppointment", appointment);
     };
     
 

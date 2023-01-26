@@ -18,4 +18,5 @@ public interface AppointmentService {
 
     Appointment update(Appointment appointment) throws Exception;
     //Iterable<Appointment> GetAll() throws Exception;
+
 }
