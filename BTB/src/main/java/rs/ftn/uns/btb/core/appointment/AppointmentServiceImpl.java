@@ -23,9 +23,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     @Transactional
     public Appointment create(Appointment appointment) throws  Exception{
-        System.out.println("----------------------------------------------------");
-        System.out.println(appointment.getTime() + " :::::: " + appointment.getDate());
-        System.out.println("----------------------------------------------------");
         if (overlappingTime(appointment)) {
             throw new Exception("Preklapajuce vreme termina!");
         }
