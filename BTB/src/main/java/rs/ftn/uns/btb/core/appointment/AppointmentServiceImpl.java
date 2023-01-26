@@ -7,6 +7,7 @@ import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentService;
 import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentState;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -42,6 +43,17 @@ public class AppointmentServiceImpl implements AppointmentService {
     
     public List<Appointment> findAll() {
         List<Appointment> allAppointments = _appointmentRepo.findAll();
+        return allAppointments;
+    }
+    public List<Appointment> getAllAvailable() {
+        List<Appointment> allAppointments = _appointmentRepo.findAll();
+        Iterator<Appointment> iterator = allAppointments.iterator();
+        while (iterator.hasNext()) {
+            Appointment appointment = iterator.next();
+            if (appointment.getState() != AppointmentState.AVAILABLE) {
+                iterator.remove();
+            }
+        }
         return allAppointments;
     }
 

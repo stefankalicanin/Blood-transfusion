@@ -42,7 +42,6 @@ public class Appointment {
     private Integer duration;
 
     @Column(name = "state", nullable = false)
-    @JsonIgnore
     private AppointmentState state;
 
     // Centar u kom postoji termin

@@ -11,7 +11,7 @@ public interface AppointmentService {
     List<Appointment> findByCenterId(Long id);
 
     List<Appointment> findAll();
-
+    List<Appointment> getAllAvailable();
     void deleteSelection(Long[] idsOfAppointmentsToRemove);
 
     Appointment findOne(Long id);

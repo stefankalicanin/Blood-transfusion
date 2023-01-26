@@ -94,7 +94,7 @@ const router = createBrowserRouter([
                 element: <Centers />
             },
             {
-                path: "bookAppointment",
+                path: "bookAppointments",
                 element: <BookAppointment />
             },
             {
