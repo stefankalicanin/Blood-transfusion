@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentService;
 import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentState;
+import rs.ftn.uns.btb.core.scheduled_appointment.ScheduledAppointment;
+import rs.ftn.uns.btb.core.scheduled_appointment.ScheduledAppointmentRepository;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -14,9 +16,13 @@ import java.util.List;
 public class AppointmentServiceImpl implements AppointmentService {
 
     public final AppointmentRepository _appointmentRepo;
+    public final ScheduledAppointmentRepository scheduledAppointmentRepository;
 
     @Autowired
-    public AppointmentServiceImpl(AppointmentRepository _appointmentRepo) { this._appointmentRepo = _appointmentRepo; }
+    public AppointmentServiceImpl(AppointmentRepository _appointmentRepo, ScheduledAppointmentRepository scheduledAppointmentRepository) {
+        this._appointmentRepo = _appointmentRepo;
+        this.scheduledAppointmentRepository = scheduledAppointmentRepository;
+    }
 
     @Override
     public Appointment create(Appointment appointment) throws  Exception{
@@ -46,6 +52,8 @@ public class AppointmentServiceImpl implements AppointmentService {
         return allAppointments;
     }
     public List<Appointment> getAllAvailable() {
+
+
         List<Appointment> allAppointments = _appointmentRepo.findAll();
         Iterator<Appointment> iterator = allAppointments.iterator();
         while (iterator.hasNext()) {

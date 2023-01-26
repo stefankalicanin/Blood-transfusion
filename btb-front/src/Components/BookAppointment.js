@@ -14,7 +14,7 @@ function BookAppointment(){
         method: 'GET',
         url: 'http://localhost:8084/api/appointment/getAllAvailable',
         headers: {
-            'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJzcHJpbmctc2VjdXJpdHktZXhhbXBsZSIsInN1YiI6InVzZXJAZ21haWwuY29tIiwiYXVkIjoid2ViIiwiaWF0IjoxNjc0NzUzNzQ0LCJleHAiOjE2NzQ3NTU1NDR9.QVx_xOw90VvVsN4As4wR7fwHycVw3quSQ0UZ9FSLi6b1PhupFKx7x6-Q7r3M0Eee9GzAeuUl_o6Dl5cVfIr5Tg'
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
         }
         };
 
@@ -28,10 +28,6 @@ function BookAppointment(){
         return { success: false };
         });
     }
-    const bookAppointment = async () => {
-      
-  }
-    
     useEffect(() => {
       fetchData();
       }, []);
@@ -43,7 +39,7 @@ function BookAppointment(){
 
           const loggedInUser = JSON.parse(localStorage.getItem('user'));
           setUserInfo(loggedInUser.id.toString());
-          console.log("User:",  userInfo);
+          console.log("User:",  userInfo.toString());
           const options = {
             method: 'PUT',
             url: 'http://localhost:8084/api/appointment/book/'+ selectedItem.toString() +'/' + userInfo.toString() + '/',
@@ -56,7 +52,7 @@ function BookAppointment(){
             navigate("/centers")
           }).catch(function (error) {
             console.error(error);
-            navigate("/survey")
+            //navigate("/survey")
           });
         } else {
           console.log("No item selected");

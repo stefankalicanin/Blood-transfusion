@@ -189,6 +189,14 @@ public class AppointmentController {
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content) })
     @PutMapping(value = "book/{appointmentId}/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Appointment> book(@PathVariable Long appointmentId, @PathVariable Long userId) {
+        List<ScheduledAppointment> scheduledAppointments = scheduledAppointmentRepository.findAll();
+        boolean zakazaoRanije = scheduledAppointments
+                .stream()
+                .anyMatch(appointment -> appointment.getUsers().getId() == userId);
+        if (zakazaoRanije) {
+            // return error
+            return new ResponseEntity<Appointment>(HttpStatus.NOT_FOUND);
+        }
         Appointment appointmentToUpdate = _appointmentService.findOne(appointmentId);
         ScheduledAppointment newScheduleAppointment = new ScheduledAppointment();
 
