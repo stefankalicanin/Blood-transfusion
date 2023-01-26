@@ -160,4 +160,9 @@ public class AppointmentController {
 
         return new ResponseEntity<Appointment>(updatedAppointment, HttpStatus.OK);
     }
+    /*
+    @GetMapping(value = "/getAllAvailable", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Appointment>> getAllAvailable(){
+        return new ResponseEntity<List<Appointment>>(_appointmentService.findAll(), HttpStatus.OK);
+    }*/
 }

@@ -26,6 +26,7 @@ import { E404 } from "./Pages/E404";
 import ReportsCreate from "./Pages/ReportsCreate";
 import UserSurveys from "./Pages/UserSurveys";
 import Logout from "./Utils/Logout";
+import BookAppointment from "./Components/BookAppointment";
 const AppLayout = () => (
     <>
         <Navbar />
@@ -91,6 +92,10 @@ const router = createBrowserRouter([
             {
                 path: "centers",
                 element: <Centers />
+            },
+            {
+                path: "bookAppointment",
+                element: <BookAppointment />
             },
             {
                 path: "viewProfile",

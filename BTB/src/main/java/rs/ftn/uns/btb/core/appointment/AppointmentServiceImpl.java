@@ -62,5 +62,10 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         return updatedAppointment;
     }
+    /*
+    @Override
+    public Iterable<Appointment> GetAll() throws Exception {
+        return _appointmentRepo.findAll();
+    }*/
 
 }
