@@ -78,9 +78,10 @@ public class AppointmentServiceImpl implements AppointmentService {
         Time startTime = appointment.getTime();
         Time endTime = Time.valueOf(startTime.toLocalTime().plusHours(appointment.getDuration()));
         Long centerId = appointment.getCenter().getId();
+        Long staffId = appointment.getStaff().getId();
         
 
-        List<Appointment> allOverlapps = this._appointmentRepo.findAllOverlappings(centerId, date, startTime, endTime);
+        List<Appointment> allOverlapps = this._appointmentRepo.findAllOverlappings(centerId, date, startTime, endTime, staffId);
 
         if (allOverlapps.size() > 0) {
             return true;

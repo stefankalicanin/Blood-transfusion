@@ -18,9 +18,11 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     // @Query(value = "SELECT * FROM appointment app WHERE app.center_id = ?1 AND app.date = ?2 AND ((?3 BETWEEN app.time AND app.time + interval '1 hour' * app.duration) OR (?4 between app.time AND app.time + interval '1 hour' * app.duration) OR (?3 < app.time AND ?4 > app.time + interval '1 hour' * app.duration))", nativeQuery = true)
     @Query(value = "SELECT * FROM appointment app " +
                    "WHERE app.center_id = ?1 AND app.date = ?2 AND " +
+                   "app.staff_id = ?5 AND " +
+                   "app.state != 2 AND " +
                    "((?3 BETWEEN app.time AND app.time + interval '1 hour' * app.duration) OR (?4 between app.time AND app.time + interval '1 hour' * app.duration) " +
                    "OR (?3 < app.time AND ?4 > app.time + interval '1 hour' * app.duration))", nativeQuery = true)
-    List<Appointment> findAllOverlappings(Long centerId, Date date, Time startTime, Time endTime);
+    List<Appointment> findAllOverlappings(Long centerId, Date date, Time startTime, Time endTime, Long staffId);
 
     // where app.center_id = ?1 and app.date = ?2 and (?3 between app.time and app.time + interval '1 hour' * app.duration)
     //OR (?3 + interval '1 hour' * ?4 between app.time and app.time + interval '1 hour' * app.duration)
