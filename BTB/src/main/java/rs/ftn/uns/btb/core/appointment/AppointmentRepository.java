@@ -27,6 +27,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     // where app.center_id = ?1 and app.date = ?2 and (?3 between app.time and app.time + interval '1 hour' * app.duration)
     //OR (?3 + interval '1 hour' * ?4 between app.time and app.time + interval '1 hour' * app.duration)
     //app.id, app.date, app.duration, app.state, app.time, app.center_id, app.staff_id
+
 }
 
 // @Query(value = "SELECT * FROM appointment app" +
