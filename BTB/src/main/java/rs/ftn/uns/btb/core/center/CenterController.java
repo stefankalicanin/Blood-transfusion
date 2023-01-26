@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +17,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import rs.ftn.uns.btb.core.center.dtos.CenterUpdateDTO;
+import rs.ftn.uns.btb.core.center.dtos.DateTimeDTO;
 import rs.ftn.uns.btb.core.center.interfaces.CenterService;
 
+import java.util.Date;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -133,6 +141,29 @@ public class CenterController {
         return new ResponseEntity<Center>(center, HttpStatus.OK);
 
     }
+
+    
+
+    @GetMapping(value = "/getAllByDateTime", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Center>> getAll(@RequestParam java.sql.Date date, @RequestParam String time){
+        DateFormat formatter = new SimpleDateFormat("HH:mm");
+        try {
+            Date d1 =(Date)formatter.parse(time);
+            Time timeValue = new Time(d1.getTime());
+            System.out.println(timeValue);
+
+            return new ResponseEntity<List<Center>>(_centerService.findAllByDateTime(date, timeValue), HttpStatus.OK);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+
+        }
+
+    }
+
+
+
+
+
 
 }
 //    @Operation(summary = "Get only center info by id", description = "Get only center info by id", method = "GET")
