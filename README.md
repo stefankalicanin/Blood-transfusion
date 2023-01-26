@@ -8,6 +8,6 @@ Verzije:
  
 # Pokretanje projekta
 
-btb-front: front-end, prvo je potrebno odraditi `npm install` kako bi se instalirale sve potrebne biblioteke, potom se pokrece `npm start` komandom.
-BTB: back-end, spring java aplikacija
+btb-front: front-end, prvo je potrebno odraditi `npm install` kako bi se instalirale sve potrebne biblioteke, potom se pokrece `npm start` komandom. <br>
+BTB: back-end, spring java aplikacija <br>
 postgresql: database
