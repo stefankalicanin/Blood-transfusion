@@ -24,6 +24,8 @@ import CreateAdmin from "./Pages/CreateAdmin";
 import ChangeAdminPassword from "./Pages/ChangeAdminPassword";
 import { E404 } from "./Pages/E404";
 import ReportsCreate from "./Pages/ReportsCreate";
+import MakeApp1 from "./Pages/MakeApp1";
+import UserDefineAppointment from "./Pages/UserDefineAppointment";
 const AppLayout = () => (
     <>
         <Navbar />
@@ -113,6 +115,14 @@ const router = createBrowserRouter([
             {
                 path: "reports/create",
                 element: <ReportsCreate/>
+            },
+            {
+                path: "makeApp1",
+                element: <MakeApp1/>
+            },
+            {
+                path: "userDefineAppointment",
+                element: <UserDefineAppointment/>
             }
                 
         ]

@@ -142,7 +142,7 @@ public class CenterController {
 
     }
 
-    
+
 
     @GetMapping(value = "/getAllByDateTime", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Center>> getAll(@RequestParam java.sql.Date date, @RequestParam String time){

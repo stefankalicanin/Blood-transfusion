@@ -86,5 +86,12 @@ export const SidebarData = [
         path: "/admin/changePassword",
         cName: "nav-text",
         role: ["admin"]
+    },
+    {
+        title: "Make Appointment",
+        path: "/makeApp1",
+        cName: "nav-text",
+        role: ["user"]
     }
+
 ];
