@@ -65,7 +65,7 @@ public class Appointment {
     @JsonIgnore
     private Report report;
 
-    @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "appointment", cascade = CascadeType.REMOVE)
     @JsonIgnore
     private ScheduledAppointment scheduledAppointment;
     

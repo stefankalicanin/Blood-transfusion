@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +42,7 @@ public class ScheduledAppointmentController {
             @ApiResponse (responseCode = "404", description = "appointments not found", content = @Content)
     })
     @GetMapping(value = "/{user_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('STAFF')")
     public ResponseEntity<Set<ScheduledAppointmentsViewDTO>> getUsersScheduledAppointments (@Parameter(name = "user_id", description = "ID of a user", required = true) @PathVariable("user_id") Long user_id) {
         Set<ScheduledAppointment> scheduledAppointments = _sAppointmentService.findByUserId(user_id);
         Set<ScheduledAppointmentsViewDTO> scheduledAppointmentsDTO = new HashSet<ScheduledAppointmentsViewDTO>();

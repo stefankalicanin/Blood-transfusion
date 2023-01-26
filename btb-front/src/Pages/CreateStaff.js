@@ -2,20 +2,33 @@ import React, { useState,useEffect } from 'react'
 import axios from 'axios'
 import { eventWrapper } from '@testing-library/user-event/dist/utils';
 import { toInteger } from 'lodash';
+import { useNavigate } from 'react-router';
 
 export default function CreateStaff() {
 
- 
+  const navigate = useNavigate();
+
   
   const [centerList, setCenterList] = useState([{'name':'','id':'','address':'','description':'','grade':''}])
   const [centerId, setCenterId] = useState("");
   useEffect(() =>{
+    if (!localStorage.getItem('token') || !localStorage.getItem('user')){
+      navigate("/login")
+    }
+    const user = JSON.parse(localStorage.getItem('user'))
+    if (user['role'] != "ADMIN") {
+      navigate("/")
+    }
     const fetchData = async ()=>{
-        const result = await axios.get('http://localhost:8084/api/center');
+        const result = await axios.get('http://localhost:8084/api/center', {
+          headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+          }});
         setCenterList(result.data); 
     };
     fetchData();
 }, [])
+
 
     const [staff, setStaff] = useState({
         jmbg: "",
@@ -48,7 +61,10 @@ export default function CreateStaff() {
         
         console.log("---------------")
         console.log(staff);
-        await axios.post("http://localhost:8084/api/staff", staff);
+        await axios.post("http://localhost:8084/api/staff", staff, {
+          headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+          }});
       };
       
   return (

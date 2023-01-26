@@ -1,6 +1,6 @@
 import axios from "axios";
 import { toInteger } from "lodash";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaIcons } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router";
 import Select from "react-select";
@@ -17,6 +17,9 @@ function ReportsCreate() {
 
     const navigate = useNavigate();
 
+    console.log(state?.data)
+
+
     const [report, setReport] = useState(
         {
             user_id: state?.data.user.id,
@@ -24,11 +27,22 @@ function ReportsCreate() {
             attendanceStatus: "",
             bloodType: "",
             bloodQuantity: "",
-            doctorsNote: ""
+            doctorsNote: "",
+            equipmentQuantity: ""
         }
     )
     // console.log(state?.data);
     console.log(report);
+  
+    useEffect(()=>{
+        if (!localStorage.getItem('token') || !localStorage.getItem('user')){
+          navigate("/login")
+        }
+        const user = JSON.parse(localStorage.getItem('user'))
+        if (user['role'] != "STAFF") {
+          navigate("/")
+        }
+    },[])
 
     const [equipment, setEquipment] = useState({})
 
@@ -62,11 +76,14 @@ function ReportsCreate() {
 
         if (flag) return;
 
-        axios.post(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/report`, report)
+        axios.post(`http://${CONFIG.IP_ADDRESS}:${CONFIG.PORT}/api/report`, report, {
+            headers: {
+              'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }})
             .then(res => {
                 console.log(res);
                 console.log(res.data);
-                navigate(-2); // navigate to previous page
+                navigate("/allUsers"); // navigate to previous page
             })
             .catch(error => {
                 console.log(error);
@@ -196,7 +213,9 @@ function ReportsCreate() {
                             <div className="input-group">
                                 <input
                                     type={"number"}
-                                    step="0.001"
+                                    // step="0"
+                                    min="0"
+                                    max="500"
                                     className="form-control"
                                     placeholder="Donated blood..."
                                     name="bloodQuantity"
@@ -206,6 +225,23 @@ function ReportsCreate() {
                                 <div className="input-group-append">
                                     <span className="input-group-text" id="basic-addon2">ml</span>
                                 </div>
+                            </div>
+                        </div>
+                        <div className="mb-4">
+                            <label htmlFor="quantity" className="form-label">
+                                Equipment:
+                            </label>
+                            <div className="input-group">
+                                <input
+                                    type={"number"}
+                                    min="0"
+                                    max="15"
+                                    className="form-control"
+                                    placeholder="Used equipment..."
+                                    name="equipmentQuantity"
+                                    onChange={(e) => onInputChange(e)}
+                                    required
+                                    />
                             </div>
                         </div>
                         <div className="md-3">

@@ -35,4 +35,9 @@ public class AdminServiceImpl implements AdminService {
         Admin updatedAdminByPassword =this._adminRepo.save(newAdmin);
         return updatedAdminByPassword;
     }
+
+    @Override
+    public Admin findByEmail(String email) {
+        return this._adminRepo.findOneByEmail(email);
+    }
 }

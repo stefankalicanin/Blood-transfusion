@@ -55,6 +55,7 @@ public class CenterController {
                          content = @Content)
     })
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('STAFF')")
     public ResponseEntity<Center> createCenter(@RequestBody Center center) {
         Center savedCenter = null;
         try {
@@ -92,6 +93,7 @@ public class CenterController {
             @ApiResponse(responseCode = "404", description = "Center not found", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content) })
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('STAFF')")
     public ResponseEntity<Center> updateCenter(@PathVariable Long id, @RequestBody CenterUpdateDTO centerUpdateDTO) {
         Center centerForUpdate = _centerService.findOne(id);
 
@@ -132,6 +134,7 @@ public class CenterController {
     })
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Center> getCenter(@Parameter(name="id", description = "ID of a center to return", required = true) @PathVariable("id") Long id) {
         Center center = _centerService.findOne(id);
 

@@ -14,6 +14,7 @@ public class ReportCreateDTO {
     private BloodType bloodType;
     private Double bloodQuantity;
     private String doctorsNote;
+    private Integer equipmentQuantity;
 
     public ReportCreateDTO() {}
     

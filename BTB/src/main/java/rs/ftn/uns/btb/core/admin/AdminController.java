@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import rs.ftn.uns.btb.core.admin.dtos.ChangeAdminPasswordDTO;
 import rs.ftn.uns.btb.core.admin.interfaces.AdminService;
@@ -32,6 +33,7 @@ public class AdminController {
                     content = @Content)
     })
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
         Admin savedAdmin = null;
         try {
@@ -42,6 +44,7 @@ public class AdminController {
             return new ResponseEntity<Admin>(savedAdmin, HttpStatus.CONFLICT);
         }
     }
+    
     @Operation(summary = "Update admin password", description = "Update admin password", method = "PUT")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Admin successfuly edited",
@@ -54,6 +57,7 @@ public class AdminController {
 
     )
     @PutMapping(value="/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Admin> updateUser(@RequestBody ChangeAdminPasswordDTO dto){
         Admin updatedAdmin=null;
         try {

@@ -6,24 +6,33 @@ import org.springframework.stereotype.Service;
 import rs.ftn.uns.btb.core.appointment.Appointment;
 import rs.ftn.uns.btb.core.appointment.AppointmentRepository;
 import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentState;
+import rs.ftn.uns.btb.core.blood.Blood;
+import rs.ftn.uns.btb.core.blood.BloodRepository;
+import rs.ftn.uns.btb.core.center.Center;
 import rs.ftn.uns.btb.core.report.interfaces.Attendance;
 import rs.ftn.uns.btb.core.report.interfaces.ReportService;
+import rs.ftn.uns.btb.core.scheduled_appointment.ScheduledAppointment;
+import rs.ftn.uns.btb.core.scheduled_appointment.ScheduledAppointmentRepository;
 import rs.ftn.uns.btb.core.user.User;
 import rs.ftn.uns.btb.core.user.UserRepository;
 
 @Service
 public class ReportServiceImpl implements ReportService {
 
-    public final ReportRepository _reportRepository;
-    public final AppointmentRepository _appointmentRepository;
-    public final UserRepository _userRepository;
+    @Autowired
+    public ReportRepository _reportRepository;
+    
+    @Autowired
+    public AppointmentRepository _appointmentRepository;
 
     @Autowired
-    public ReportServiceImpl (ReportRepository _repReportRepository, AppointmentRepository _appointmentRepository, UserRepository _userRepository) { 
-        this._reportRepository = _repReportRepository; 
-        this._appointmentRepository = _appointmentRepository;
-        this._userRepository = _userRepository;
-    }
+    public UserRepository _userRepository;
+    
+    @Autowired
+    public ScheduledAppointmentRepository _scheduledRepository;
+
+    @Autowired
+    public BloodRepository _bloodRepository;
 
     @Override
     public Report create(Report report) throws Exception {
@@ -44,6 +53,30 @@ public class ReportServiceImpl implements ReportService {
 
         if (updatedAppointment == null) {
             throw new Exception("Couldn't update state for existing appointment");
+        }
+
+        ScheduledAppointment sap = this._scheduledRepository.findByAppointmentId(updatedAppointment.getId());
+
+        if (sap == null) {
+            throw new Exception("Couldn't find the scheduled appointment.");
+        }
+
+        try {
+            _scheduledRepository.deleteById(sap.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (newReport.getAttendanceStatus() == Attendance.ATTENDED) {
+            Blood bloodToUpdate = this._bloodRepository.findOneByCenterIdAndType(updatedAppointment.getCenter().getId(), newReport.getBloodType());
+            if (bloodToUpdate == null) {
+                throw new Exception("Couldn't find the data for required blood type in given center");
+            }
+            bloodToUpdate.setQuantity((bloodToUpdate.getQuantity()*1000 + newReport.getBloodQuantity())/1000);
+            Blood updatedBlood = this._bloodRepository.save(bloodToUpdate);
+            if (updatedBlood == null) {
+                throw new Exception("Couldn't update blood quantity");
+            }
         }
 
         if (newReport.getAttendanceStatus() == Attendance.MISSED) {

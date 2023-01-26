@@ -17,7 +17,9 @@ const Survey = props => {
 
   const fetchUser = async () => {
     try {
-      const options = {method: 'GET'};
+      const options = {method: 'GET', headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }};
       let response = await fetch('http://localhost:8084/api/questions', options);
       let json = await response.json();
       //console.log(json)
@@ -28,6 +30,13 @@ const Survey = props => {
     }
   }
   useEffect(() => {
+    if (!localStorage.getItem('token') || !localStorage.getItem('user')){
+      navigate("/login")
+    }
+    const user = JSON.parse(localStorage.getItem('user'))
+    if (user['role'] != "STAFF") {
+      navigate("/")
+    }
     const loggedInUser = JSON.parse(localStorage.getItem('user'));
     if (loggedInUser) {
       // const foundUser = JSON.parse(JSON.stringify(loggedInUser.id));
@@ -68,7 +77,7 @@ const Survey = props => {
     const options = {
       method: 'POST',
       url: 'http://localhost:8084/api/answers',
-      headers: {'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token')},
       data:viewData
     };
     axios.request(options).then(function (response) {

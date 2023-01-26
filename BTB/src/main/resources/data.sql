@@ -18,7 +18,7 @@ VALUES (nextval('global_id_sequence'), '32112341123', 'Worker', 'Workeric', 'wor
 
 
 -- REGISTERED USERS
--- "$2a$10$Io18FqjIJDYLfM.MLWvo5uCfdb0QgQWV/B.OoF0II9xGQV8AzV/m6",
+-- "$2a$10$Io18FqjIJDYLfM.MLWvo5uCfdb0QgQWV/B.OoF0II9xGQV8AzV/m6" = '123',
 INSERT INTO public.users (id, jmbg, first_name, last_name, email, password, status, address, city, country, gender, job, profession, penalty, phone, role)
 VALUES (nextval('global_id_sequence'), '34141412321', 'User', 'Useric', 'user@gmail.com', '$2a$10$Io18FqjIJDYLfM.MLWvo5uCfdb0QgQWV/B.OoF0II9xGQV8AzV/m6', true, 'Pregrevica 146d', 'Belgrade', 'Serbia', 'male', 'Designer', 'Driving instructor', 0, '+381691055491', 2);
 
@@ -90,6 +90,7 @@ INSERT INTO public.scheduled_appointment(users_id, appointment_id) VALUES (4, 11
 INSERT INTO public.scheduled_appointment(users_id, appointment_id) VALUES (5, 12);
 INSERT INTO public.scheduled_appointment(users_id, appointment_id) VALUES (6, 13);
 INSERT INTO public.scheduled_appointment(users_id, appointment_id) VALUES (6, 14);
+INSERT INTO public.scheduled_appointment(users_id, appointment_id) VALUES (7, 6);
 
 -- BLOOD BANK
         -- A_POSITIVE = 0,
@@ -110,6 +111,32 @@ INSERT INTO public.blood(type, quantity, center_id) VALUES (5, 3.50, 1);
 INSERT INTO public.blood(type, quantity, center_id) VALUES (6, 7.12, 1);
 INSERT INTO public.blood(type, quantity, center_id) VALUES (7, 9.01, 1);
 
+INSERT INTO public.blood(type, quantity, center_id) VALUES (0, 3.52, 2);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (1, 1.21, 2);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (2, 0.82, 2);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (3, 4.54, 2);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (4, 1.64, 2);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (5, 0.50, 2);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (6, 0.12, 2);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (7, 1.01, 2);
+
+INSERT INTO public.blood(type, quantity, center_id) VALUES (0, 4.21, 3);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (1, 1.21, 3);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (2, 1.42, 3);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (3, 4.42, 3);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (4, 1.42, 3);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (5, 5.11, 3);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (6, 0.22, 3);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (7, 1.41, 3);
+
+INSERT INTO public.blood(type, quantity, center_id) VALUES (0, 5.21, 4);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (1, 0.34, 4);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (2, 0.12, 4);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (3, 4.42, 4);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (4, 1.46, 4);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (5, 2.11, 4);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (6, 3.22, 4);
+INSERT INTO public.blood(type, quantity, center_id) VALUES (7, 2.41, 4);
 
 -- SURVEY_QUESTIONS
 INSERT INTO public.survey_questions(id, question) VALUES (1, 'Da li ste ikada do sada davali krv?');
@@ -119,3 +146,32 @@ INSERT INTO public.survey_questions(id, question) VALUES (4, 'Da li ste ikada bi
 INSERT INTO public.survey_questions(id, question) VALUES (5, 'Da li ste nešto jeli pre dolaska na davanje krvi?');
 INSERT INTO public.survey_questions(id, question) VALUES (6, 'Da li se bavite opasnim zanimanjem ili hobijem?');
 INSERT INTO public.survey_questions(id, question) VALUES (7, 'Da li uzimate bilo kakve lekove?');
+
+
+-- SURVEY_ANSWERS
+-- USER USERIC
+INSERT INTO public.survey_answers(users_id, survey_questions_id, answer) VALUES (4, 1, true);
+INSERT INTO public.survey_answers(users_id, survey_questions_id, answer) VALUES (4, 2, true);
+INSERT INTO public.survey_answers(users_id, survey_questions_id, answer) VALUES (4, 3, true);
+INSERT INTO public.survey_answers(users_id, survey_questions_id, answer) VALUES (4, 4, true);
+INSERT INTO public.survey_answers(users_id, survey_questions_id, answer) VALUES (4, 5, true);
+INSERT INTO public.survey_answers(users_id, survey_questions_id, answer) VALUES (4, 6, true);
+INSERT INTO public.survey_answers(users_id, survey_questions_id, answer) VALUES (4, 7, true);
+
+-- NIKOLA NIKOLIC
+INSERT INTO public.survey_answers(users_id, survey_questions_id, answer) VALUES (5, 1, true);
+INSERT INTO public.survey_answers(users_id, survey_questions_id, answer) VALUES (5, 2, true);
+INSERT INTO public.survey_answers(users_id, survey_questions_id, answer) VALUES (5, 3, true);
+INSERT INTO public.survey_answers(users_id, survey_questions_id, answer) VALUES (5, 4, false);
+INSERT INTO public.survey_answers(users_id, survey_questions_id, answer) VALUES (5, 5, false);
+INSERT INTO public.survey_answers(users_id, survey_questions_id, answer) VALUES (5, 6, false);
+INSERT INTO public.survey_answers(users_id, survey_questions_id, answer) VALUES (5, 7, true);
+
+-- MILICA MILICIC
+INSERT INTO public.survey_answers(users_id, survey_questions_id, answer) VALUES (6, 1, false);
+INSERT INTO public.survey_answers(users_id, survey_questions_id, answer) VALUES (6, 2, true);
+INSERT INTO public.survey_answers(users_id, survey_questions_id, answer) VALUES (6, 3, false);
+INSERT INTO public.survey_answers(users_id, survey_questions_id, answer) VALUES (6, 4, true);
+INSERT INTO public.survey_answers(users_id, survey_questions_id, answer) VALUES (6, 5, true);
+INSERT INTO public.survey_answers(users_id, survey_questions_id, answer) VALUES (6, 6, false);
+INSERT INTO public.survey_answers(users_id, survey_questions_id, answer) VALUES (6, 7, false);
