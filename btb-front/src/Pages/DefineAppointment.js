@@ -47,7 +47,17 @@ export default function DefineAppointment() {
         await axios.post("http://localhost:8084/api/appointment/createAppointment", appointment, {
           headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
-          }});
+          }}).then(function (response) {
+            if (response.status === 201) {
+              alert("Uspesno kreiran termin")
+              navigate(-1)
+            }
+          })
+          .catch(function (error) {
+            if (error.response.status === 409) {
+              alert("Postoji termin u tom periodu")
+            }
+          })
     };
     
 
