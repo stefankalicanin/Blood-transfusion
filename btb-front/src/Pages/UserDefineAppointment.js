@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 
-export default function DefineAppointment() {
+export default function UserDefineAppointment() {
 
     const [staffList, setStaffList] = useState([{'id':'', 'firstName':'', 'lastName':'' }])
     const [staffId, setStaffId] = useState("");
