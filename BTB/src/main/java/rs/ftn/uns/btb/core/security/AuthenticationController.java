@@ -65,15 +65,14 @@ public class AuthenticationController {
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content) })
     @PostMapping("/login")
     public ResponseEntity<UserTokenState> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest, HttpServletResponse response) {
-    
+
+
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword()));
-        
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = null;
 
         CustomUserDetails customUser = (CustomUserDetails) authentication.getPrincipal();
         jwt = tokenUtils.generateTokeN(customUser.getEmail());
-
         int expiresIn = tokenUtils.getExpiredIn();
 
         return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));

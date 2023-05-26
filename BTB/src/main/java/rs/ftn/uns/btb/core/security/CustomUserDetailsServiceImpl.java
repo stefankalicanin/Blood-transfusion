@@ -15,7 +15,6 @@ import rs.ftn.uns.btb.core.staff.Staff;
 import rs.ftn.uns.btb.core.staff.StaffRepository;
 import rs.ftn.uns.btb.core.user.User;
 import rs.ftn.uns.btb.core.user.UserRepository;
-import rs.ftn.uns.btb.core.user.interfaces.UserService;
 
 @Service
 public class CustomUserDetailsServiceImpl implements UserDetailsService {
@@ -23,8 +22,6 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserRepository _userRepository;
 
-    @Autowired
-    private UserService _userService;
 
     @Autowired
     private StaffRepository _staffRepository;

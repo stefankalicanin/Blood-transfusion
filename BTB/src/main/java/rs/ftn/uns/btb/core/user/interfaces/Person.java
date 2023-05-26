@@ -1,15 +1,11 @@
 package rs.ftn.uns.btb.core.user.interfaces;
 
-import java.util.ArrayList;
-import java.util.Collection;
+
 import java.util.List;
 
 import javax.persistence.*;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.Setter;

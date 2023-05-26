@@ -6,7 +6,6 @@ import rs.ftn.uns.btb.core.admin.dtos.ChangeAdminPasswordDTO;
 import rs.ftn.uns.btb.core.admin.interfaces.AdminService;
 import rs.ftn.uns.btb.core.user.Roles;
 
-import java.util.Optional;
 
 @Service
 public class AdminServiceImpl implements AdminService {

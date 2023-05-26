@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import rs.ftn.uns.btb.core.appointment.dtos.AppointmentDTO;
-import rs.ftn.uns.btb.core.appointment.dtos.AppointmentStateDTO;
 import rs.ftn.uns.btb.core.appointment.dtos.BookAppointmentDTO;
 import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentService;
 import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentState;

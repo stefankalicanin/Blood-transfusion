@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import rs.ftn.uns.btb.core.report.Report;
-import rs.ftn.uns.btb.core.role.Role;
-import rs.ftn.uns.btb.core.appointment.Appointment;
+
 import rs.ftn.uns.btb.core.scheduled_appointment.ScheduledAppointment;
 import rs.ftn.uns.btb.core.security.dtos.UserRequest;
 import rs.ftn.uns.btb.core.survey.answer.SurveyAnswers;
@@ -14,14 +13,8 @@ import rs.ftn.uns.btb.core.user.interfaces.Person;
 
 import javax.persistence.*;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity

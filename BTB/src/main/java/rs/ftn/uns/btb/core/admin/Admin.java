@@ -2,26 +2,12 @@ package rs.ftn.uns.btb.core.admin;
 
 import lombok.Getter;
 import lombok.Setter;
-import rs.ftn.uns.btb.core.role.Role;
 import rs.ftn.uns.btb.core.user.interfaces.Person;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "admins")
