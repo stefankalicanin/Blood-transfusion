@@ -8,7 +8,6 @@ import rs.ftn.uns.btb.core.appointment.AppointmentRepository;
 import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentState;
 import rs.ftn.uns.btb.core.blood.Blood;
 import rs.ftn.uns.btb.core.blood.BloodRepository;
-import rs.ftn.uns.btb.core.center.Center;
 import rs.ftn.uns.btb.core.report.interfaces.Attendance;
 import rs.ftn.uns.btb.core.report.interfaces.ReportService;
 import rs.ftn.uns.btb.core.scheduled_appointment.ScheduledAppointment;

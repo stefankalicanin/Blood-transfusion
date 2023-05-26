@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import rs.ftn.uns.btb.core.center.interfaces.CenterService;
 
 import java.sql.Date;
-import java.time.LocalTime;
 import java.util.List;
 import java.sql.Time;
 
@@ -83,19 +82,6 @@ public class CenterServiceImpl implements CenterService {
         else{
             return centers;
         }
-    }
-
-    @Override
-    public List<Center> findAllByDate(Date date) {
-        return _centerRepo.findAllByDate(date);
-    }
-
-
-
-
-     @Override
-    public List<Center> findAllByDateAndTime(Date date, Time time) {
-        return _centerRepo.findAllByDateAndTime((java.sql.Date) date, time);
     }
 
     @Override

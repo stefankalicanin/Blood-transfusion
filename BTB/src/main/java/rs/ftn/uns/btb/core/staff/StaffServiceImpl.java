@@ -6,9 +6,7 @@ import org.springframework.stereotype.Service;
 
 import rs.ftn.uns.btb.core.role.Role;
 import rs.ftn.uns.btb.core.role.RoleRepository;
-import rs.ftn.uns.btb.core.role.interfaces.IRole;
 import rs.ftn.uns.btb.core.staff.interfaces.StaffService;
-import rs.ftn.uns.btb.core.user.Roles;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,8 +16,7 @@ public class StaffServiceImpl implements StaffService {
 
     public final StaffRepository _staffRepo;
 
-    @Autowired
-    private IRole _roleService;
+  
 
     @Autowired
     private PasswordEncoder passwordEncoder;

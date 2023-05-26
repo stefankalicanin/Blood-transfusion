@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.time.LocalTime;
 import java.util.List;
 
 public interface CenterRepository extends JpaRepository<Center, Long> {

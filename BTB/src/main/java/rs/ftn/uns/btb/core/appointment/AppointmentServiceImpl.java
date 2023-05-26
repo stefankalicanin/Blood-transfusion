@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentService;
 import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentState;
-import rs.ftn.uns.btb.core.scheduled_appointment.ScheduledAppointment;
 import rs.ftn.uns.btb.core.scheduled_appointment.ScheduledAppointmentRepository;
 
 import java.sql.Date;

@@ -2,8 +2,6 @@ package rs.ftn.uns.btb.core.center.dtos;
 
 import lombok.Getter;
 import lombok.Setter;
-import rs.ftn.uns.btb.core.appointment.Appointment;
-import rs.ftn.uns.btb.core.center.Center;
 
 import java.sql.Date;
 import java.sql.Time;

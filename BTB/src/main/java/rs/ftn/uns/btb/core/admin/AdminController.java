@@ -14,7 +14,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import rs.ftn.uns.btb.core.admin.dtos.ChangeAdminPasswordDTO;
 import rs.ftn.uns.btb.core.admin.interfaces.AdminService;
-import rs.ftn.uns.btb.core.user.User;
 
 @RestController
 @RequestMapping(value = "/api/admin")

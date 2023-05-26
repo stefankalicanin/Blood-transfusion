@@ -1,7 +1,6 @@
 package rs.ftn.uns.btb.core.user;
 
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.transaction.annotation.Transactional;
 
 import rs.ftn.uns.btb.core.role.Role;
 
