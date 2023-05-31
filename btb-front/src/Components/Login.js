@@ -27,20 +27,13 @@ export default function LoginFunc(){
         };
         console.log("Login " + userData.email + " " + userData.password);
         console.log(userData);
-    
-        const options = {
-          method: 'POST',
-          url: 'http://localhost:8084/api/login', // /auth/login
-          headers: {'Content-Type': 'application/json'},
-          data: userData
-        };
 
-        
+        const response = await axios.post(`http://localhost:8084/auth/login`, state)
+        console.log(response)
         try {
-          // const response = await axios.post(`http://localhost:8084/api/login`, state);
 
-          const response = await axios.post(`http://localhost:8084/auth/login`, state)
-
+         
+         
           if (response.status == 200) {
             localStorage.setItem("token", response.data.accessToken)
             const userInfo = await axios.request(`http://localhost:8084/auth/me`, {
@@ -49,7 +42,7 @@ export default function LoginFunc(){
                 Authorization: 'Bearer ' + localStorage.getItem('token')
               }
             })
-
+           
             if (userInfo.status == 200) {
               localStorage.setItem("user", JSON.stringify(userInfo.data))
             }
@@ -61,8 +54,13 @@ export default function LoginFunc(){
           console.log(response.data);
           // localStorage.setItem('user', JSON.stringify(response.data));
           // alert("Success");
-          navigate("/home");
-          navigate(0);
+          
+            
+          
+            navigate("/home");
+            navigate(0);
+          
+          
 
         } catch (error) {
           console.log(error.response.data);

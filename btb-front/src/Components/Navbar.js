@@ -11,7 +11,7 @@ function Navbar() {
 
     const [sidebar, setSidebar] = useState(false);
     const [role, setRole] = useState("");
-
+    const [status, setStatus] = useState(true)
     useEffect(() => {
         const user = localStorage.getItem('user');
         if (user === null) {
@@ -22,6 +22,9 @@ function Navbar() {
             console.log(ta["role"])
             // console.log(user.)
             setRole(ta["role"]);
+            setStatus(ta["status"])
+            console.log(ta["status"])
+           
         }
     }, [localStorage.getItem('user')])
     
@@ -44,8 +47,10 @@ function Navbar() {
                             <FaIcons.FaUser/> <label className="test">User</label>
                         </Link>
                     </li>
-                    {SidebarData.map((item, index) => {
+                 
+                    { status && SidebarData.map((item, index) => {
                         if (item.role.includes(role.toLowerCase())) {
+                            
                             return (
                                 <li key={index} className={item.cName}>
                                 <Link to={item.path}>
@@ -54,8 +59,29 @@ function Navbar() {
                                 </Link>
                             </li>
                         );
+                        
+                   }
+                        
+
                     }
-                    })}
+                    
+                    )}
+                   
+                   {!status &&  <div><li  className="nav-text">
+                                <Link to="/admin/changePassword">
+                                    
+                                    <span>Change password</span>
+                                </Link>
+                            </li>
+                            <li  className="nav-text">
+                                <Link to="/logout">
+                                    
+                                    <span>Logout</span>
+                                </Link>
+                            </li>
+                            </div>}
+                               
+                    
                 </ul>
             </nav>
         </IconContext.Provider>

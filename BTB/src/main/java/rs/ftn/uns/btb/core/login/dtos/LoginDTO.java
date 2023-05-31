@@ -18,9 +18,11 @@ public class LoginDTO {
 
         public LoginDTO() {}
 
-        public LoginDTO(String email, String password, Roles role) {
+        public LoginDTO(String email, String password, Roles role, boolean isSuperAdmin, boolean status) {
             this.email = email;
             this.role = role;
+            this.isSuperAdmin = isSuperAdmin;
+            this.status = status;
 
         }
 

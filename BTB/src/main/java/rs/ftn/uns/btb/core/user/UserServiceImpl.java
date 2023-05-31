@@ -28,6 +28,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User create(User user) throws Exception {
         user.setRole(Roles.USER);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         User newUser = this._userRepo.save(user);
         return newUser;
     }
