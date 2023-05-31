@@ -66,9 +66,11 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<UserTokenState> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest, HttpServletResponse response) {
 
-
+        
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword()));
+        
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        
         String jwt = null;
 
         CustomUserDetails customUser = (CustomUserDetails) authentication.getPrincipal();
@@ -115,14 +117,18 @@ public class AuthenticationController {
             tempMe.setEmail(user.getEmail());
             tempMe.setRole(user.getRole());
             tempMe.setCenter_id(null);
+            tempMe.setStatus(user.getStatus());
             return new ResponseEntity<LoginDTO>(tempMe, HttpStatus.OK);
         }
         Admin admin = this._adminService.findByEmail(email);
+      
         if (admin != null) {
             tempMe.setId(admin.getId());
             tempMe.setEmail(admin.getEmail());
             tempMe.setRole(admin.getRole());
             tempMe.setCenter_id(null);
+            tempMe.setSuperAdmin(admin.getIsSuperAdmin());
+            tempMe.setStatus(admin.getStatus());
             return new ResponseEntity<LoginDTO>(tempMe, HttpStatus.OK);
         }
         Staff staff = this._staffService.findByEmail(email);
@@ -131,6 +137,7 @@ public class AuthenticationController {
             tempMe.setEmail(staff.getEmail());
             tempMe.setRole(staff.getRole());
             tempMe.setCenter_id(staff.getCenter().getId());
+            tempMe.setStatus(staff.getStatus());
             return new ResponseEntity<LoginDTO>(tempMe, HttpStatus.OK);
         }
 

@@ -58,7 +58,7 @@ public class StaffController {
             Staff newStaff = new Staff();
             newStaff.copyValuesFromCreateDTO(staff);
             newStaff.setCenter(center);
-            newStaff.setStatus(false);
+            newStaff.setStatus(true);
             savedStaff = _staffService.create(newStaff);
             return new ResponseEntity<Staff>(savedStaff, HttpStatus.CREATED);
         } catch (Exception e) {

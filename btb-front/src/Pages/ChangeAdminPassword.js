@@ -6,22 +6,22 @@ import axios from 'axios'
 import { useNavigate } from 'react-router'
 export default function ChangeAdminPassword() {
   
-
+    const user = JSON.parse(localStorage.getItem('user'));
     const [adminDto,setAdminDto]=useState(
       {
-        id:10,
+        id:user["id"],
         password:""
       }
     )
       const [passwordShown,setPasswordShown]=useState(false);
-    const {id,password}=adminDto;
 
     const onInputChange = (e) => {
       setAdminDto({ ...adminDto, [e.target.name]: e.target.value });
     };
     const onSubmit = async (e) => {
+      console.log(adminDto)
       e.preventDefault();
-      await axios.put("http://localhost:8084/api/admin/update", adminDto, {
+      await axios.post("http://localhost:8084/api/admin/update", adminDto, {
         headers: {
           'Authorization': 'Bearer ' + localStorage.getItem('token')
         }

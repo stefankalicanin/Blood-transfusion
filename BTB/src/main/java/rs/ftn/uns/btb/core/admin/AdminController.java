@@ -55,9 +55,9 @@ public class AdminController {
     }
 
     )
-    @PutMapping(value="/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping(value="/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Admin> updateUser(@RequestBody ChangeAdminPasswordDTO dto){
+       
         Admin updatedAdmin=null;
         try {
             updatedAdmin = _adminService.updateByPassword(dto);
