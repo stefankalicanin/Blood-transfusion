@@ -28,4 +28,10 @@ public class UserDTO {
         this.lastName = lastName;
         this.email = email;
     }
+
+    public UserDTO(Long jmbg, String firstName, String lastName) {
+        this.jmbg = jmbg;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 }

@@ -22,6 +22,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import rs.ftn.uns.btb.core.appointment.interfaces.AppointmentState;
 import rs.ftn.uns.btb.core.scheduled_appointment.dtos.ScheduledAppointmentsViewDTO;
 import rs.ftn.uns.btb.core.scheduled_appointment.interfaces.ScheduledAppointmentService;
+import rs.ftn.uns.btb.core.user.User;
+import rs.ftn.uns.btb.core.user.dtos.UserDTO;
 
 @RestController
 @RequestMapping(value = "/api/schedule")
@@ -59,6 +61,26 @@ public class ScheduledAppointmentController {
         }
 
         return new ResponseEntity<Set<ScheduledAppointmentsViewDTO>>(scheduledAppointmentsDTO, HttpStatus.OK);
+
+    }
+
+    @Operation (summary = "Get user with appointment id", description = "Get user with appointment id", method = "GET")
+    @ApiResponses (value = {
+            @ApiResponse (responseCode = "200", description = "found user for requested schedule appointment",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ScheduledAppointment.class))),
+            @ApiResponse (responseCode = "404", description = "user not found", content = @Content)
+    })
+    @GetMapping(value = "/user/{appointment_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('STAFF')")
+    public ResponseEntity<UserDTO> getUsers (@Parameter(name = "user_id", description = "ID of a user", required = true) @PathVariable("appointment_id") Long appointment_id) {
+        ScheduledAppointment scheduleAppointment =  _sAppointmentService.findByAppointmentId(appointment_id);
+        if (scheduleAppointment == null) {
+            return new ResponseEntity<UserDTO>(HttpStatus.NOT_FOUND);
+        }
+        User user = scheduleAppointment.getUsers();
+        UserDTO userDTO = new UserDTO(user.getJmbg(), user.getFirstName(), user.getLastName());
+
+        return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);
 
     }
     
