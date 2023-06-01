@@ -7,5 +7,6 @@ import rs.ftn.uns.btb.core.scheduled_appointment.ScheduledAppointment;
 public interface ScheduledAppointmentService {
 
     Set<ScheduledAppointment> findByUserId(Long id);
+    ScheduledAppointment findByAppointmentId(Long id);
         
 }

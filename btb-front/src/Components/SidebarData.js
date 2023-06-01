@@ -95,6 +95,12 @@ export const SidebarData = [
         role: ["admin", "staff", "user"]
         
 
+    },
+    {
+        title: "Calendar",
+        path: "/staff/calendar",
+        cName: "nav-text",
+        role: ["staff"]
     }
 
 ];

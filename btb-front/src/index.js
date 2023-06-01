@@ -24,7 +24,7 @@ import CreateAdmin from "./Pages/CreateAdmin";
 import ChangeAdminPassword from "./Pages/ChangeAdminPassword";
 import { E404 } from "./Pages/E404";
 import ReportsCreate from "./Pages/ReportsCreate";
-
+import CenterCalendar from "./Pages/CenterCalendar";
 import MakeApp1 from "./Pages/MakeApp1";
 import UserDefineAppointment from "./Pages/UserDefineAppointment";
 
@@ -143,7 +143,10 @@ const router = createBrowserRouter([
             {
                 path: "logout",
                 element: <Logout/>
-
+            },
+            {
+                path: "staff/calendar",
+                element: <CenterCalendar/>
             }
                 
         ]
