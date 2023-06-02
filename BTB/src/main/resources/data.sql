@@ -191,3 +191,7 @@ INSERT INTO public.survey_answers(users_id, survey_questions_id, answer) VALUES 
 INSERT INTO public.survey_answers(users_id, survey_questions_id, answer) VALUES (6, 5, true);
 INSERT INTO public.survey_answers(users_id, survey_questions_id, answer) VALUES (6, 6, false);
 INSERT INTO public.survey_answers(users_id, survey_questions_id, answer) VALUES (6, 7, false);
+
+--COMPLAINT
+INSERT INTO public.complaint(context, answer, type, user_id, admin_id) VALUES ('Zalim se', 'Odgovaram na zalbu', 0, 4, 1);
+INSERT INTO public.complaint(context, type, user_id, admin_id) VALUES ('Zalim se', 0, 4, 1);

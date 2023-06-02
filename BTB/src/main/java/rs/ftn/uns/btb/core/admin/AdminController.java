@@ -57,6 +57,8 @@ public class AdminController {
     )
     @PostMapping(value="/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Admin> updateUser(@RequestBody ChangeAdminPasswordDTO dto){
+        System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+        System.out.println(dto.getPassword());
        
         Admin updatedAdmin=null;
         try {

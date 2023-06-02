@@ -10,6 +10,7 @@ import rs.ftn.uns.btb.core.security.dtos.UserRequest;
 import rs.ftn.uns.btb.core.survey.answer.SurveyAnswers;
 import rs.ftn.uns.btb.core.user.dtos.UserUpdateDTO;
 import rs.ftn.uns.btb.core.user.interfaces.Person;
+import rs.ftn.uns.btb.core.complaint.Complaint;
 
 import javax.persistence.*;
 
@@ -49,6 +50,11 @@ public class User extends Person {
     @JsonIgnore
     private Set<ScheduledAppointment> scheduledAppointments = new HashSet<>();    
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @Getter @Setter
+    @JsonIgnore
+    private Set<Complaint> complaints = new HashSet<>();
+    
     // @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
     // @JoinTable(
     //     name = "scheduledApp",
