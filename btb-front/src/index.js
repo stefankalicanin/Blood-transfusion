@@ -27,10 +27,10 @@ import ReportsCreate from "./Pages/ReportsCreate";
 import CenterCalendar from "./Pages/CenterCalendar";
 import MakeApp1 from "./Pages/MakeApp1";
 import UserDefineAppointment from "./Pages/UserDefineAppointment";
-
+import Complaint from "./Pages/Complaint";
 import UserSurveys from "./Pages/UserSurveys";
 import Logout from "./Utils/Logout";
-
+import ComplaintUser from "./Pages/ComplaintUser";
 import BookAppointment from "./Components/BookAppointment";
 
 const AppLayout = () => (
@@ -147,6 +147,14 @@ const router = createBrowserRouter([
             {
                 path: "staff/calendar",
                 element: <CenterCalendar/>
+            },
+            {
+                path: "admin/complaint",
+                element: <Complaint/>
+            },
+            {
+                path: "user/complaint",
+                element: <ComplaintUser/>
             }
                 
         ]

@@ -101,6 +101,18 @@ export const SidebarData = [
         path: "/staff/calendar",
         cName: "nav-text",
         role: ["staff"]
+    },
+    {
+        title: "Complaint",
+        path: "/admin/complaint",
+        cName: "nav-text",
+        role: ["admin"]
+    },
+    {
+        title: "Complaint",
+        path: "/user/complaint",
+        cName: "nav-text",
+        role: ["user"]
     }
 
 ];
