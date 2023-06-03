@@ -19,7 +19,12 @@ function Complaint() {
   });
 
   useEffect(() => {
-    axios.get(`http://localhost:8084/api/complaint/admin/withoutAnswer/${id}`)
+    axios.get(`http://localhost:8084/api/complaint/admin/withoutAnswer/${id}`,
+    {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    })
     .then(res => {
       console.log(res.data)
       setComplaintWithoutAnswer(res.data)
@@ -30,7 +35,12 @@ function Complaint() {
   }, [])
 
   useEffect(() => {
-    axios.get(`http://localhost:8084/api/complaint/admin/withAnswer/${id}`)
+    axios.get(`http://localhost:8084/api/complaint/admin/withAnswer/${id}`,
+    {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    })
     .then(res => {
       console.log(res.data)
       setComplaintWithAnswer(res.data)
