@@ -32,7 +32,11 @@ export default function CreateAdmin() {
         await axios.post("http://localhost:8084/api/admin", admin, {
           headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
-          }});
+          }})
+          .then(res => {
+            alert("Successfully created admin")
+            navigate("/home");
+          })
         
       };
 

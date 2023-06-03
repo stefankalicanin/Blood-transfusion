@@ -25,7 +25,10 @@ export default function ChangeAdminPassword() {
         headers: {
           'Authorization': 'Bearer ' + localStorage.getItem('token')
         }
-      });
+      })
+      .then(res => {
+        navigate("/logout");
+      })
       
     };
 
