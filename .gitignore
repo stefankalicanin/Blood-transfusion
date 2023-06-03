@@ -26,16 +26,21 @@ local.properties
 # CDT-specific (C/C++ Development Tooling)
 .cproject
 
+# Created by https://www.gitignore.io/api/visualstudiocode
+# Edit at https://www.gitignore.io/?templates=visualstudiocode
+
 ### VisualStudioCode ###
-.vscode/*
+.vscode/*      # Maybe .vscode/**/* instead - see comments
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-!.vscode/*.code-snippets
 
-# Local History for Visual Studio Code
-.history/
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+**/.history
+
+# End of https://www.gitignore.io/api/visualstudiocode
 
 # Built Visual Studio Code Extensions
 *.vsix
