@@ -4,6 +4,7 @@ import rs.ftn.uns.btb.core.Email.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,6 +47,7 @@ public class ComplaintController {
                             array = @ArraySchema(schema = @Schema(implementation = Complaint.class))))
     })
     @GetMapping(value="/admin/withoutAnswer/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Complaint>> findAllWithoutAnswer(@PathVariable Long id) {
         List<Complaint> complaints = _complaintService.findAllWithoutAnswer(id);
        
@@ -59,6 +61,7 @@ public class ComplaintController {
                             array = @ArraySchema(schema = @Schema(implementation = Complaint.class))))
     })
     @GetMapping(value="/admin/withAnswer/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Complaint>> findAllWithAnswer(@PathVariable Long id) {
         List<Complaint> complaints = _complaintService.findAllWithAnswer(id);
         List<Complaint> complaints1 = new ArrayList<>();
@@ -76,6 +79,7 @@ public class ComplaintController {
                             array = @ArraySchema(schema = @Schema(implementation = Complaint.class))))
     })
     @GetMapping(value="/user/withAnswer/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<List<Complaint>> findAllComplaintByUser(@PathVariable Long id) {
         List<Complaint> complaints = _complaintService.findAllComplaintByUser(id);
         List<Complaint> complaints1 = new ArrayList<>();

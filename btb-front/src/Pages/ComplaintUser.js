@@ -7,7 +7,12 @@ function ComplaintUser() {
     const [complaint, setComplaint] = useState([])
 
     useEffect(() => {
-        axios.get(`http://localhost:8084/api/complaint/user/withAnswer/${id}`)
+        axios.get(`http://localhost:8084/api/complaint/user/withAnswer/${id}`,
+        {
+          headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+          }
+        })
         .then(res => {
           console.log(res.data)
           setComplaint(res.data)
