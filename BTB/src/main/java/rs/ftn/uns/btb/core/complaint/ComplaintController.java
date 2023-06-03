@@ -99,7 +99,8 @@ public class ComplaintController {
         Complaint complaintForUpdate = _complaintService.findOneById(id);
         complaintForUpdate.setAnswer(answer);
         Complaint updatedComplaint = _complaintService.update(complaintForUpdate);
-        emailService.sendEmail("skstefankalicanin@gmail.com", "Admin answer for your complaint:"+answer,"Complaint" );
+        emailService.sendEmail("skstefankalicanin@gmail.com", "Admin, " + updatedComplaint.getAdmin().getFirstName() + " " + updatedComplaint.getAdmin().getLastName() + ", answer for your complaint:" + updatedComplaint.getContext() + 
+        "\n Answer:" + answer,"Complaint" );
         return new ResponseEntity<Complaint>(updatedComplaint, HttpStatus.OK);
 
     }
