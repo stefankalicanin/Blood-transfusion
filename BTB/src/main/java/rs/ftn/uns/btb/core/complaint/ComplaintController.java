@@ -1,6 +1,5 @@
 package rs.ftn.uns.btb.core.complaint;
 
-import rs.ftn.uns.btb.core.Email.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,8 +36,7 @@ public class ComplaintController {
     @Autowired
     public ComplaintController(ComplaintService _complaintService) { this._complaintService = _complaintService; }
 
-    @Autowired
-    private EmailService emailService;
+   
 
     @Operation(summary = "Get all complaints without answer", description = "Get all complaints without answers", method="GET")
     @ApiResponses(value = {
@@ -103,8 +101,6 @@ public class ComplaintController {
         Complaint complaintForUpdate = _complaintService.findOneById(id);
         complaintForUpdate.setAnswer(answer);
         Complaint updatedComplaint = _complaintService.update(complaintForUpdate);
-        emailService.sendEmail("skstefankalicanin@gmail.com", "Admin, " + updatedComplaint.getAdmin().getFirstName() + " " + updatedComplaint.getAdmin().getLastName() + ", answer for your complaint:" + updatedComplaint.getContext() + 
-        "\n Answer:" + answer,"Complaint" );
         return new ResponseEntity<Complaint>(updatedComplaint, HttpStatus.OK);
 
     }
