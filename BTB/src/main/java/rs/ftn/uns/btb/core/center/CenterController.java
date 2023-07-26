@@ -52,7 +52,7 @@ public class CenterController {
                          content = @Content)
     })
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('STAFF')")
+    @PreAuthorize("hasRole('STAFF', 'ADMIN')")
     public ResponseEntity<Center> createCenter(@RequestBody Center center) {
         Center savedCenter = null;
         try {
